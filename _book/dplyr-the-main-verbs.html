@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 dplyr(): The Main Verbs | Book: Statistical Finance and Computing</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 dplyr(): The Main Verbs | Book: Statistical Finance and Computing" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 dplyr(): The Main Verbs | Book: Statistical Finance and Computing" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Abhinav Anand" />
+
+
+<meta name="date" content="2021-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-data-wrangling-in-r.html"/>
+<link rel="next" href="footnotes-and-citations.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to basic <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#basics"><i class="fa fa-check"></i><b>2.2</b> Basics</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#remarks"><i class="fa fa-check"></i><b>2.2.1</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#pipes"><i class="fa fa-check"></i><b>2.3</b> Pipes</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#data-types-in-r-some-examples"><i class="fa fa-check"></i><b>2.4</b> Data-types in R: Some Examples</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#recycling"><i class="fa fa-check"></i><b>2.4.2</b> Recycling</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#note"><i class="fa fa-check"></i><b>2.4.3</b> Note</a></li>
+<li class="chapter" data-level="2.4.4" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#the-c-operator"><i class="fa fa-check"></i><b>2.4.4</b> The <code>c()</code> operator</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#arrays-and-matrices"><i class="fa fa-check"></i><b>2.4.5</b> Arrays and Matrices</a></li>
+<li class="chapter" data-level="2.4.6" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#dataframes"><i class="fa fa-check"></i><b>2.4.6</b> Dataframes</a></li>
+<li class="chapter" data-level="2.4.7" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#subsetting-dataframes"><i class="fa fa-check"></i><b>2.4.7</b> Subsetting Dataframes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#functions"><i class="fa fa-check"></i><b>2.5</b> Functions</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#directory-management"><i class="fa fa-check"></i><b>2.6</b> Directory Management</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#rstudio-projects"><i class="fa fa-check"></i><b>2.7</b> RStudio Projects</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html"><i class="fa fa-check"></i><b>3</b> Introduction to graphics in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#setup-1"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#introduction-to-ggplot"><i class="fa fa-check"></i><b>3.2</b> Introduction to ggplot</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes"><i class="fa fa-check"></i><b>3.2.1</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#questions"><i class="fa fa-check"></i><b>3.3</b> Questions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#are-western-countries-richer-than-eastern-countries"><i class="fa fa-check"></i><b>3.3.1</b> Are “Western” countries richer than “Eastern” countries?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#graphics"><i class="fa fa-check"></i><b>3.3.2</b> Graphics</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#a-more-granular-look-china-india-france-germany"><i class="fa fa-check"></i><b>3.3.3</b> A More Granular Look: China, India, France, Germany</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes-1"><i class="fa fa-check"></i><b>3.3.4</b> Notes</a></li>
+<li class="chapter" data-level="3.3.5" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#faceting"><i class="fa fa-check"></i><b>3.3.5</b> Faceting</a></li>
+<li class="chapter" data-level="3.3.6" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes-2"><i class="fa fa-check"></i><b>3.3.6</b> Notes</a></li>
+<li class="chapter" data-level="3.3.7" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#the-notion-of-geoms-in-ggplot"><i class="fa fa-check"></i><b>3.3.7</b> The Notion of Geoms in <code>ggplot()</code></a></li>
+<li class="chapter" data-level="3.3.8" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#plotting-linear-trends-geom_smooth"><i class="fa fa-check"></i><b>3.3.8</b> Plotting linear trends: <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="3.3.9" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#question-what-was-population-growth-in-india"><i class="fa fa-check"></i><b>3.3.9</b> Question: What was population growth in India?</a></li>
+<li class="chapter" data-level="3.3.10" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#question-what-about-the-same-in-china"><i class="fa fa-check"></i><b>3.3.10</b> Question: What about the same in China?</a></li>
+<li class="chapter" data-level="3.3.11" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#bar-charts"><i class="fa fa-check"></i><b>3.3.11</b> Bar Charts</a></li>
+<li class="chapter" data-level="3.3.12" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#boxplots"><i class="fa fa-check"></i><b>3.3.12</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.13" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#themes"><i class="fa fa-check"></i><b>3.3.13</b> Themes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#faq-how-to-plot-multiple-variables-together"><i class="fa fa-check"></i><b>3.4</b> FAQ: How to Plot Multiple Variables Together?</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#wide-versus-long-data"><i class="fa fa-check"></i><b>3.4.1</b> Wide Versus Long Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html"><i class="fa fa-check"></i><b>4</b> Introduction to data wrangling in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#notes-3"><i class="fa fa-check"></i><b>4.1.1</b> Notes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html"><i class="fa fa-check"></i><b>5</b> <code>dplyr()</code>: The Main Verbs</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#filter"><i class="fa fa-check"></i><b>5.1</b> Filter</a></li>
+<li class="chapter" data-level="5.2" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#select"><i class="fa fa-check"></i><b>5.2</b> Select</a></li>
+<li class="chapter" data-level="5.3" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#arrange"><i class="fa fa-check"></i><b>5.3</b> Arrange</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#question-is-the-set-of-richest-countries-the-same-in-1952-and-2007"><i class="fa fa-check"></i><b>5.3.1</b> Question: Is the set of richest countries the same in 1952 and 2007?</a></li>
+<li class="chapter" data-level="5.3.2" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#which-countries-display-the-highest-life-expectancy-pre-2000"><i class="fa fa-check"></i><b>5.3.2</b> Which countries display the highest life expectancy pre-2000?</a></li>
+<li class="chapter" data-level="5.3.3" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#post-2000"><i class="fa fa-check"></i><b>5.3.3</b> Post-2000?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#mutate"><i class="fa fa-check"></i><b>5.4</b> Mutate</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#question-which-countries-have-the-highest-total-gdp-in-1952-and-2007"><i class="fa fa-check"></i><b>5.4.1</b> Question: Which countries have the highest total GDP in 1952 and 2007?</a></li>
+<li class="chapter" data-level="5.4.2" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#question-which-are-the-five-smallest-economies-in-2007-by-total-gdp"><i class="fa fa-check"></i><b>5.4.2</b> Question: Which are the five smallest economies in 2007 (by total GDP)?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#summarise"><i class="fa fa-check"></i><b>5.5</b> Summarise</a></li>
+<li class="chapter" data-level="5.6" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#grouped-summaries"><i class="fa fa-check"></i><b>5.6</b> Grouped Summaries</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="dplyr-the-main-verbs.html"><a href="dplyr-the-main-verbs.html#question-what-are-continent-wise-summary-statistics"><i class="fa fa-check"></i><b>5.6.1</b> Question: What are continent-wise summary statistics?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>6</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>6.1</b> Footnotes</a></li>
+<li class="chapter" data-level="6.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>6.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>7</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>7.1</b> Equations</a></li>
+<li class="chapter" data-level="7.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>7.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="7.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>7.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>8</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>8.1</b> Publishing</a></li>
+<li class="chapter" data-level="8.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>8.2</b> 404 pages</a></li>
+<li class="chapter" data-level="8.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>8.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Book: Statistical Finance and Computing</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dplyr-the-main-verbs" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> <code>dplyr()</code>: The Main Verbs</h1>
+<ol style="list-style-type: decimal">
+<li><code>filter()</code>: Extract rows</li>
+<li><code>select()</code>: Extract columns</li>
+<li><code>arrange()</code>: Order rows</li>
+<li><code>mutate()</code>: Create new columns (= variables)</li>
+<li><code>summarise()</code>: Compute summary statistics</li>
+</ol>
+<p>The syntax for all five verbs is similar. The first argument is the data frame, followed by the action to be performed using the variable name.</p>
+<div id="filter" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Filter</h2>
+<p>Let us observe the state of the world in 1952 and the contrast and compare with that in 2007.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="dplyr-the-main-verbs.html#cb4-1" aria-hidden="true" tabindex="-1"></a>(data_1952 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="dplyr-the-main-verbs.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>) <span class="co">#extract the rows for year 1952</span></span>
+<span id="cb4-3"><a href="dplyr-the-main-verbs.html#cb4-3" aria-hidden="true" tabindex="-1"></a> ) <span class="co">#note == as opposed to =</span></span></code></pre></div>
+<pre><code>## # A tibble: 142 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Albania     Europe     1952    55.2  1282697     1601.
+##  3 Algeria     Africa     1952    43.1  9279525     2449.
+##  4 Angola      Africa     1952    30.0  4232095     3521.
+##  5 Argentina   Americas   1952    62.5 17876956     5911.
+##  6 Australia   Oceania    1952    69.1  8691212    10040.
+##  7 Austria     Europe     1952    66.8  6927772     6137.
+##  8 Bahrain     Asia       1952    50.9   120447     9867.
+##  9 Bangladesh  Asia       1952    37.5 46886859      684.
+## 10 Belgium     Europe     1952    68    8730405     8343.
+## # ... with 132 more rows</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="dplyr-the-main-verbs.html#cb6-1" aria-hidden="true" tabindex="-1"></a>(data_2007 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="dplyr-the-main-verbs.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="co">#extract the rows for year 2007</span></span>
+<span id="cb6-3"><a href="dplyr-the-main-verbs.html#cb6-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 6
+##    country     continent  year lifeExp       pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       2007    43.8  31889923      975.
+##  2 Albania     Europe     2007    76.4   3600523     5937.
+##  3 Algeria     Africa     2007    72.3  33333216     6223.
+##  4 Angola      Africa     2007    42.7  12420476     4797.
+##  5 Argentina   Americas   2007    75.3  40301927    12779.
+##  6 Australia   Oceania    2007    81.2  20434176    34435.
+##  7 Austria     Europe     2007    79.8   8199783    36126.
+##  8 Bahrain     Asia       2007    75.6    708573    29796.
+##  9 Bangladesh  Asia       2007    64.1 150448339     1391.
+## 10 Belgium     Europe     2007    79.4  10392226    33693.
+## # ... with 132 more rows</code></pre>
+</div>
+<div id="select" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Select</h2>
+<p>Let us also focus on two variables—GDP/capita and life expectancy. We extract both for years 1952 and 2007.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="dplyr-the-main-verbs.html#cb8-1" aria-hidden="true" tabindex="-1"></a>(data_1952_gdppc <span class="ot">&lt;-</span> data_1952 <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="dplyr-the-main-verbs.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, gdpPercap)</span>
+<span id="cb8-3"><a href="dplyr-the-main-verbs.html#cb8-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 3
+##    country      year gdpPercap
+##    &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan  1952      779.
+##  2 Albania      1952     1601.
+##  3 Algeria      1952     2449.
+##  4 Angola       1952     3521.
+##  5 Argentina    1952     5911.
+##  6 Australia    1952    10040.
+##  7 Austria      1952     6137.
+##  8 Bahrain      1952     9867.
+##  9 Bangladesh   1952      684.
+## 10 Belgium      1952     8343.
+## # ... with 132 more rows</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="dplyr-the-main-verbs.html#cb10-1" aria-hidden="true" tabindex="-1"></a>(data_2007_gdppc <span class="ot">&lt;-</span> data_2007 <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="dplyr-the-main-verbs.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, gdpPercap)</span>
+<span id="cb10-3"><a href="dplyr-the-main-verbs.html#cb10-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 3
+##    country      year gdpPercap
+##    &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan  2007      975.
+##  2 Albania      2007     5937.
+##  3 Algeria      2007     6223.
+##  4 Angola       2007     4797.
+##  5 Argentina    2007    12779.
+##  6 Australia    2007    34435.
+##  7 Austria      2007    36126.
+##  8 Bahrain      2007    29796.
+##  9 Bangladesh   2007     1391.
+## 10 Belgium      2007    33693.
+## # ... with 132 more rows</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="dplyr-the-main-verbs.html#cb12-1" aria-hidden="true" tabindex="-1"></a>(data_1952_life_exp <span class="ot">&lt;-</span> data_1952 <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="dplyr-the-main-verbs.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, lifeExp)</span>
+<span id="cb12-3"><a href="dplyr-the-main-verbs.html#cb12-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 3
+##    country      year lifeExp
+##    &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;
+##  1 Afghanistan  1952    28.8
+##  2 Albania      1952    55.2
+##  3 Algeria      1952    43.1
+##  4 Angola       1952    30.0
+##  5 Argentina    1952    62.5
+##  6 Australia    1952    69.1
+##  7 Austria      1952    66.8
+##  8 Bahrain      1952    50.9
+##  9 Bangladesh   1952    37.5
+## 10 Belgium      1952    68  
+## # ... with 132 more rows</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="dplyr-the-main-verbs.html#cb14-1" aria-hidden="true" tabindex="-1"></a>(data_2007_life_exp <span class="ot">&lt;-</span> data_2007 <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="dplyr-the-main-verbs.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, lifeExp)</span>
+<span id="cb14-3"><a href="dplyr-the-main-verbs.html#cb14-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 3
+##    country      year lifeExp
+##    &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;
+##  1 Afghanistan  2007    43.8
+##  2 Albania      2007    76.4
+##  3 Algeria      2007    72.3
+##  4 Angola       2007    42.7
+##  5 Argentina    2007    75.3
+##  6 Australia    2007    81.2
+##  7 Austria      2007    79.8
+##  8 Bahrain      2007    75.6
+##  9 Bangladesh   2007    64.1
+## 10 Belgium      2007    79.4
+## # ... with 132 more rows</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="dplyr-the-main-verbs.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># = dplyr::select(-c(continent, pop, gdpPercap))</span></span></code></pre></div>
+<p><code>dplyr::rename()</code> is a wrapper function for <code>select()</code> which renames the variable in consideration and keeps all other variables intact.</p>
+</div>
+<div id="arrange" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Arrange</h2>
+<p>Usage of <code>arrange()</code> orders (from first to last) entries on the basis of a variable.</p>
+<div id="question-is-the-set-of-richest-countries-the-same-in-1952-and-2007" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Question: Is the set of richest countries the same in 1952 and 2007?</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="dplyr-the-main-verbs.html#cb17-1" aria-hidden="true" tabindex="-1"></a>(data_1952_rich <span class="ot">&lt;-</span> data_1952_gdppc <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="dplyr-the-main-verbs.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(gdpPercap)) <span class="co">#note the use of desc()</span></span>
+<span id="cb17-3"><a href="dplyr-the-main-verbs.html#cb17-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 3
+##    country         year gdpPercap
+##    &lt;fct&gt;          &lt;int&gt;     &lt;dbl&gt;
+##  1 Kuwait          1952   108382.
+##  2 Switzerland     1952    14734.
+##  3 United States   1952    13990.
+##  4 Canada          1952    11367.
+##  5 New Zealand     1952    10557.
+##  6 Norway          1952    10095.
+##  7 Australia       1952    10040.
+##  8 United Kingdom  1952     9980.
+##  9 Bahrain         1952     9867.
+## 10 Denmark         1952     9692.
+## # ... with 132 more rows</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="dplyr-the-main-verbs.html#cb19-1" aria-hidden="true" tabindex="-1"></a>(data_2007_rich <span class="ot">&lt;-</span> data_2007_gdppc <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="dplyr-the-main-verbs.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(gdpPercap)) <span class="co">#note the use of desc()</span></span>
+<span id="cb19-3"><a href="dplyr-the-main-verbs.html#cb19-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 3
+##    country           year gdpPercap
+##    &lt;fct&gt;            &lt;int&gt;     &lt;dbl&gt;
+##  1 Norway            2007    49357.
+##  2 Kuwait            2007    47307.
+##  3 Singapore         2007    47143.
+##  4 United States     2007    42952.
+##  5 Ireland           2007    40676.
+##  6 Hong Kong, China  2007    39725.
+##  7 Switzerland       2007    37506.
+##  8 Netherlands       2007    36798.
+##  9 Canada            2007    36319.
+## 10 Iceland           2007    36181.
+## # ... with 132 more rows</code></pre>
+</div>
+<div id="which-countries-display-the-highest-life-expectancy-pre-2000" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Which countries display the highest life expectancy pre-2000?</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="dplyr-the-main-verbs.html#cb21-1" aria-hidden="true" tabindex="-1"></a>(data_life_pre00 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="dplyr-the-main-verbs.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, lifeExp) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="dplyr-the-main-verbs.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="dplyr-the-main-verbs.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp))</span>
+<span id="cb21-5"><a href="dplyr-the-main-verbs.html#cb21-5" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 1,420 x 3
+##    country           year lifeExp
+##    &lt;fct&gt;            &lt;int&gt;   &lt;dbl&gt;
+##  1 Japan             1997    80.7
+##  2 Hong Kong, China  1997    80  
+##  3 Sweden            1997    79.4
+##  4 Switzerland       1997    79.4
+##  5 Japan             1992    79.4
+##  6 Iceland           1997    79.0
+##  7 Australia         1997    78.8
+##  8 Italy             1997    78.8
+##  9 Iceland           1992    78.8
+## 10 Spain             1997    78.8
+## # ... with 1,410 more rows</code></pre>
+</div>
+<div id="post-2000" class="section level3" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Post-2000?</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="dplyr-the-main-verbs.html#cb23-1" aria-hidden="true" tabindex="-1"></a>(data_life_post00 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="dplyr-the-main-verbs.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, lifeExp) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="dplyr-the-main-verbs.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="dplyr-the-main-verbs.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp))</span>
+<span id="cb23-5"><a href="dplyr-the-main-verbs.html#cb23-5" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 284 x 3
+##    country           year lifeExp
+##    &lt;fct&gt;            &lt;int&gt;   &lt;dbl&gt;
+##  1 Japan             2007    82.6
+##  2 Hong Kong, China  2007    82.2
+##  3 Japan             2002    82  
+##  4 Iceland           2007    81.8
+##  5 Switzerland       2007    81.7
+##  6 Hong Kong, China  2002    81.5
+##  7 Australia         2007    81.2
+##  8 Spain             2007    80.9
+##  9 Sweden            2007    80.9
+## 10 Israel            2007    80.7
+## # ... with 274 more rows</code></pre>
+</div>
+</div>
+<div id="mutate" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Mutate</h2>
+<p>Let’s define a new variable called “total GDP” which is the product of the GDP/capita and the total population. To compute it and include it in the list of variables we can use the verb <code>dplyr::mutate()</code>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="dplyr-the-main-verbs.html#cb25-1" aria-hidden="true" tabindex="-1"></a>(data_GDP_tot <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="dplyr-the-main-verbs.html#cb25-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">GDP_total =</span> pop<span class="sc">*</span>gdpPercap<span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>) <span class="co">#in USD billions</span></span>
+<span id="cb25-3"><a href="dplyr-the-main-verbs.html#cb25-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 1,704 x 7
+##    country     continent  year lifeExp      pop gdpPercap GDP_total
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.      6.57
+##  2 Afghanistan Asia       1957    30.3  9240934      821.      7.59
+##  3 Afghanistan Asia       1962    32.0 10267083      853.      8.76
+##  4 Afghanistan Asia       1967    34.0 11537966      836.      9.65
+##  5 Afghanistan Asia       1972    36.1 13079460      740.      9.68
+##  6 Afghanistan Asia       1977    38.4 14880372      786.     11.7 
+##  7 Afghanistan Asia       1982    39.9 12881816      978.     12.6 
+##  8 Afghanistan Asia       1987    40.8 13867957      852.     11.8 
+##  9 Afghanistan Asia       1992    41.7 16317921      649.     10.6 
+## 10 Afghanistan Asia       1997    41.8 22227415      635.     14.1 
+## # ... with 1,694 more rows</code></pre>
+<p>In general, for <code>mutate()</code> to work well, the function must take a vector of values as input and return a vector with the same number of values as output. A short list of functions that can be used with <code>mutate()</code> are:</p>
+<ol style="list-style-type: decimal">
+<li>Arithmetic operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code></li>
+<li>Logs: <code>log()</code>, <code>log2()</code>, <code>log10()</code></li>
+<li>Cumulative aggregates: <code>cumsum()</code>, <code>cumprod()</code>, <code>cummin()</code>, <code>cummax()</code>, <code>cummean()</code> etc.</li>
+</ol>
+<p>and many more.</p>
+<div id="question-which-countries-have-the-highest-total-gdp-in-1952-and-2007" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Question: Which countries have the highest total GDP in 1952 and 2007?</h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="dplyr-the-main-verbs.html#cb27-1" aria-hidden="true" tabindex="-1"></a>(data_GDP_tot <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="dplyr-the-main-verbs.html#cb27-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="dplyr-the-main-verbs.html#cb27-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(GDP_total))</span>
+<span id="cb27-4"><a href="dplyr-the-main-verbs.html#cb27-4" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 7
+##    country        continent  year lifeExp       pop gdpPercap GDP_total
+##    &lt;fct&gt;          &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 United States  Americas   1952    68.4 157553000    13990.     2204.
+##  2 United Kingdom Europe     1952    69.2  50430000     9980.      503.
+##  3 Germany        Europe     1952    67.5  69145952     7144.      494.
+##  4 France         Europe     1952    67.4  42459667     7030.      298.
+##  5 Japan          Asia       1952    63.0  86459025     3217.      278.
+##  6 Italy          Europe     1952    65.9  47666000     4931.      235.
+##  7 China          Asia       1952    44   556263527      400.      223.
+##  8 India          Asia       1952    37.4 372000000      547.      203.
+##  9 Canada         Americas   1952    68.8  14785584    11367.      168.
+## 10 Brazil         Americas   1952    50.9  56602560     2109.      119.
+## # ... with 132 more rows</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="dplyr-the-main-verbs.html#cb29-1" aria-hidden="true" tabindex="-1"></a>(data_GDP_tot <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="dplyr-the-main-verbs.html#cb29-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="dplyr-the-main-verbs.html#cb29-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(GDP_total))</span>
+<span id="cb29-4"><a href="dplyr-the-main-verbs.html#cb29-4" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 7
+##    country        continent  year lifeExp        pop gdpPercap GDP_total
+##    &lt;fct&gt;          &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 United States  Americas   2007    78.2  301139947    42952.    12934.
+##  2 China          Asia       2007    73.0 1318683096     4959.     6540.
+##  3 Japan          Asia       2007    82.6  127467972    31656.     4035.
+##  4 India          Asia       2007    64.7 1110396331     2452.     2723.
+##  5 Germany        Europe     2007    79.4   82400996    32170.     2651.
+##  6 United Kingdom Europe     2007    79.4   60776238    33203.     2018.
+##  7 France         Europe     2007    80.7   61083916    30470.     1861.
+##  8 Brazil         Americas   2007    72.4  190010647     9066.     1723.
+##  9 Italy          Europe     2007    80.5   58147733    28570.     1661.
+## 10 Mexico         Americas   2007    76.2  108700891    11978.     1302.
+## # ... with 132 more rows</code></pre>
+</div>
+<div id="question-which-are-the-five-smallest-economies-in-2007-by-total-gdp" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Question: Which are the five smallest economies in 2007 (by total GDP)?</h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="dplyr-the-main-verbs.html#cb31-1" aria-hidden="true" tabindex="-1"></a>(data_GDP_tot <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="dplyr-the-main-verbs.html#cb31-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="dplyr-the-main-verbs.html#cb31-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">arrange</span>(GDP_total) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="dplyr-the-main-verbs.html#cb31-4" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">rank</span>(GDP_total) <span class="sc">&lt;=</span> <span class="dv">5</span>)</span>
+<span id="cb31-5"><a href="dplyr-the-main-verbs.html#cb31-5" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 7
+##   country               continent  year lifeExp     pop gdpPercap GDP_total
+##   &lt;fct&gt;                 &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Sao Tome and Principe Africa     2007    65.5  199579     1598.     0.319
+## 2 Comoros               Africa     2007    65.2  710960      986.     0.701
+## 3 Guinea-Bissau         Africa     2007    46.4 1472041      579.     0.853
+## 4 Djibouti              Africa     2007    54.8  496374     2082.     1.03 
+## 5 Gambia                Africa     2007    59.4 1688359      753.     1.27</code></pre>
+</div>
+</div>
+<div id="summarise" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Summarise</h2>
+<p>The function <code>summarise()</code> (or equivalently <code>summarize()</code>) can be used to compute summary statistics. Here is an example, where we summarize the variable life expectancy for the continent Europe.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="dplyr-the-main-verbs.html#cb33-1" aria-hidden="true" tabindex="-1"></a>(life_exp_summ_eur <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="dplyr-the-main-verbs.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Europe&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="dplyr-the-main-verbs.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb33-4"><a href="dplyr-the-main-verbs.html#cb33-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">med =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb33-5"><a href="dplyr-the-main-verbs.html#cb33-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">std =</span> <span class="fu">sd</span>(lifeExp),</span>
+<span id="cb33-6"><a href="dplyr-the-main-verbs.html#cb33-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">variance =</span> <span class="fu">var</span>(lifeExp),</span>
+<span id="cb33-7"><a href="dplyr-the-main-verbs.html#cb33-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">iqr =</span> <span class="fu">IQR</span>(lifeExp)</span>
+<span id="cb33-8"><a href="dplyr-the-main-verbs.html#cb33-8" aria-hidden="true" tabindex="-1"></a>                   )</span>
+<span id="cb33-9"><a href="dplyr-the-main-verbs.html#cb33-9" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 5
+##   average   med   std variance   iqr
+##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1    71.9  72.2  5.43     29.5  5.88</code></pre>
+</div>
+<div id="grouped-summaries" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Grouped Summaries</h2>
+<div id="question-what-are-continent-wise-summary-statistics" class="section level3" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Question: What are continent-wise summary statistics?</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="dplyr-the-main-verbs.html#cb35-1" aria-hidden="true" tabindex="-1"></a>(summ_life_exp <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="dplyr-the-main-verbs.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="dplyr-the-main-verbs.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb35-4"><a href="dplyr-the-main-verbs.html#cb35-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">med =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb35-5"><a href="dplyr-the-main-verbs.html#cb35-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">std =</span> <span class="fu">sd</span>(lifeExp),</span>
+<span id="cb35-6"><a href="dplyr-the-main-verbs.html#cb35-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">variance =</span> <span class="fu">var</span>(lifeExp),</span>
+<span id="cb35-7"><a href="dplyr-the-main-verbs.html#cb35-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">iqr =</span> <span class="fu">IQR</span>(lifeExp)</span>
+<span id="cb35-8"><a href="dplyr-the-main-verbs.html#cb35-8" aria-hidden="true" tabindex="-1"></a>                   )</span>
+<span id="cb35-9"><a href="dplyr-the-main-verbs.html#cb35-9" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 6
+##   continent average   med   std variance   iqr
+##   &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1 Africa       48.9  47.8  9.15     83.7 12.0 
+## 2 Americas     64.7  67.0  9.35     87.3 13.3 
+## 3 Asia         60.1  61.8 11.9     141.  18.1 
+## 4 Europe       71.9  72.2  5.43     29.5  5.88
+## 5 Oceania      74.3  73.7  3.80     14.4  6.35</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="dplyr-the-main-verbs.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> summ_life_exp, </span>
+<span id="cb37-2"><a href="dplyr-the-main-verbs.html#cb37-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> average)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="dplyr-the-main-verbs.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/summ_cont-1.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="dplyr-the-main-verbs.html#cb38-1" aria-hidden="true" tabindex="-1"></a>(summ_year_life_exp <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="dplyr-the-main-verbs.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="dplyr-the-main-verbs.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb38-4"><a href="dplyr-the-main-verbs.html#cb38-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">med =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb38-5"><a href="dplyr-the-main-verbs.html#cb38-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">std =</span> <span class="fu">sd</span>(lifeExp),</span>
+<span id="cb38-6"><a href="dplyr-the-main-verbs.html#cb38-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">variance =</span> <span class="fu">var</span>(lifeExp),</span>
+<span id="cb38-7"><a href="dplyr-the-main-verbs.html#cb38-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">iqr =</span> <span class="fu">IQR</span>(lifeExp)</span>
+<span id="cb38-8"><a href="dplyr-the-main-verbs.html#cb38-8" aria-hidden="true" tabindex="-1"></a>                   )</span>
+<span id="cb38-9"><a href="dplyr-the-main-verbs.html#cb38-9" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 12 x 6
+##     year average   med   std variance   iqr
+##    &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+##  1  1952    49.1  45.1  12.2     149.  20.7
+##  2  1957    51.5  48.4  12.2     150.  21.8
+##  3  1962    53.6  50.9  12.1     146.  21.8
+##  4  1967    55.7  53.8  11.7     137.  21.4
+##  5  1972    57.6  56.5  11.4     130.  20.7
+##  6  1977    59.6  59.7  11.2     126.  19.9
+##  7  1982    61.5  62.4  10.8     116.  18.0
+##  8  1987    63.2  65.8  10.6     111.  16.9
+##  9  1992    64.2  67.7  11.2     126.  16.5
+## 10  1997    65.0  69.4  11.6     134.  18.5
+## 11  2002    65.7  70.8  12.3     151.  19.9
+## 12  2007    67.0  71.9  12.1     146.  19.3</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="dplyr-the-main-verbs.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> summ_year_life_exp, </span>
+<span id="cb40-2"><a href="dplyr-the-main-verbs.html#cb40-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> average)) <span class="sc">+</span> </span>
+<span id="cb40-3"><a href="dplyr-the-main-verbs.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/summ_cont-2.png" width="672" /></p>
+<p>One can also perform grouped mutates and grouped filters.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-data-wrangling-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="footnotes-and-citations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-intro_r_data_wrang.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Introduction to data wrangling in R | Book: Statistical Finance and Computing</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Introduction to data wrangling in R | Book: Statistical Finance and Computing" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Introduction to data wrangling in R | Book: Statistical Finance and Computing" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Abhinav Anand" />
+
+
+<meta name="date" content="2021-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-graphics-in-r.html"/>
+<link rel="next" href="footnotes-and-citations.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to basic <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#basics"><i class="fa fa-check"></i><b>2.2</b> Basics</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#remarks"><i class="fa fa-check"></i><b>2.2.1</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#pipes"><i class="fa fa-check"></i><b>2.3</b> Pipes</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#data-types-in-r-some-examples"><i class="fa fa-check"></i><b>2.4</b> Data-types in R: Some Examples</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#recycling"><i class="fa fa-check"></i><b>2.4.2</b> Recycling</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#note"><i class="fa fa-check"></i><b>2.4.3</b> Note</a></li>
+<li class="chapter" data-level="2.4.4" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#the-c-operator"><i class="fa fa-check"></i><b>2.4.4</b> The <code>c()</code> operator</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#arrays-and-matrices"><i class="fa fa-check"></i><b>2.4.5</b> Arrays and Matrices</a></li>
+<li class="chapter" data-level="2.4.6" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#dataframes"><i class="fa fa-check"></i><b>2.4.6</b> Dataframes</a></li>
+<li class="chapter" data-level="2.4.7" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#subsetting-dataframes"><i class="fa fa-check"></i><b>2.4.7</b> Subsetting Dataframes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#functions"><i class="fa fa-check"></i><b>2.5</b> Functions</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#directory-management"><i class="fa fa-check"></i><b>2.6</b> Directory Management</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#rstudio-projects"><i class="fa fa-check"></i><b>2.7</b> RStudio Projects</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html"><i class="fa fa-check"></i><b>3</b> Introduction to graphics in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#setup-1"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#introduction-to-ggplot"><i class="fa fa-check"></i><b>3.2</b> Introduction to ggplot</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes"><i class="fa fa-check"></i><b>3.2.1</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#questions"><i class="fa fa-check"></i><b>3.3</b> Questions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#are-western-countries-richer-than-eastern-countries"><i class="fa fa-check"></i><b>3.3.1</b> Are “Western” countries richer than “Eastern” countries?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#graphics"><i class="fa fa-check"></i><b>3.3.2</b> Graphics</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#a-more-granular-look-china-india-france-germany"><i class="fa fa-check"></i><b>3.3.3</b> A More Granular Look: China, India, France, Germany</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes-1"><i class="fa fa-check"></i><b>3.3.4</b> Notes</a></li>
+<li class="chapter" data-level="3.3.5" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#faceting"><i class="fa fa-check"></i><b>3.3.5</b> Faceting</a></li>
+<li class="chapter" data-level="3.3.6" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes-2"><i class="fa fa-check"></i><b>3.3.6</b> Notes</a></li>
+<li class="chapter" data-level="3.3.7" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#the-notion-of-geoms-in-ggplot"><i class="fa fa-check"></i><b>3.3.7</b> The Notion of Geoms in <code>ggplot()</code></a></li>
+<li class="chapter" data-level="3.3.8" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#plotting-linear-trends-geom_smooth"><i class="fa fa-check"></i><b>3.3.8</b> Plotting linear trends: <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="3.3.9" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#question-what-was-population-growth-in-india"><i class="fa fa-check"></i><b>3.3.9</b> Question: What was population growth in India?</a></li>
+<li class="chapter" data-level="3.3.10" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#question-what-about-the-same-in-china"><i class="fa fa-check"></i><b>3.3.10</b> Question: What about the same in China?</a></li>
+<li class="chapter" data-level="3.3.11" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#bar-charts"><i class="fa fa-check"></i><b>3.3.11</b> Bar Charts</a></li>
+<li class="chapter" data-level="3.3.12" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#boxplots"><i class="fa fa-check"></i><b>3.3.12</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.13" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#themes"><i class="fa fa-check"></i><b>3.3.13</b> Themes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#faq-how-to-plot-multiple-variables-together"><i class="fa fa-check"></i><b>3.4</b> FAQ: How to Plot Multiple Variables Together?</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#wide-versus-long-data"><i class="fa fa-check"></i><b>3.4.1</b> Wide Versus Long Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html"><i class="fa fa-check"></i><b>4</b> Introduction to data wrangling in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data wrangling</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#notes-3"><i class="fa fa-check"></i><b>4.1.1</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#dplyr-the-main-verbs"><i class="fa fa-check"></i><b>4.2</b> <code>dplyr()</code>: The Main Verbs</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#filter"><i class="fa fa-check"></i><b>4.2.1</b> Filter</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#select"><i class="fa fa-check"></i><b>4.2.2</b> Select</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#arrange"><i class="fa fa-check"></i><b>4.2.3</b> Arrange</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#question-is-the-set-of-richest-countries-the-same-in-1952-and-2007"><i class="fa fa-check"></i><b>4.2.4</b> Question: Is the set of richest countries the same in 1952 and 2007?</a></li>
+<li class="chapter" data-level="4.2.5" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#which-countries-display-the-highest-life-expectancy-pre-2000"><i class="fa fa-check"></i><b>4.2.5</b> Which countries display the highest life expectancy pre-2000?</a></li>
+<li class="chapter" data-level="4.2.6" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#post-2000"><i class="fa fa-check"></i><b>4.2.6</b> Post-2000?</a></li>
+<li class="chapter" data-level="4.2.7" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#mutate"><i class="fa fa-check"></i><b>4.2.7</b> Mutate</a></li>
+<li class="chapter" data-level="4.2.8" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#question-which-countries-have-the-highest-total-gdp-in-1952-and-2007"><i class="fa fa-check"></i><b>4.2.8</b> Question: Which countries have the highest total GDP in 1952 and 2007?</a></li>
+<li class="chapter" data-level="4.2.9" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#question-which-are-the-five-smallest-economies-in-2007-by-total-gdp"><i class="fa fa-check"></i><b>4.2.9</b> Question: Which are the five smallest economies in 2007 (by total GDP)?</a></li>
+<li class="chapter" data-level="4.2.10" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#summarise"><i class="fa fa-check"></i><b>4.2.10</b> Summarise</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#grouped-summaries"><i class="fa fa-check"></i><b>4.3</b> Grouped Summaries</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="introduction-to-data-wrangling-in-r.html"><a href="introduction-to-data-wrangling-in-r.html#question-what-are-continent-wise-summary-statistics"><i class="fa fa-check"></i><b>4.3.1</b> Question: What are continent-wise summary statistics?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
+<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
+<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
+<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
+<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Book: Statistical Finance and Computing</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-data-wrangling-in-r" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Introduction to data wrangling in R</h1>
+<div id="data-wrangling" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Data wrangling</h2>
+<p>The package suite <code>tidyverse()</code> which includes the package <code>dplyr</code> needs to be included. Also, the package <code>gapminder</code> needs to be installed prior to running the commands below. For installing <code>dplyr</code>, type <code>install.packages("dplyr")</code> or equivalently for <code>tidyverse</code>,
+type <code>install.packages("tidyverse")</code>. To install <code>gapminder</code>, type <code>install.packages("gapminder")</code> in the RStudio console.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="introduction-to-data-wrangling-in-r.html#cb81-1" aria-hidden="true" tabindex="-1"></a>(data_gapminder <span class="ot">&lt;-</span> gapminder<span class="sc">::</span>gapminder)</span></code></pre></div>
+<pre><code>## # A tibble: 1,704 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # ... with 1,694 more rows</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="introduction-to-data-wrangling-in-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co">#what is the format: wide or long?</span></span>
+<span id="cb83-2"><a href="introduction-to-data-wrangling-in-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co">#what is a tibble?</span></span></code></pre></div>
+<div id="notes-3" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Notes</h3>
+<ol style="list-style-type: decimal">
+<li><strong>Data Types</strong>: R has many in-built data types. Examples:
+<ol style="list-style-type: lower-roman">
+<li><code>fct</code>: “factor”: categorical data which can assume finite levels, say A, B, C etc.</li>
+<li><code>dbl</code>: “double”: real numbers, say 3.671, 4.00, 10.122482929 etc.</li>
+<li><code>int</code>: “integer”: integers, say 3, 10, -9, 0 etc.</li>
+<li><code>chr</code>: “character”: say, “FMC,” “Term 4” etc.</li>
+<li><code>lgl</code>: “logical”: <span class="math inline">\(\{0, 1\}\equiv \{\text{T, F}\}\)</span></li>
+<li><code>date</code>, and many more</li>
+</ol></li>
+<li><strong>Tibbles</strong>: Tibbles are essentially data frames, but slightly altered to work better in tidyverse. (Compare <code>head(data_frame_name)</code> versus <code>tibble_name</code>.)</li>
+</ol>
+</div>
+</div>
+<div id="dplyr-the-main-verbs" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> <code>dplyr()</code>: The Main Verbs</h2>
+<ol style="list-style-type: decimal">
+<li><code>filter()</code>: Extract rows</li>
+<li><code>select()</code>: Extract columns</li>
+<li><code>arrange()</code>: Order rows</li>
+<li><code>mutate()</code>: Create new columns (= variables)</li>
+<li><code>summarise()</code>: Compute summary statistics</li>
+</ol>
+<p>The syntax for all five verbs is similar. The first argument is the data frame, followed by the action to be performed using the variable name.</p>
+<div id="filter" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Filter</h3>
+<p>Let us observe the state of the world in 1952 and the contrast and compare with that in 2007.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="introduction-to-data-wrangling-in-r.html#cb84-1" aria-hidden="true" tabindex="-1"></a>(data_1952 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="introduction-to-data-wrangling-in-r.html#cb84-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>) <span class="co">#extract the rows for year 1952</span></span>
+<span id="cb84-3"><a href="introduction-to-data-wrangling-in-r.html#cb84-3" aria-hidden="true" tabindex="-1"></a> ) <span class="co">#note == as opposed to =</span></span></code></pre></div>
+<pre><code>## # A tibble: 142 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Albania     Europe     1952    55.2  1282697     1601.
+##  3 Algeria     Africa     1952    43.1  9279525     2449.
+##  4 Angola      Africa     1952    30.0  4232095     3521.
+##  5 Argentina   Americas   1952    62.5 17876956     5911.
+##  6 Australia   Oceania    1952    69.1  8691212    10040.
+##  7 Austria     Europe     1952    66.8  6927772     6137.
+##  8 Bahrain     Asia       1952    50.9   120447     9867.
+##  9 Bangladesh  Asia       1952    37.5 46886859      684.
+## 10 Belgium     Europe     1952    68    8730405     8343.
+## # ... with 132 more rows</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="introduction-to-data-wrangling-in-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a>(data_2007 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="introduction-to-data-wrangling-in-r.html#cb86-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="co">#extract the rows for year 2007</span></span>
+<span id="cb86-3"><a href="introduction-to-data-wrangling-in-r.html#cb86-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<pre><code>## # A tibble: 142 x 6
+##    country     continent  year lifeExp       pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       2007    43.8  31889923      975.
+##  2 Albania     Europe     2007    76.4   3600523     5937.
+##  3 Algeria     Africa     2007    72.3  33333216     6223.
+##  4 Angola      Africa     2007    42.7  12420476     4797.
+##  5 Argentina   Americas   2007    75.3  40301927    12779.
+##  6 Australia   Oceania    2007    81.2  20434176    34435.
+##  7 Austria     Europe     2007    79.8   8199783    36126.
+##  8 Bahrain     Asia       2007    75.6    708573    29796.
+##  9 Bangladesh  Asia       2007    64.1 150448339     1391.
+## 10 Belgium     Europe     2007    79.4  10392226    33693.
+## # ... with 132 more rows</code></pre>
+</div>
+<div id="select" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Select</h3>
+<p>Let us also focus on two variables—GDP/capita and life expectancy. We extract both for years 1952 and 2007.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="introduction-to-data-wrangling-in-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a>(data_1952_gdppc <span class="ot">&lt;-</span> data_1952 <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="introduction-to-data-wrangling-in-r.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, gdpPercap)</span>
+<span id="cb88-3"><a href="introduction-to-data-wrangling-in-r.html#cb88-3" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb88-4"><a href="introduction-to-data-wrangling-in-r.html#cb88-4" aria-hidden="true" tabindex="-1"></a>(data_2007_gdppc <span class="ot">&lt;-</span> data_2007 <span class="sc">%&gt;%</span></span>
+<span id="cb88-5"><a href="introduction-to-data-wrangling-in-r.html#cb88-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, gdpPercap)</span>
+<span id="cb88-6"><a href="introduction-to-data-wrangling-in-r.html#cb88-6" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb88-7"><a href="introduction-to-data-wrangling-in-r.html#cb88-7" aria-hidden="true" tabindex="-1"></a>(data_1952_life_exp <span class="ot">&lt;-</span> data_1952 <span class="sc">%&gt;%</span></span>
+<span id="cb88-8"><a href="introduction-to-data-wrangling-in-r.html#cb88-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, lifeExp)</span>
+<span id="cb88-9"><a href="introduction-to-data-wrangling-in-r.html#cb88-9" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb88-10"><a href="introduction-to-data-wrangling-in-r.html#cb88-10" aria-hidden="true" tabindex="-1"></a>(data_2007_life_exp <span class="ot">&lt;-</span> data_2007 <span class="sc">%&gt;%</span></span>
+<span id="cb88-11"><a href="introduction-to-data-wrangling-in-r.html#cb88-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, lifeExp)</span>
+<span id="cb88-12"><a href="introduction-to-data-wrangling-in-r.html#cb88-12" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb88-13"><a href="introduction-to-data-wrangling-in-r.html#cb88-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-14"><a href="introduction-to-data-wrangling-in-r.html#cb88-14" aria-hidden="true" tabindex="-1"></a><span class="co"># = dplyr::select(-c(continent, pop, gdpPercap))</span></span></code></pre></div>
+<p><code>dplyr::rename()</code> is a wrapper function for <code>select()</code> which renames the variable in consideration and keeps all other variables intact.</p>
+</div>
+<div id="arrange" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Arrange</h3>
+<p>Usage of <code>arrange()</code> orders (from first to last) entries on the basis of a variable.</p>
+</div>
+<div id="question-is-the-set-of-richest-countries-the-same-in-1952-and-2007" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Question: Is the set of richest countries the same in 1952 and 2007?</h3>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="introduction-to-data-wrangling-in-r.html#cb89-1" aria-hidden="true" tabindex="-1"></a>(data_1952_rich <span class="ot">&lt;-</span> data_1952_gdppc <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="introduction-to-data-wrangling-in-r.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(gdpPercap)) <span class="co">#note the use of desc()</span></span>
+<span id="cb89-3"><a href="introduction-to-data-wrangling-in-r.html#cb89-3" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb89-4"><a href="introduction-to-data-wrangling-in-r.html#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a href="introduction-to-data-wrangling-in-r.html#cb89-5" aria-hidden="true" tabindex="-1"></a>(data_2007_rich <span class="ot">&lt;-</span> data_2007_gdppc <span class="sc">%&gt;%</span></span>
+<span id="cb89-6"><a href="introduction-to-data-wrangling-in-r.html#cb89-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(gdpPercap)) <span class="co">#note the use of desc()</span></span>
+<span id="cb89-7"><a href="introduction-to-data-wrangling-in-r.html#cb89-7" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+</div>
+<div id="which-countries-display-the-highest-life-expectancy-pre-2000" class="section level3" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Which countries display the highest life expectancy pre-2000?</h3>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="introduction-to-data-wrangling-in-r.html#cb90-1" aria-hidden="true" tabindex="-1"></a>(data_life_pre00 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="introduction-to-data-wrangling-in-r.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, lifeExp) <span class="sc">%&gt;%</span></span>
+<span id="cb90-3"><a href="introduction-to-data-wrangling-in-r.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb90-4"><a href="introduction-to-data-wrangling-in-r.html#cb90-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp))</span>
+<span id="cb90-5"><a href="introduction-to-data-wrangling-in-r.html#cb90-5" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+</div>
+<div id="post-2000" class="section level3" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> Post-2000?</h3>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="introduction-to-data-wrangling-in-r.html#cb91-1" aria-hidden="true" tabindex="-1"></a>(data_life_post00 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb91-2"><a href="introduction-to-data-wrangling-in-r.html#cb91-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, lifeExp) <span class="sc">%&gt;%</span></span>
+<span id="cb91-3"><a href="introduction-to-data-wrangling-in-r.html#cb91-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb91-4"><a href="introduction-to-data-wrangling-in-r.html#cb91-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(lifeExp))</span>
+<span id="cb91-5"><a href="introduction-to-data-wrangling-in-r.html#cb91-5" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+</div>
+<div id="mutate" class="section level3" number="4.2.7">
+<h3><span class="header-section-number">4.2.7</span> Mutate</h3>
+<p>Let’s define a new variable called “total GDP” which is the product of the GDP/capita and the total population. To compute it and include it in the list of variables we can use the verb <code>dplyr::mutate()</code>.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="introduction-to-data-wrangling-in-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a>(data_GDP_tot <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="introduction-to-data-wrangling-in-r.html#cb92-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">GDP_total =</span> pop<span class="sc">*</span>gdpPercap<span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>) <span class="co">#in USD billions</span></span>
+<span id="cb92-3"><a href="introduction-to-data-wrangling-in-r.html#cb92-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p>In general, for <code>mutate()</code> to work well, the function must take a vector of values as input and return a vector with the same number of values as output. A short list of functions that can be used with <code>mutate()</code> are:</p>
+<ol style="list-style-type: decimal">
+<li>Arithmetic operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code></li>
+<li>Logs: <code>log()</code>, <code>log2()</code>, <code>log10()</code></li>
+<li>Cumulative aggregates: <code>cumsum()</code>, <code>cumprod()</code>, <code>cummin()</code>, <code>cummax()</code>, <code>cummean()</code> etc.</li>
+</ol>
+<p>and many more.</p>
+</div>
+<div id="question-which-countries-have-the-highest-total-gdp-in-1952-and-2007" class="section level3" number="4.2.8">
+<h3><span class="header-section-number">4.2.8</span> Question: Which countries have the highest total GDP in 1952 and 2007?</h3>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="introduction-to-data-wrangling-in-r.html#cb93-1" aria-hidden="true" tabindex="-1"></a>(data_GDP_tot <span class="sc">%&gt;%</span> </span>
+<span id="cb93-2"><a href="introduction-to-data-wrangling-in-r.html#cb93-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1952</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb93-3"><a href="introduction-to-data-wrangling-in-r.html#cb93-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(GDP_total))</span>
+<span id="cb93-4"><a href="introduction-to-data-wrangling-in-r.html#cb93-4" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb93-5"><a href="introduction-to-data-wrangling-in-r.html#cb93-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-6"><a href="introduction-to-data-wrangling-in-r.html#cb93-6" aria-hidden="true" tabindex="-1"></a>(data_GDP_tot <span class="sc">%&gt;%</span> </span>
+<span id="cb93-7"><a href="introduction-to-data-wrangling-in-r.html#cb93-7" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb93-8"><a href="introduction-to-data-wrangling-in-r.html#cb93-8" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(GDP_total))</span>
+<span id="cb93-9"><a href="introduction-to-data-wrangling-in-r.html#cb93-9" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+</div>
+<div id="question-which-are-the-five-smallest-economies-in-2007-by-total-gdp" class="section level3" number="4.2.9">
+<h3><span class="header-section-number">4.2.9</span> Question: Which are the five smallest economies in 2007 (by total GDP)?</h3>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="introduction-to-data-wrangling-in-r.html#cb94-1" aria-hidden="true" tabindex="-1"></a>(data_GDP_tot <span class="sc">%&gt;%</span> </span>
+<span id="cb94-2"><a href="introduction-to-data-wrangling-in-r.html#cb94-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb94-3"><a href="introduction-to-data-wrangling-in-r.html#cb94-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">arrange</span>(GDP_total) <span class="sc">%&gt;%</span></span>
+<span id="cb94-4"><a href="introduction-to-data-wrangling-in-r.html#cb94-4" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">rank</span>(GDP_total) <span class="sc">&lt;=</span> <span class="dv">5</span>)</span>
+<span id="cb94-5"><a href="introduction-to-data-wrangling-in-r.html#cb94-5" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+</div>
+<div id="summarise" class="section level3" number="4.2.10">
+<h3><span class="header-section-number">4.2.10</span> Summarise</h3>
+<p>The function <code>summarise()</code> (or equivalently <code>summarize()</code>) can be used to compute summary statistics. Here is an example, where we summarize the variable life expectancy for the continent Europe.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="introduction-to-data-wrangling-in-r.html#cb95-1" aria-hidden="true" tabindex="-1"></a>(life_exp_summ_eur <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb95-2"><a href="introduction-to-data-wrangling-in-r.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Europe&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb95-3"><a href="introduction-to-data-wrangling-in-r.html#cb95-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb95-4"><a href="introduction-to-data-wrangling-in-r.html#cb95-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">med =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb95-5"><a href="introduction-to-data-wrangling-in-r.html#cb95-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">std =</span> <span class="fu">sd</span>(lifeExp),</span>
+<span id="cb95-6"><a href="introduction-to-data-wrangling-in-r.html#cb95-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">variance =</span> <span class="fu">var</span>(lifeExp),</span>
+<span id="cb95-7"><a href="introduction-to-data-wrangling-in-r.html#cb95-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">iqr =</span> <span class="fu">IQR</span>(lifeExp)</span>
+<span id="cb95-8"><a href="introduction-to-data-wrangling-in-r.html#cb95-8" aria-hidden="true" tabindex="-1"></a>                   )</span>
+<span id="cb95-9"><a href="introduction-to-data-wrangling-in-r.html#cb95-9" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+</div>
+</div>
+<div id="grouped-summaries" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Grouped Summaries</h2>
+<div id="question-what-are-continent-wise-summary-statistics" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Question: What are continent-wise summary statistics?</h3>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="introduction-to-data-wrangling-in-r.html#cb96-1" aria-hidden="true" tabindex="-1"></a>(summ_life_exp <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb96-2"><a href="introduction-to-data-wrangling-in-r.html#cb96-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb96-3"><a href="introduction-to-data-wrangling-in-r.html#cb96-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb96-4"><a href="introduction-to-data-wrangling-in-r.html#cb96-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">med =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb96-5"><a href="introduction-to-data-wrangling-in-r.html#cb96-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">std =</span> <span class="fu">sd</span>(lifeExp),</span>
+<span id="cb96-6"><a href="introduction-to-data-wrangling-in-r.html#cb96-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">variance =</span> <span class="fu">var</span>(lifeExp),</span>
+<span id="cb96-7"><a href="introduction-to-data-wrangling-in-r.html#cb96-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">iqr =</span> <span class="fu">IQR</span>(lifeExp)</span>
+<span id="cb96-8"><a href="introduction-to-data-wrangling-in-r.html#cb96-8" aria-hidden="true" tabindex="-1"></a>                   )</span>
+<span id="cb96-9"><a href="introduction-to-data-wrangling-in-r.html#cb96-9" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb96-10"><a href="introduction-to-data-wrangling-in-r.html#cb96-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-11"><a href="introduction-to-data-wrangling-in-r.html#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> summ_life_exp, </span>
+<span id="cb96-12"><a href="introduction-to-data-wrangling-in-r.html#cb96-12" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> average)) <span class="sc">+</span></span>
+<span id="cb96-13"><a href="introduction-to-data-wrangling-in-r.html#cb96-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span>
+<span id="cb96-14"><a href="introduction-to-data-wrangling-in-r.html#cb96-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-15"><a href="introduction-to-data-wrangling-in-r.html#cb96-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-16"><a href="introduction-to-data-wrangling-in-r.html#cb96-16" aria-hidden="true" tabindex="-1"></a>(summ_year_life_exp <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb96-17"><a href="introduction-to-data-wrangling-in-r.html#cb96-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb96-18"><a href="introduction-to-data-wrangling-in-r.html#cb96-18" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">average =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb96-19"><a href="introduction-to-data-wrangling-in-r.html#cb96-19" aria-hidden="true" tabindex="-1"></a>                   <span class="at">med =</span> <span class="fu">median</span>(lifeExp),</span>
+<span id="cb96-20"><a href="introduction-to-data-wrangling-in-r.html#cb96-20" aria-hidden="true" tabindex="-1"></a>                   <span class="at">std =</span> <span class="fu">sd</span>(lifeExp),</span>
+<span id="cb96-21"><a href="introduction-to-data-wrangling-in-r.html#cb96-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">variance =</span> <span class="fu">var</span>(lifeExp),</span>
+<span id="cb96-22"><a href="introduction-to-data-wrangling-in-r.html#cb96-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">iqr =</span> <span class="fu">IQR</span>(lifeExp)</span>
+<span id="cb96-23"><a href="introduction-to-data-wrangling-in-r.html#cb96-23" aria-hidden="true" tabindex="-1"></a>                   )</span>
+<span id="cb96-24"><a href="introduction-to-data-wrangling-in-r.html#cb96-24" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb96-25"><a href="introduction-to-data-wrangling-in-r.html#cb96-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-26"><a href="introduction-to-data-wrangling-in-r.html#cb96-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> summ_year_life_exp, </span>
+<span id="cb96-27"><a href="introduction-to-data-wrangling-in-r.html#cb96-27" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> average)) <span class="sc">+</span> </span>
+<span id="cb96-28"><a href="introduction-to-data-wrangling-in-r.html#cb96-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>One can also perform grouped mutates and grouped filters.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-graphics-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="footnotes-and-citations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-intro_r_data_wrang.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

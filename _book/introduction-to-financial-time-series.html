@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Introduction to financial time series | Book: Statistical Finance and Computing</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Introduction to financial time series | Book: Statistical Finance and Computing" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Introduction to financial time series | Book: Statistical Finance and Computing" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Abhinav Anand" />
+
+
+<meta name="date" content="2021-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-basic-r.html"/>
+<link rel="next" href="introduction-to-arma-garch-processes.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to basic <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#basics"><i class="fa fa-check"></i><b>2.2</b> Basics</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#remarks"><i class="fa fa-check"></i><b>2.2.1</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#pipes"><i class="fa fa-check"></i><b>2.3</b> Pipes</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#data-types-in-r-some-examples"><i class="fa fa-check"></i><b>2.4</b> Data-types in R: Some Examples</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#recycling"><i class="fa fa-check"></i><b>2.4.2</b> Recycling</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#note"><i class="fa fa-check"></i><b>2.4.3</b> Note</a></li>
+<li class="chapter" data-level="2.4.4" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#the-c-operator"><i class="fa fa-check"></i><b>2.4.4</b> The <code>c()</code> operator</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#arrays-and-matrices"><i class="fa fa-check"></i><b>2.4.5</b> Arrays and Matrices</a></li>
+<li class="chapter" data-level="2.4.6" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#dataframes"><i class="fa fa-check"></i><b>2.4.6</b> Dataframes</a></li>
+<li class="chapter" data-level="2.4.7" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#subsetting-dataframes"><i class="fa fa-check"></i><b>2.4.7</b> Subsetting Dataframes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#functions"><i class="fa fa-check"></i><b>2.5</b> Functions</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#directory-management"><i class="fa fa-check"></i><b>2.6</b> Directory Management</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#rstudio-projects"><i class="fa fa-check"></i><b>2.7</b> RStudio Projects</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html"><i class="fa fa-check"></i><b>3</b> Introduction to financial time series</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#background"><i class="fa fa-check"></i><b>3.1</b> Background</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#empirical-financial-time-series"><i class="fa fa-check"></i><b>3.2</b> Empirical Financial Time Series</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#returns"><i class="fa fa-check"></i><b>3.3</b> Returns</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#one-period-simple-return"><i class="fa fa-check"></i><b>3.3.1</b> One-Period Simple Return</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#multi-period-simple-return"><i class="fa fa-check"></i><b>3.4</b> Multi-period Simple Return</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#log-returns"><i class="fa fa-check"></i><b>3.4.1</b> Log Returns</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#computational-examples"><i class="fa fa-check"></i><b>3.5</b> Computational Examples</a></li>
+<li class="chapter" data-level="3.6" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#return-series-for-market-indices"><i class="fa fa-check"></i><b>3.6</b> Return Series for Market Indices</a></li>
+<li class="chapter" data-level="3.7" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#stationarity-of-time-series"><i class="fa fa-check"></i><b>3.7</b> Stationarity of Time Series</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#stationarity"><i class="fa fa-check"></i><b>3.7.1</b> Stationarity</a></li>
+<li class="chapter" data-level="3.7.2" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#trend-stationarity"><i class="fa fa-check"></i><b>3.7.2</b> Trend Stationarity</a></li>
+<li class="chapter" data-level="3.7.3" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#unit-roots"><i class="fa fa-check"></i><b>3.7.3</b> Unit Roots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#distribution-of-returns"><i class="fa fa-check"></i><b>3.8</b> Distribution of Returns</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#summary-statistics-of-empirical-returns"><i class="fa fa-check"></i><b>3.8.1</b> Summary Statistics of Empirical Returns</a></li>
+<li class="chapter" data-level="3.8.2" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#histograms-for-returns-for-each-index"><i class="fa fa-check"></i><b>3.8.2</b> Histograms for returns for each index</a></li>
+<li class="chapter" data-level="3.8.3" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#skewness-and-kurtosis"><i class="fa fa-check"></i><b>3.8.3</b> Skewness and Kurtosis</a></li>
+<li class="chapter" data-level="3.8.4" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#the-jarque-bera-test-for-normality"><i class="fa fa-check"></i><b>3.8.4</b> The Jarque-Bera Test for Normality</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#stylized-facts"><i class="fa fa-check"></i><b>3.9</b> Stylized Facts</a></li>
+<li class="chapter" data-level="3.10" data-path="introduction-to-financial-time-series.html"><a href="introduction-to-financial-time-series.html#references"><i class="fa fa-check"></i><b>3.10</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html"><i class="fa fa-check"></i><b>4</b> Introduction to ARMA-GARCH processes</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#the-autocorrelation-function-acf"><i class="fa fa-check"></i><b>4.1</b> The Autocorrelation Function (ACF)</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#autoregressive-ar-processes"><i class="fa fa-check"></i><b>4.2</b> Autoregressive (AR) Processes</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#ar1-processes"><i class="fa fa-check"></i><b>4.2.1</b> AR(1) processes</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#autocorrelation-function-for-ar1-processes"><i class="fa fa-check"></i><b>4.2.2</b> Autocorrelation Function for AR(1) processes</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#partial-autocorrelation-functions-pacf"><i class="fa fa-check"></i><b>4.2.3</b> Partial Autocorrelation Functions (PACF)</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#information-criteria"><i class="fa fa-check"></i><b>4.2.4</b> Information Criteria</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#moving-average-ma-processes"><i class="fa fa-check"></i><b>4.3</b> Moving Average (MA) Processes</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#autocorrelation-function"><i class="fa fa-check"></i><b>4.3.1</b> Autocorrelation Function</a></li>
+<li class="chapter" data-level="4.3.2" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#illustrations"><i class="fa fa-check"></i><b>4.3.2</b> Illustrations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#autoregressive-moving-average-arma-processes"><i class="fa fa-check"></i><b>4.4</b> Autoregressive Moving Average (ARMA) Processes</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#properties"><i class="fa fa-check"></i><b>4.4.1</b> Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#conditional-heteroskedasticity-models"><i class="fa fa-check"></i><b>4.5</b> Conditional Heteroskedasticity Models</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#arch-effect"><i class="fa fa-check"></i><b>4.5.1</b> ARCH Effect</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#autoregressive-conditional-heteroskedasticity-arch"><i class="fa fa-check"></i><b>4.6</b> Autoregressive Conditional Heteroskedasticity (ARCH)</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#properties-of-arch1-processes"><i class="fa fa-check"></i><b>4.6.1</b> Properties of ARCH(1) Processes</a></li>
+<li class="chapter" data-level="4.6.2" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#order-determination-of-archm-processes"><i class="fa fa-check"></i><b>4.6.2</b> Order Determination of ARCH(<span class="math inline">\(m\)</span>) Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#generalized-arch-garch-processes"><i class="fa fa-check"></i><b>4.7</b> Generalized ARCH (GARCH) Processes</a></li>
+<li class="chapter" data-level="4.8" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#application-fitting-arma-garch-models"><i class="fa fa-check"></i><b>4.8</b> Application: Fitting ARMA GARCH Models</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#the-bombay-stock-exchange"><i class="fa fa-check"></i><b>4.8.1</b> The Bombay Stock Exchange</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="introduction-to-arma-garch-processes.html"><a href="introduction-to-arma-garch-processes.html#references-1"><i class="fa fa-check"></i><b>4.9</b> References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Book: Statistical Finance and Computing</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-financial-time-series" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Introduction to financial time series</h1>
+<div id="background" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Background</h2>
+<p>Financial prices, indices, returns etc. are sequences of real numbers indexed by time. The study of their mathematical and statistical properties is vital for those aspiring to write papers in empirical finance.</p>
+<p>For example, consider the following plot of a hypothetical market index: what can we say about the market conditions from its ups and downs?</p>
+<p><img src="_main_files/figure-html/hypo_market_index-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>The above series is, however generated via the command: <code>plot(cumsum(rnorm(10000, 0, 1))</code> which plots the cumulative sum of ten thousand standard normal realizations—a random walk!</p>
+<p>The <em>random walk hypothesis</em> is a theory that claims that stock market prices obey a random walk process. This hypothesis is consistent with the “Efficient Market Hypothesis.” Roughly speaking, the efficient market hypothesis claims in its weak form that for publicly traded stocks, all public information is captured in the price of the stock. The strong form of the hypothesis claims that <em>all</em> information—both public and private—is reflected the stock price. Hence according to this theory, any attempt to consistently beat the market in terms of risk-adjusted returns is doomed to failure.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Hence in particular, any attempt to discern patterns in the hypothetical market’s ups and downs as shown above is worthless.</p>
+<p>Do empirical financial markets behave in the same way too?</p>
+</div>
+<div id="empirical-financial-time-series" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Empirical Financial Time Series</h2>
+<p>As an illustration we produce the daily time series for the closing value of the Bombay Stock Exchange index (“Sensex”).</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-to-financial-time-series.html#cb57-1" aria-hidden="true" tabindex="-1"></a>file_bse <span class="ot">&lt;-</span> <span class="st">&quot;SENSEX.csv&quot;</span></span>
+<span id="cb57-2"><a href="introduction-to-financial-time-series.html#cb57-2" aria-hidden="true" tabindex="-1"></a>index_bse <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(file_bse) <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="introduction-to-financial-time-series.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>empty)</span>
+<span id="cb57-4"><a href="introduction-to-financial-time-series.html#cb57-4" aria-hidden="true" tabindex="-1"></a>index_bse<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(index_bse<span class="sc">$</span>Date, </span>
+<span id="cb57-5"><a href="introduction-to-financial-time-series.html#cb57-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">format =</span> <span class="st">&quot;%d-%B-%Y&quot;</span></span>
+<span id="cb57-6"><a href="introduction-to-financial-time-series.html#cb57-6" aria-hidden="true" tabindex="-1"></a>                          ) <span class="co">#date reformat</span></span>
+<span id="cb57-7"><a href="introduction-to-financial-time-series.html#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="introduction-to-financial-time-series.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(index_bse<span class="sc">$</span>Date,</span>
+<span id="cb57-9"><a href="introduction-to-financial-time-series.html#cb57-9" aria-hidden="true" tabindex="-1"></a>     index_bse<span class="sc">$</span>Close,</span>
+<span id="cb57-10"><a href="introduction-to-financial-time-series.html#cb57-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb57-11"><a href="introduction-to-financial-time-series.html#cb57-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb57-12"><a href="introduction-to-financial-time-series.html#cb57-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb57-13"><a href="introduction-to-financial-time-series.html#cb57-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;BSE Index&quot;</span>,</span>
+<span id="cb57-14"><a href="introduction-to-financial-time-series.html#cb57-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Indian stock market performance&quot;</span></span>
+<span id="cb57-15"><a href="introduction-to-financial-time-series.html#cb57-15" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb57-16"><a href="introduction-to-financial-time-series.html#cb57-16" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Close <span class="sc">~</span> Date, </span>
+<span id="cb57-17"><a href="introduction-to-financial-time-series.html#cb57-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> index_bse) <span class="co">#fit linear model</span></span>
+<span id="cb57-18"><a href="introduction-to-financial-time-series.html#cb57-18" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit_lm, <span class="co">#plot linear model line</span></span>
+<span id="cb57-19"><a href="introduction-to-financial-time-series.html#cb57-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="st">&quot;dotdash&quot;</span>, </span>
+<span id="cb57-20"><a href="introduction-to-financial-time-series.html#cb57-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb57-21"><a href="introduction-to-financial-time-series.html#cb57-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb57-22"><a href="introduction-to-financial-time-series.html#cb57-22" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div>
+<p><img src="_main_files/figure-html/BSE-1.png" width="336" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="introduction-to-financial-time-series.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># via ggplot</span></span>
+<span id="cb58-2"><a href="introduction-to-financial-time-series.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="introduction-to-financial-time-series.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> index_bse, </span>
+<span id="cb58-4"><a href="introduction-to-financial-time-series.html#cb58-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(Date, Close)</span>
+<span id="cb58-5"><a href="introduction-to-financial-time-series.html#cb58-5" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="introduction-to-financial-time-series.html#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">lwd =</span> <span class="fl">0.3</span>,</span>
+<span id="cb58-7"><a href="introduction-to-financial-time-series.html#cb58-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;blue&quot;</span></span>
+<span id="cb58-8"><a href="introduction-to-financial-time-series.html#cb58-8" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">+</span></span>
+<span id="cb58-9"><a href="introduction-to-financial-time-series.html#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb58-10"><a href="introduction-to-financial-time-series.html#cb58-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">lty =</span> <span class="st">&quot;dotdash&quot;</span>,</span>
+<span id="cb58-11"><a href="introduction-to-financial-time-series.html#cb58-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">lwd =</span> <span class="fl">0.6</span>,</span>
+<span id="cb58-12"><a href="introduction-to-financial-time-series.html#cb58-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb58-13"><a href="introduction-to-financial-time-series.html#cb58-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> F) <span class="sc">+</span></span>
+<span id="cb58-14"><a href="introduction-to-financial-time-series.html#cb58-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb58-15"><a href="introduction-to-financial-time-series.html#cb58-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Years&quot;</span>,</span>
+<span id="cb58-16"><a href="introduction-to-financial-time-series.html#cb58-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;BSE Sensex&quot;</span>,</span>
+<span id="cb58-17"><a href="introduction-to-financial-time-series.html#cb58-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Indian stock market performance&quot;</span></span>
+<span id="cb58-18"><a href="introduction-to-financial-time-series.html#cb58-18" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div>
+<p><img src="_main_files/figure-html/BSE-2.png" width="336" style="display: block; margin: auto;" /></p>
+<p>It seems that the level of the series is rising and the fluctuations are sometimes high and sometimes low.</p>
+<p>This index series is an example of a <em>non-stationary</em> time series. This roughly means that the mean and the variance of such a series are functions of time.</p>
+<p>Here is the index level time series for the US index S&amp;P500 from 2008:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-financial-time-series.html#cb59-1" aria-hidden="true" tabindex="-1"></a>file_sp500 <span class="ot">&lt;-</span> <span class="st">&quot;SP500.csv&quot;</span> <span class="co">#S&amp;P 500</span></span>
+<span id="cb59-2"><a href="introduction-to-financial-time-series.html#cb59-2" aria-hidden="true" tabindex="-1"></a>ind_sp500 <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(file_sp500, </span>
+<span id="cb59-3"><a href="introduction-to-financial-time-series.html#cb59-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">DATE =</span> <span class="fu">col_date</span>(), </span>
+<span id="cb59-4"><a href="introduction-to-financial-time-series.html#cb59-4" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">SP500 =</span> <span class="fu">col_double</span>()</span>
+<span id="cb59-5"><a href="introduction-to-financial-time-series.html#cb59-5" aria-hidden="true" tabindex="-1"></a>                                              ),</span>
+<span id="cb59-6"><a href="introduction-to-financial-time-series.html#cb59-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb59-7"><a href="introduction-to-financial-time-series.html#cb59-7" aria-hidden="true" tabindex="-1"></a>                             )</span>
+<span id="cb59-8"><a href="introduction-to-financial-time-series.html#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="introduction-to-financial-time-series.html#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ind_sp500, </span>
+<span id="cb59-10"><a href="introduction-to-financial-time-series.html#cb59-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(DATE, SP500)</span>
+<span id="cb59-11"><a href="introduction-to-financial-time-series.html#cb59-11" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span></span>
+<span id="cb59-12"><a href="introduction-to-financial-time-series.html#cb59-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">lwd =</span> <span class="fl">0.3</span>,</span>
+<span id="cb59-13"><a href="introduction-to-financial-time-series.html#cb59-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-14"><a href="introduction-to-financial-time-series.html#cb59-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb59-15"><a href="introduction-to-financial-time-series.html#cb59-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">lty =</span> <span class="st">&quot;dotdash&quot;</span>,</span>
+<span id="cb59-16"><a href="introduction-to-financial-time-series.html#cb59-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">lwd =</span> <span class="fl">0.6</span>,</span>
+<span id="cb59-17"><a href="introduction-to-financial-time-series.html#cb59-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> F,</span>
+<span id="cb59-18"><a href="introduction-to-financial-time-series.html#cb59-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb59-19"><a href="introduction-to-financial-time-series.html#cb59-19" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
+<span id="cb59-20"><a href="introduction-to-financial-time-series.html#cb59-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb59-21"><a href="introduction-to-financial-time-series.html#cb59-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Years&quot;</span>,</span>
+<span id="cb59-22"><a href="introduction-to-financial-time-series.html#cb59-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;S&amp;P500&quot;</span></span>
+<span id="cb59-23"><a href="introduction-to-financial-time-series.html#cb59-23" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div>
+<pre><code>## Warning: Removed 92 rows containing non-finite values (stat_smooth).</code></pre>
+<p><img src="_main_files/figure-html/SP500-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>And here it for the Japanese Nikkei225:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introduction-to-financial-time-series.html#cb61-1" aria-hidden="true" tabindex="-1"></a>file_nikkei <span class="ot">&lt;-</span> <span class="st">&quot;NIKKEI225.csv&quot;</span> <span class="co">#Nikkei 225</span></span>
+<span id="cb61-2"><a href="introduction-to-financial-time-series.html#cb61-2" aria-hidden="true" tabindex="-1"></a>ind_nikkei <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(file_nikkei, </span>
+<span id="cb61-3"><a href="introduction-to-financial-time-series.html#cb61-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">DATE =</span> <span class="fu">col_date</span>(), </span>
+<span id="cb61-4"><a href="introduction-to-financial-time-series.html#cb61-4" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">NIKKEI225 =</span> <span class="fu">col_double</span>()</span>
+<span id="cb61-5"><a href="introduction-to-financial-time-series.html#cb61-5" aria-hidden="true" tabindex="-1"></a>                                              ),</span>
+<span id="cb61-6"><a href="introduction-to-financial-time-series.html#cb61-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">na =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb61-7"><a href="introduction-to-financial-time-series.html#cb61-7" aria-hidden="true" tabindex="-1"></a>                             )</span>
+<span id="cb61-8"><a href="introduction-to-financial-time-series.html#cb61-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-9"><a href="introduction-to-financial-time-series.html#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ind_nikkei, </span>
+<span id="cb61-10"><a href="introduction-to-financial-time-series.html#cb61-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(DATE, NIKKEI225)</span>
+<span id="cb61-11"><a href="introduction-to-financial-time-series.html#cb61-11" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span></span>
+<span id="cb61-12"><a href="introduction-to-financial-time-series.html#cb61-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">lwd =</span> <span class="fl">0.3</span>, </span>
+<span id="cb61-13"><a href="introduction-to-financial-time-series.html#cb61-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-14"><a href="introduction-to-financial-time-series.html#cb61-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb61-15"><a href="introduction-to-financial-time-series.html#cb61-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">lty =</span> <span class="st">&quot;dotdash&quot;</span>,</span>
+<span id="cb61-16"><a href="introduction-to-financial-time-series.html#cb61-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">lwd =</span> <span class="fl">0.6</span>,</span>
+<span id="cb61-17"><a href="introduction-to-financial-time-series.html#cb61-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> F,</span>
+<span id="cb61-18"><a href="introduction-to-financial-time-series.html#cb61-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb61-19"><a href="introduction-to-financial-time-series.html#cb61-19" aria-hidden="true" tabindex="-1"></a>              ) <span class="sc">+</span></span>
+<span id="cb61-20"><a href="introduction-to-financial-time-series.html#cb61-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb61-21"><a href="introduction-to-financial-time-series.html#cb61-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Years&quot;</span>,</span>
+<span id="cb61-22"><a href="introduction-to-financial-time-series.html#cb61-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Nikkei225&quot;</span></span>
+<span id="cb61-23"><a href="introduction-to-financial-time-series.html#cb61-23" aria-hidden="true" tabindex="-1"></a>       )</span></code></pre></div>
+<p><img src="_main_files/figure-html/Nikkei-1.png" width="336" style="display: block; margin: auto;" /></p>
+</div>
+<div id="returns" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Returns</h2>
+<p>We observe prices in the financial markets empirically. However, due to their non-stationary nature, they are hard to analyze. Hence they are converted to return series which are usually stationary. There are many ways to construct different notions of returns from the same underlying price sequence. We discuss some prominent ones below.</p>
+<div id="one-period-simple-return" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> One-Period Simple Return</h3>
+<p>The simple one period return for holding some asset whose price is given by the sequence <span class="math inline">\(\{p_t\}_{t=1}^n\)</span> is:</p>
+<p><span class="math display">\[r_t := \frac{p_t-p_{t-1}}{p_{t-1}} = \frac{p_t}{p_{t-1}}-1\]</span></p>
+</div>
+</div>
+<div id="multi-period-simple-return" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Multi-period Simple Return</h2>
+<p><span class="math display">\[r_t[k] := \frac{p_t-p_{t-k}}{p_{t-k}} = \frac{p_t}{p_{t-k}}-1\]</span>
+<span class="math display">\[r_t[k] := \frac{p_t}{p_{t-k}}-1 = 
+\frac{p_t}{p_{t-1}}\frac{p_{t-1}}{p_{t-2}}\hdots\frac{p_{t-k+1}}{p_{t-k}}-1\]</span>
+<span class="math display">\[r_t[k] := (1+r_t)(1+r_{t-1})\hdots(1+r_{t-k+1})-1\]</span></p>
+<p>Multi-period returns are used to convert high frequency returns to low frequency returns—i.e., daily to monthly; or monthly to yearly etc.</p>
+<p>For example to convert monthly returns to annual returns:
+<span class="math display">\[r_{t}[12]= [\prod_{j=0}^{12-1}(1+r_{t-j})]^{1/12}-1\]</span></p>
+<p>Often (when working with daily returns especially) <span class="math inline">\(1+r_t\approx r_t\)</span>, in which case:
+<span class="math display">\[r_t[k]\approx \sum_{j=0}^{k-1}r_{t-j}\]</span></p>
+<p>Additionally, the simple returns for a portfolio with fractional weights <span class="math inline">\(w_1,\hdots,w_n\)</span> are:
+<span class="math display">\[r_{p,t}=\sum_{i=1}^n w_ir_{i,t}\]</span></p>
+<div id="log-returns" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Log Returns</h3>
+<p>We know that to compute yearly returns from say, monthly returns we use the following formula:
+<span class="math display">\[r_{t}[12]= [\prod_{j=0}^{12-1}(1+r_{t-j})]^{1/12}-1\]</span></p>
+<p>In general, if a bank pays an annual interest of <span class="math inline">\(r^m_t\)</span> <span class="math inline">\(m\)</span> times a year, the interest rate for unit investment is <span class="math inline">\(r^m_t/m\)</span> and after one year the value of the deposit is <span class="math inline">\((1+\frac{r_t^m}{m})^m\)</span>. If there is continous compounding, <span class="math inline">\(m\to \infty\)</span>, in which case the value of the investment becomes:</p>
+<p><span class="math display">\[\lim\limits_{m\to \infty}(1+\frac{r_t^m}{m})^m = e^{r_t}\]</span></p>
+<p>Hence it must be that:
+<span class="math display">\[R_t = \log p_t-\log p_{t-1} = \log\frac{p_t}{p_{t-1}}\]</span></p>
+<p>A particular advantage of log-returns are that multiperiod log returns are merely the sum of one period log returns:</p>
+<p><span class="math display">\[R_t[k]=\log p_t - \log p_{t-k}=\log p_t - \log p_{t-1} + \log p_{t-1} -\hdots \log p_{t-k}\]</span>
+<span class="math display">\[R_t[k]= R_t[1]+R_t[2]+\hdots+R_t[k-1]\]</span></p>
+</div>
+</div>
+<div id="computational-examples" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Computational Examples</h2>
+<p>To construct return series from prices, we write a function that accepts as input a price (or index) sequence and returns a sequence of simple one period returns by using the formula <span class="math inline">\(r_t = \frac{p_t-p_{t-1}}{p_{t-1}}\)</span>. Since there is no return for the first entry of the price sequence, we append an <code>NA</code> at the beginning of the returns.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="introduction-to-financial-time-series.html#cb62-1" aria-hidden="true" tabindex="-1"></a>func_pr_to_ret <span class="ot">&lt;-</span> <span class="cf">function</span>(price_vec)</span>
+<span id="cb62-2"><a href="introduction-to-financial-time-series.html#cb62-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb62-3"><a href="introduction-to-financial-time-series.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This function takes a vector of prices and </span></span>
+<span id="cb62-4"><a href="introduction-to-financial-time-series.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># returns a vector of simple one period returns</span></span>
+<span id="cb62-5"><a href="introduction-to-financial-time-series.html#cb62-5" aria-hidden="true" tabindex="-1"></a>  l <span class="ot">&lt;-</span> <span class="fu">length</span>(price_vec) </span>
+<span id="cb62-6"><a href="introduction-to-financial-time-series.html#cb62-6" aria-hidden="true" tabindex="-1"></a>  ret_num <span class="ot">&lt;-</span> <span class="fu">diff</span>(price_vec) <span class="co">#numerator = change in prices</span></span>
+<span id="cb62-7"><a href="introduction-to-financial-time-series.html#cb62-7" aria-hidden="true" tabindex="-1"></a>  ret_den <span class="ot">&lt;-</span> price_vec[<span class="sc">-</span>l] <span class="co">#denominator = price series</span></span>
+<span id="cb62-8"><a href="introduction-to-financial-time-series.html#cb62-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-9"><a href="introduction-to-financial-time-series.html#cb62-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(<span class="cn">NA</span>, ret_num<span class="sc">/</span>ret_den)) <span class="co">#first return is NA</span></span>
+<span id="cb62-10"><a href="introduction-to-financial-time-series.html#cb62-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb62-11"><a href="introduction-to-financial-time-series.html#cb62-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-12"><a href="introduction-to-financial-time-series.html#cb62-12" aria-hidden="true" tabindex="-1"></a>price_vec_1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
+<span id="cb62-13"><a href="introduction-to-financial-time-series.html#cb62-13" aria-hidden="true" tabindex="-1"></a><span class="fu">func_pr_to_ret</span>(price_vec_1)</span></code></pre></div>
+<pre><code>## [1]        NA 2.0000000 0.6666667 0.4000000 0.2857143</code></pre>
+<p>Similarly log-returns can be calculated using the formuala <span class="math inline">\(R_t = \log(p_t)-\log(p_{t-1})\)</span>.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="introduction-to-financial-time-series.html#cb64-1" aria-hidden="true" tabindex="-1"></a>func_pr_to_logret <span class="ot">&lt;-</span> <span class="cf">function</span>(p_vec)</span>
+<span id="cb64-2"><a href="introduction-to-financial-time-series.html#cb64-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb64-3"><a href="introduction-to-financial-time-series.html#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This function takes a vector of prices and </span></span>
+<span id="cb64-4"><a href="introduction-to-financial-time-series.html#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># returns a vector of log returns</span></span>
+<span id="cb64-5"><a href="introduction-to-financial-time-series.html#cb64-5" aria-hidden="true" tabindex="-1"></a>  log_price <span class="ot">&lt;-</span> <span class="fu">log</span>(p_vec)</span>
+<span id="cb64-6"><a href="introduction-to-financial-time-series.html#cb64-6" aria-hidden="true" tabindex="-1"></a>  log_ret <span class="ot">&lt;-</span> <span class="fu">diff</span>(log_price) <span class="co">#log ret = delta log p</span></span>
+<span id="cb64-7"><a href="introduction-to-financial-time-series.html#cb64-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-8"><a href="introduction-to-financial-time-series.html#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(<span class="cn">NA</span>, log_ret)) <span class="co">#first return is NA</span></span>
+<span id="cb64-9"><a href="introduction-to-financial-time-series.html#cb64-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-10"><a href="introduction-to-financial-time-series.html#cb64-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-11"><a href="introduction-to-financial-time-series.html#cb64-11" aria-hidden="true" tabindex="-1"></a>p_vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
+<span id="cb64-12"><a href="introduction-to-financial-time-series.html#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="fu">func_pr_to_logret</span>(p_vec)</span></code></pre></div>
+<pre><code>## [1]        NA 1.0986123 0.5108256 0.3364722 0.2513144</code></pre>
+</div>
+<div id="return-series-for-market-indices" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Return Series for Market Indices</h2>
+<p>We can compute returns and log-returns for the Bombay Stock Exchange Index, S&amp;P500 and the Nikkei 225 as follows:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-to-financial-time-series.html#cb66-1" aria-hidden="true" tabindex="-1"></a>ret_BSE <span class="ot">&lt;-</span> <span class="fu">func_pr_to_ret</span>(index_bse<span class="sc">$</span>Close)</span>
+<span id="cb66-2"><a href="introduction-to-financial-time-series.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(index_bse<span class="sc">$</span>Date, <span class="co">#x variable</span></span>
+<span id="cb66-3"><a href="introduction-to-financial-time-series.html#cb66-3" aria-hidden="true" tabindex="-1"></a>     ret_BSE, <span class="co">#y variable</span></span>
+<span id="cb66-4"><a href="introduction-to-financial-time-series.html#cb66-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb66-5"><a href="introduction-to-financial-time-series.html#cb66-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.2</span>,</span>
+<span id="cb66-6"><a href="introduction-to-financial-time-series.html#cb66-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb66-7"><a href="introduction-to-financial-time-series.html#cb66-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Years&quot;</span>,</span>
+<span id="cb66-8"><a href="introduction-to-financial-time-series.html#cb66-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;BSE Returns&quot;</span></span>
+<span id="cb66-9"><a href="introduction-to-financial-time-series.html#cb66-9" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb66-10"><a href="introduction-to-financial-time-series.html#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/return_market_index-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>We can do the same for the S&amp;P500 and the Nikkei225 series:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-to-financial-time-series.html#cb67-1" aria-hidden="true" tabindex="-1"></a>ret_sp500 <span class="ot">&lt;-</span> <span class="fu">func_pr_to_ret</span>(ind_sp500<span class="sc">$</span>SP500)</span>
+<span id="cb67-2"><a href="introduction-to-financial-time-series.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ind_sp500<span class="sc">$</span>DATE, <span class="co">#x variable</span></span>
+<span id="cb67-3"><a href="introduction-to-financial-time-series.html#cb67-3" aria-hidden="true" tabindex="-1"></a>     ret_sp500, <span class="co">#y variable</span></span>
+<span id="cb67-4"><a href="introduction-to-financial-time-series.html#cb67-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb67-5"><a href="introduction-to-financial-time-series.html#cb67-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.2</span>,</span>
+<span id="cb67-6"><a href="introduction-to-financial-time-series.html#cb67-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb67-7"><a href="introduction-to-financial-time-series.html#cb67-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Years&quot;</span>,</span>
+<span id="cb67-8"><a href="introduction-to-financial-time-series.html#cb67-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;S&amp;P500 Returns&quot;</span></span>
+<span id="cb67-9"><a href="introduction-to-financial-time-series.html#cb67-9" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb67-10"><a href="introduction-to-financial-time-series.html#cb67-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/return_market_index_func-1.png" width="336" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="introduction-to-financial-time-series.html#cb68-1" aria-hidden="true" tabindex="-1"></a>ret_nikkei <span class="ot">&lt;-</span> <span class="fu">func_pr_to_ret</span>(ind_nikkei<span class="sc">$</span>NIKKEI225)</span>
+<span id="cb68-2"><a href="introduction-to-financial-time-series.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ind_nikkei<span class="sc">$</span>DATE, <span class="co">#x variable</span></span>
+<span id="cb68-3"><a href="introduction-to-financial-time-series.html#cb68-3" aria-hidden="true" tabindex="-1"></a>     ret_nikkei, <span class="co">#y variable</span></span>
+<span id="cb68-4"><a href="introduction-to-financial-time-series.html#cb68-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb68-5"><a href="introduction-to-financial-time-series.html#cb68-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.2</span>,</span>
+<span id="cb68-6"><a href="introduction-to-financial-time-series.html#cb68-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;green&quot;</span>,</span>
+<span id="cb68-7"><a href="introduction-to-financial-time-series.html#cb68-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Years&quot;</span>,</span>
+<span id="cb68-8"><a href="introduction-to-financial-time-series.html#cb68-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Nikkei225 Returns&quot;</span></span>
+<span id="cb68-9"><a href="introduction-to-financial-time-series.html#cb68-9" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb68-10"><a href="introduction-to-financial-time-series.html#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/return_market_index_func-2.png" width="336" style="display: block; margin: auto;" /></p>
+<p>One clearly sees that the index sequences have no trend now. It seems that the returns are fluctuating around a mean level 0. The fluctuations (volatility) around the mean are sometimes high and sometimes low.</p>
+</div>
+<div id="stationarity-of-time-series" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Stationarity of Time Series</h2>
+<p>There’s a clear difference between the plots of prices (or indices like the BSE); and the returns derived from them. Indices keep increasing with time, suggesting some type of a trend and tend to fluctuate more or less around the trend line. Returns, on the other hand seem to have no trend.</p>
+<div id="stationarity" class="section level3" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> Stationarity</h3>
+<p>A (strictly) <em>stationary</em> process is one for which the unconditional joint distribution does not change with time:
+<span class="math display">\[F_X(x_1,\hdots,x_t)=F_X(x_{1+\delta},\hdots,x_{t+\delta})\]</span></p>
+<p>where <span class="math inline">\(F_X(\cdot)\)</span> is the distribution for the process <span class="math inline">\(X_t\)</span> and <span class="math inline">\(\delta&gt;0\)</span>.</p>
+<p>In particular this implies that the mean and the variance (and other central moments) do not change with time.</p>
+<p>Inference for nonstationary series is difficult. Hence in practice we convert nonstationary processes to stationary processes before analyzing them.</p>
+<p>A <em>weakly stationary</em> time series is such that the mean of the process <span class="math inline">\(\mathbb{E}(X_t) = \mu(t) = \mu\)</span> and its (auto)covariance <span class="math inline">\(\text{covar}(X_t, X_{t-\delta}) = \sigma_{\delta}\)</span> depends only on the lag <span class="math inline">\(\delta\)</span>.</p>
+<p>Strictly stationary series are weakly stationary but not vice versa.</p>
+</div>
+<div id="trend-stationarity" class="section level3" number="3.7.2">
+<h3><span class="header-section-number">3.7.2</span> Trend Stationarity</h3>
+<p>If the trend (mean) of the nonstationary process is deterministic, we have trend stationarity:
+<span class="math display">\[X_t = \mu(t) + \epsilon_t\]</span></p>
+<p>where <span class="math inline">\(\mu(\cdot)\)</span> is a real function and <span class="math inline">\(\epsilon_t\)</span> is stationary process (say, <span class="math inline">\(\mathcal{N}(0,1)\)</span>).</p>
+<p>Here is an illustration—suppose the mean is <span class="math inline">\(\mu(t) = 1 + 2t\)</span>:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="introduction-to-financial-time-series.html#cb69-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="fl">0.4</span>)</span>
+<span id="cb69-2"><a href="introduction-to-financial-time-series.html#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="introduction-to-financial-time-series.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>((<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>t <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(t), <span class="dv">0</span>, <span class="dv">10</span>)),</span>
+<span id="cb69-4"><a href="introduction-to-financial-time-series.html#cb69-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb69-5"><a href="introduction-to-financial-time-series.html#cb69-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb69-6"><a href="introduction-to-financial-time-series.html#cb69-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;green&quot;</span>,</span>
+<span id="cb69-7"><a href="introduction-to-financial-time-series.html#cb69-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;index&quot;</span>,</span>
+<span id="cb69-8"><a href="introduction-to-financial-time-series.html#cb69-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Trend stationary seris&quot;</span></span>
+<span id="cb69-9"><a href="introduction-to-financial-time-series.html#cb69-9" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb69-10"><a href="introduction-to-financial-time-series.html#cb69-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>((<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>t),</span>
+<span id="cb69-11"><a href="introduction-to-financial-time-series.html#cb69-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb69-12"><a href="introduction-to-financial-time-series.html#cb69-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb69-13"><a href="introduction-to-financial-time-series.html#cb69-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">lty =</span> <span class="st">&quot;dotdash&quot;</span>,</span>
+<span id="cb69-14"><a href="introduction-to-financial-time-series.html#cb69-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="fl">1.2</span></span>
+<span id="cb69-15"><a href="introduction-to-financial-time-series.html#cb69-15" aria-hidden="true" tabindex="-1"></a>      )</span></code></pre></div>
+<p><img src="_main_files/figure-html/trend_stationary-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>This can be made into a stationary process by <em>detrending</em>: subtracting <span class="math inline">\(\mu(t) = 1+2t\)</span> from the series, to recover <span class="math inline">\(X_t-\mu(t)=\epsilon_t\sim \mathcal{N}(0, 10)\)</span> in this case:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="introduction-to-financial-time-series.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>((<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>t <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(t), <span class="dv">0</span>, <span class="dv">10</span>) <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>t)),</span>
+<span id="cb70-2"><a href="introduction-to-financial-time-series.html#cb70-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb70-3"><a href="introduction-to-financial-time-series.html#cb70-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Detrended series&quot;</span>,</span>
+<span id="cb70-4"><a href="introduction-to-financial-time-series.html#cb70-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;green&quot;</span></span>
+<span id="cb70-5"><a href="introduction-to-financial-time-series.html#cb70-5" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb70-6"><a href="introduction-to-financial-time-series.html#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/detrend-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>Additionally trend stationary series are <em>mean-reverting</em> which means that after encountering an exogenous shock they tend to revert to the fluctuations-around-the-mean behavior.</p>
+</div>
+<div id="unit-roots" class="section level3" number="3.7.3">
+<h3><span class="header-section-number">3.7.3</span> Unit Roots</h3>
+<p>A stochastic process has a unit root if 1 is the root of its characteristic equation. For example consider the following process:</p>
+<p><span class="math display">\[X_t = X_{t-1} + \epsilon_t\]</span></p>
+<p>It’s characteristic equation is: <span class="math inline">\(x - 1 = 0\)</span>. It’s clear that <span class="math inline">\(X_t - X_{t-1} = \epsilon_t\)</span> is a stationary process.</p>
+<p>Note that for trend stationary series we <em>detrended</em> to obtain a stationary series while for a unit root process, we <em>first-differenced</em> to arrive at a stationary series. Random walks are examples of unit root processes.</p>
+<p>By repeated additions:</p>
+<p><span class="math display">\[X_T = X_0 + \sum_{t = 1}^T \epsilon_t\]</span></p>
+<p>Hence <span class="math inline">\(\mathbb{E}(X_T) = X_0 + \mathbb{E}(\epsilon_T) = X_0\)</span>; and <span class="math inline">\(\text{var}(X_T) = \text{var}(\sum_{t = 1}^T \epsilon_t) = T\cdot \sigma^2\)</span>.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="introduction-to-financial-time-series.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)),</span>
+<span id="cb71-2"><a href="introduction-to-financial-time-series.html#cb71-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb71-3"><a href="introduction-to-financial-time-series.html#cb71-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.5</span>,</span>
+<span id="cb71-4"><a href="introduction-to-financial-time-series.html#cb71-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb71-5"><a href="introduction-to-financial-time-series.html#cb71-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Unit root process&quot;</span></span>
+<span id="cb71-6"><a href="introduction-to-financial-time-series.html#cb71-6" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unit_root-1.png" width="336" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="introduction-to-financial-time-series.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb72-2"><a href="introduction-to-financial-time-series.html#cb72-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb72-3"><a href="introduction-to-financial-time-series.html#cb72-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb72-4"><a href="introduction-to-financial-time-series.html#cb72-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Differenced unit root process&quot;</span></span>
+<span id="cb72-5"><a href="introduction-to-financial-time-series.html#cb72-5" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unit_root-2.png" width="336" style="display: block; margin: auto;" /></p>
+<p>Unit root processes are not mean reverting—an exogenous shock can permanently alter the behavior of the unit root process.</p>
+</div>
+</div>
+<div id="distribution-of-returns" class="section level2" number="3.8">
+<h2><span class="header-section-number">3.8</span> Distribution of Returns</h2>
+<p>Are all return values for the indices considered above equally likely to occur? If that is the case, the returns will be uniformly distributed. A quick glance at the figures however suggests that perhaps some other distribution ought to be considered.</p>
+<div id="summary-statistics-of-empirical-returns" class="section level3" number="3.8.1">
+<h3><span class="header-section-number">3.8.1</span> Summary Statistics of Empirical Returns</h3>
+<p>For the three indices and their return series considered above (the BSE Sensex, the S&amp;P500, the Nikkei225) we compute summary statistics below:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="introduction-to-financial-time-series.html#cb73-1" aria-hidden="true" tabindex="-1"></a>func_summ_stat_ind <span class="ot">&lt;-</span> <span class="cf">function</span>(vec)</span>
+<span id="cb73-2"><a href="introduction-to-financial-time-series.html#cb73-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb73-3"><a href="introduction-to-financial-time-series.html#cb73-3" aria-hidden="true" tabindex="-1"></a>  summ_stat_ind <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">min =</span> <span class="fu">min</span>(vec, <span class="at">na.rm =</span> T),</span>
+<span id="cb73-4"><a href="introduction-to-financial-time-series.html#cb73-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">max =</span> <span class="fu">max</span>(vec, <span class="at">na.rm =</span> T),</span>
+<span id="cb73-5"><a href="introduction-to-financial-time-series.html#cb73-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mean =</span> <span class="fu">mean</span>(vec, <span class="at">na.rm =</span> T),</span>
+<span id="cb73-6"><a href="introduction-to-financial-time-series.html#cb73-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">median =</span> <span class="fu">median</span>(vec, <span class="at">na.rm =</span>T),</span>
+<span id="cb73-7"><a href="introduction-to-financial-time-series.html#cb73-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">std =</span> <span class="fu">sd</span>(vec, <span class="at">na.rm =</span>T),</span>
+<span id="cb73-8"><a href="introduction-to-financial-time-series.html#cb73-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">iqr =</span> <span class="fu">IQR</span>(vec, <span class="at">na.rm=</span>T),</span>
+<span id="cb73-9"><a href="introduction-to-financial-time-series.html#cb73-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">var =</span> <span class="fu">var</span>(vec, <span class="at">na.rm =</span>T)</span>
+<span id="cb73-10"><a href="introduction-to-financial-time-series.html#cb73-10" aria-hidden="true" tabindex="-1"></a>                       ) <span class="sc">%&gt;%</span></span>
+<span id="cb73-11"><a href="introduction-to-financial-time-series.html#cb73-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">signif</span>(., <span class="at">digits =</span> <span class="dv">2</span>) <span class="co">#significant digits = 2</span></span>
+<span id="cb73-12"><a href="introduction-to-financial-time-series.html#cb73-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb73-13"><a href="introduction-to-financial-time-series.html#cb73-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(summ_stat_ind)</span>
+<span id="cb73-14"><a href="introduction-to-financial-time-series.html#cb73-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-15"><a href="introduction-to-financial-time-series.html#cb73-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb73-16"><a href="introduction-to-financial-time-series.html#cb73-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-17"><a href="introduction-to-financial-time-series.html#cb73-17" aria-hidden="true" tabindex="-1"></a>table_summ_stat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="st">&quot;BSE&quot;</span>, <span class="fu">func_summ_stat_ind</span>(ret_BSE)), </span>
+<span id="cb73-18"><a href="introduction-to-financial-time-series.html#cb73-18" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">&quot;S&amp;P500&quot;</span>, <span class="fu">func_summ_stat_ind</span>(ret_sp500)), </span>
+<span id="cb73-19"><a href="introduction-to-financial-time-series.html#cb73-19" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">&quot;Nikkei225&quot;</span>, <span class="fu">func_summ_stat_ind</span>(ret_nikkei))</span>
+<span id="cb73-20"><a href="introduction-to-financial-time-series.html#cb73-20" aria-hidden="true" tabindex="-1"></a>                         )</span>
+<span id="cb73-21"><a href="introduction-to-financial-time-series.html#cb73-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-22"><a href="introduction-to-financial-time-series.html#cb73-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table_summ_stat)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">min</th>
+<th align="left">max</th>
+<th align="left">mean</th>
+<th align="left">median</th>
+<th align="left">std</th>
+<th align="left">iqr</th>
+<th align="left">var</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BSE</td>
+<td align="left">-0.11</td>
+<td align="left">0.17</td>
+<td align="left">0.00061</td>
+<td align="left">0.00092</td>
+<td align="left">0.014</td>
+<td align="left">0.014</td>
+<td align="left">2e-04</td>
+</tr>
+<tr class="even">
+<td align="left">S&amp;P500</td>
+<td align="left">-0.09</td>
+<td align="left">0.12</td>
+<td align="left">0.00038</td>
+<td align="left">0.00061</td>
+<td align="left">0.013</td>
+<td align="left">0.0093</td>
+<td align="left">0.00016</td>
+</tr>
+<tr class="odd">
+<td align="left">Nikkei225</td>
+<td align="left">-0.11</td>
+<td align="left">0.1</td>
+<td align="left">0.00014</td>
+<td align="left">0.00059</td>
+<td align="left">0.016</td>
+<td align="left">0.015</td>
+<td align="left">0.00024</td>
+</tr>
+</tbody>
+</table>
+<p>For all series, the medians are about 1.5–3 times the corresponding means. This suggests that there are significant negative outliers.</p>
+<p>In general though, a natural choice for modeling return distribution is the ubiquitous normal distribution. To check if it is a plausible candidate, we plot the empirical histogram of returns for all three series separately.</p>
+</div>
+<div id="histograms-for-returns-for-each-index" class="section level3" number="3.8.2">
+<h3><span class="header-section-number">3.8.2</span> Histograms for returns for each index</h3>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="introduction-to-financial-time-series.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ret_BSE,</span>
+<span id="cb74-2"><a href="introduction-to-financial-time-series.html#cb74-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">80</span>,</span>
+<span id="cb74-3"><a href="introduction-to-financial-time-series.html#cb74-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb74-4"><a href="introduction-to-financial-time-series.html#cb74-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Daily Returns&quot;</span>,</span>
+<span id="cb74-5"><a href="introduction-to-financial-time-series.html#cb74-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>,</span>
+<span id="cb74-6"><a href="introduction-to-financial-time-series.html#cb74-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram for BSE&quot;</span></span>
+<span id="cb74-7"><a href="introduction-to-financial-time-series.html#cb74-7" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/histograms-1.png" width="336" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="introduction-to-financial-time-series.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ret_sp500,</span>
+<span id="cb75-2"><a href="introduction-to-financial-time-series.html#cb75-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">80</span>,</span>
+<span id="cb75-3"><a href="introduction-to-financial-time-series.html#cb75-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb75-4"><a href="introduction-to-financial-time-series.html#cb75-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Daily Returns&quot;</span>,</span>
+<span id="cb75-5"><a href="introduction-to-financial-time-series.html#cb75-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>,</span>
+<span id="cb75-6"><a href="introduction-to-financial-time-series.html#cb75-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram for S&amp;P500&quot;</span></span>
+<span id="cb75-7"><a href="introduction-to-financial-time-series.html#cb75-7" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/histograms-2.png" width="336" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="introduction-to-financial-time-series.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ret_nikkei,</span>
+<span id="cb76-2"><a href="introduction-to-financial-time-series.html#cb76-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">80</span>,</span>
+<span id="cb76-3"><a href="introduction-to-financial-time-series.html#cb76-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>,</span>
+<span id="cb76-4"><a href="introduction-to-financial-time-series.html#cb76-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Daily Returns&quot;</span>,</span>
+<span id="cb76-5"><a href="introduction-to-financial-time-series.html#cb76-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>,</span>
+<span id="cb76-6"><a href="introduction-to-financial-time-series.html#cb76-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Histogram for Nikkei225&quot;</span></span>
+<span id="cb76-7"><a href="introduction-to-financial-time-series.html#cb76-7" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/histograms-3.png" width="336" style="display: block; margin: auto;" /></p>
+<p>The three histograms do resemble a normal density. All of them display the classic bell curve characteristics. However, merely eyeballing the data is not proof enough.</p>
+</div>
+<div id="skewness-and-kurtosis" class="section level3" number="3.8.3">
+<h3><span class="header-section-number">3.8.3</span> Skewness and Kurtosis</h3>
+<p>One way to test if the data are normally distributed is to check their third and fourth central moments—the skewness and kurtosis. For normal random variables, the skewness must be 0 (the bell curve is unimodal and symmetric about its mean); and the kurtosis must be 3. If the data display substantial departures from such values there may be evidence of non-normality.</p>
+<p>Formally the skewness and kurtosis are defined as:</p>
+<p><span class="math display">\[s = \mathbb{E}(\frac{X-\mu}{\sigma})^3\]</span>
+<span class="math display">\[\kappa = \mathbb{E}(\frac{X-\mu}{\sigma})^4\]</span></p>
+<p>We compute the skewness and kurtosis of the return series for the three indices as follows:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="introduction-to-financial-time-series.html#cb77-1" aria-hidden="true" tabindex="-1"></a>skew <span class="ot">&lt;-</span> <span class="fu">rbind</span>(moments<span class="sc">::</span><span class="fu">skewness</span>(ret_BSE, <span class="at">na.rm =</span> T),</span>
+<span id="cb77-2"><a href="introduction-to-financial-time-series.html#cb77-2" aria-hidden="true" tabindex="-1"></a>              moments<span class="sc">::</span><span class="fu">skewness</span>(ret_sp500, <span class="at">na.rm =</span> T),</span>
+<span id="cb77-3"><a href="introduction-to-financial-time-series.html#cb77-3" aria-hidden="true" tabindex="-1"></a>              moments<span class="sc">::</span><span class="fu">skewness</span>(ret_nikkei, <span class="at">na.rm =</span> T)</span>
+<span id="cb77-4"><a href="introduction-to-financial-time-series.html#cb77-4" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb77-5"><a href="introduction-to-financial-time-series.html#cb77-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-6"><a href="introduction-to-financial-time-series.html#cb77-6" aria-hidden="true" tabindex="-1"></a>kurt <span class="ot">&lt;-</span> <span class="fu">rbind</span>(moments<span class="sc">::</span><span class="fu">kurtosis</span>(ret_BSE, <span class="at">na.rm =</span> T),</span>
+<span id="cb77-7"><a href="introduction-to-financial-time-series.html#cb77-7" aria-hidden="true" tabindex="-1"></a>              moments<span class="sc">::</span><span class="fu">kurtosis</span>(ret_sp500, <span class="at">na.rm =</span> T),</span>
+<span id="cb77-8"><a href="introduction-to-financial-time-series.html#cb77-8" aria-hidden="true" tabindex="-1"></a>              moments<span class="sc">::</span><span class="fu">kurtosis</span>(ret_nikkei, <span class="at">na.rm =</span> T)</span>
+<span id="cb77-9"><a href="introduction-to-financial-time-series.html#cb77-9" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb77-10"><a href="introduction-to-financial-time-series.html#cb77-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-11"><a href="introduction-to-financial-time-series.html#cb77-11" aria-hidden="true" tabindex="-1"></a>table_skew_kurt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Skew =</span> skew, </span>
+<span id="cb77-12"><a href="introduction-to-financial-time-series.html#cb77-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Kurt =</span> kurt,</span>
+<span id="cb77-13"><a href="introduction-to-financial-time-series.html#cb77-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Excess_Kurt =</span> kurt<span class="dv">-3</span></span>
+<span id="cb77-14"><a href="introduction-to-financial-time-series.html#cb77-14" aria-hidden="true" tabindex="-1"></a>                              )</span>
+<span id="cb77-15"><a href="introduction-to-financial-time-series.html#cb77-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-16"><a href="introduction-to-financial-time-series.html#cb77-16" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table_skew_kurt)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Skew</th>
+<th align="right">Kurt</th>
+<th align="right">Excess_Kurt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0967129</td>
+<td align="right">12.870632</td>
+<td align="right">9.870632</td>
+</tr>
+<tr class="even">
+<td align="right">-0.0938530</td>
+<td align="right">15.121463</td>
+<td align="right">12.121463</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.6276185</td>
+<td align="right">9.691047</td>
+<td align="right">6.691047</td>
+</tr>
+</tbody>
+</table>
+<p>There is substantial evidence from the table above to suggest that the returns may be <em>non-normal</em>. Formally however, we resort the <em>Jarque-Bera Test</em> to confirm our hypothesis.</p>
+</div>
+<div id="the-jarque-bera-test-for-normality" class="section level3" number="3.8.4">
+<h3><span class="header-section-number">3.8.4</span> The Jarque-Bera Test for Normality</h3>
+<p>There is a large literature that suggests two empirical regularities for asset returns:</p>
+<ol style="list-style-type: decimal">
+<li>Crashes occur more frequently than booms</li>
+<li>Extreme events occur more frequently than suggested by normal distributions</li>
+</ol>
+<p>The first outcome is consistent with a distribution displaying <em>negative</em> skewness. The second outcome suggests <em>excess kurtosis</em>.</p>
+<p>The Jarcque-Bera test is a moment based test that relis on the observation that for a normal random variable the skewness and excess kurtosis are both 0. The estimators for skewness and kurtosis are:
+<span class="math display">\[\hat{s} = \frac{1}{T}\sum_{t=1}^T (\frac{x_t-\bar{x}}{\hat{\sigma}})^3\]</span>
+<span class="math display">\[\hat{\kappa} = \frac{1}{T}\sum_{t=1}^T (\frac{x_t-\bar{x}}{\hat{\sigma}})^4\]</span></p>
+<p>and as <span class="math inline">\(T\to \infty\)</span></p>
+<p><span class="math display">\[\sqrt T\cdot \hat{s} \to \mathcal{N}(0, 6)\]</span>
+<span class="math display">\[\sqrt T\cdot (\hat{\kappa}-3) \to \mathcal{N}(0, 24)\]</span></p>
+<p>Hence, for normal random variables</p>
+<p><span class="math display">\[\frac{\hat{s}}{\sqrt(\frac{6}{T})}\to \mathcal{N}(0,1)\]</span>
+<span class="math display">\[\frac{\hat{\kappa}-3}{\sqrt(\frac{24}{T})}\to \mathcal{N}(0,1)\]</span></p>
+<p>The Jarque-Bera test statistic uses the following insight:</p>
+<p><span class="math display">\[JB = T[\frac{\hat{s}^2}{6}+\frac{\hat{\kappa}-3}{24}]\to \chi^2(2)\]</span></p>
+<p>In order to test if the returns from the three indices do follow the normal distribution we employ the package <code>tseries</code> and the function <code>jarque.bera.test()</code> in it. Note that it disallows any <code>NA</code> values.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="introduction-to-financial-time-series.html#cb78-1" aria-hidden="true" tabindex="-1"></a>tseries<span class="sc">::</span><span class="fu">jarque.bera.test</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)) <span class="co">#benchmarking</span></span></code></pre></div>
+<pre><code>## 
+##  Jarque Bera Test
+## 
+## data:  rnorm(1000, 0, 10)
+## X-squared = 0.71894, df = 2, p-value = 0.698</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="introduction-to-financial-time-series.html#cb80-1" aria-hidden="true" tabindex="-1"></a>tseries<span class="sc">::</span><span class="fu">jarque.bera.test</span>(<span class="sc">!</span><span class="fu">is.na</span>(ret_BSE)) <span class="co">#note: !is.na()</span></span></code></pre></div>
+<pre><code>## 
+##  Jarque Bera Test
+## 
+## data:  !is.na(ret_BSE)
+## X-squared = 3465305843, df = 2, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="introduction-to-financial-time-series.html#cb82-1" aria-hidden="true" tabindex="-1"></a>tseries<span class="sc">::</span><span class="fu">jarque.bera.test</span>(<span class="sc">!</span><span class="fu">is.na</span>(ret_sp500))</span></code></pre></div>
+<pre><code>## 
+##  Jarque Bera Test
+## 
+## data:  !is.na(ret_sp500)
+## X-squared = 14394, df = 2, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="introduction-to-financial-time-series.html#cb84-1" aria-hidden="true" tabindex="-1"></a>tseries<span class="sc">::</span><span class="fu">jarque.bera.test</span>(<span class="sc">!</span><span class="fu">is.na</span>(ret_nikkei))</span></code></pre></div>
+<pre><code>## 
+##  Jarque Bera Test
+## 
+## data:  !is.na(ret_nikkei)
+## X-squared = 5265.2, df = 2, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div id="stylized-facts" class="section level2" number="3.9">
+<h2><span class="header-section-number">3.9</span> Stylized Facts</h2>
+<p>Stock prices, commodity prices, exchange rates etc. in empirical financial markets display many striking regularities discussed in <span class="citation">(<a href="#ref-Cont:2001" role="doc-biblioref"><strong>Cont:2001?</strong></a>)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Fat Tails:</strong> Unconditional return distributions have tails fatter than those of normal distribution. Conditional return distributions are also non-normal.</li>
+<li><strong>Asymmetry:</strong> Unconditional return distributions are negatively skewed.</li>
+<li><strong>Aggregated Normality:</strong> Lower frequency returns resemble normal distributions more than higher frequency returns.</li>
+<li><strong>No Autocorrelation:</strong> Except at high frequencies, returns generally do not display autocorrelation.</li>
+<li><strong>Volatility Clustering:</strong> Return volatility is autocorrelated.</li>
+<li><strong>Time-Varying Cross Correlation:</strong> Correlation between assets returns tends to be higher during high volatility periods especially during market crashes.</li>
+</ol>
+</div>
+<div id="references" class="section level2" number="3.10">
+<h2><span class="header-section-number">3.10</span> References</h2>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Or, in other words, if investors beat the market it’s not perhaps due to their so-called investing skills but due to their being lucky.<a href="introduction-to-financial-time-series.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-basic-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-arma-garch-processes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/10-intro_fin_ts.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

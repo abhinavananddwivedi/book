@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Data-types in R: Some Examples | Book: Statistical Finance and Computing</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Data-types in R: Some Examples | Book: Statistical Finance and Computing" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Data-types in R: Some Examples | Book: Statistical Finance and Computing" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Abhinav Anand" />
+
+
+<meta name="date" content="2021-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pipes.html"/>
+<link rel="next" href="functions.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> Setup</a></li>
+<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#remarks"><i class="fa fa-check"></i><b>3.0.1</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>4</b> Pipes</a></li>
+<li class="chapter" data-level="5" data-path="data-types-in-r-some-examples.html"><a href="data-types-in-r-some-examples.html"><i class="fa fa-check"></i><b>5</b> Data-types in R: Some Examples</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-types-in-r-some-examples.html"><a href="data-types-in-r-some-examples.html#vectors"><i class="fa fa-check"></i><b>5.1</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-types-in-r-some-examples.html"><a href="data-types-in-r-some-examples.html#recycling"><i class="fa fa-check"></i><b>5.1.1</b> Recycling</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-types-in-r-some-examples.html"><a href="data-types-in-r-some-examples.html#note"><i class="fa fa-check"></i><b>5.1.2</b> Note</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-types-in-r-some-examples.html"><a href="data-types-in-r-some-examples.html#the-c-operator"><i class="fa fa-check"></i><b>5.1.3</b> The <code>c()</code> operator</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-types-in-r-some-examples.html"><a href="data-types-in-r-some-examples.html#arrays-and-matrices"><i class="fa fa-check"></i><b>5.2</b> Arrays and Matrices</a></li>
+<li class="chapter" data-level="5.3" data-path="data-types-in-r-some-examples.html"><a href="data-types-in-r-some-examples.html#dataframes"><i class="fa fa-check"></i><b>5.3</b> Dataframes</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="data-types-in-r-some-examples.html"><a href="data-types-in-r-some-examples.html#subsetting-dataframes"><i class="fa fa-check"></i><b>5.3.1</b> Subsetting Dataframes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6</b> Functions</a></li>
+<li class="chapter" data-level="7" data-path="directory-management.html"><a href="directory-management.html"><i class="fa fa-check"></i><b>7</b> Directory Management</a></li>
+<li class="chapter" data-level="8" data-path="rstudio-projects.html"><a href="rstudio-projects.html"><i class="fa fa-check"></i><b>8</b> RStudio Projects</a></li>
+<li class="chapter" data-level="9" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>9</b> Cross-references</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>9.1</b> Chapters and sub-chapters</a></li>
+<li class="chapter" data-level="9.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>9.2</b> Captioned figures and tables</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>10</b> Parts</a></li>
+<li class="chapter" data-level="11" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>11</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>11.1</b> Footnotes</a></li>
+<li class="chapter" data-level="11.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>11.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>12</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>12.1</b> Equations</a></li>
+<li class="chapter" data-level="12.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>12.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="12.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>12.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>13</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>13.1</b> Publishing</a></li>
+<li class="chapter" data-level="13.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>13.2</b> 404 pages</a></li>
+<li class="chapter" data-level="13.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>13.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Book: Statistical Finance and Computing</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-types-in-r-some-examples" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Data-types in R: Some Examples</h1>
+<div id="vectors" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Vectors</h2>
+<p>There are two main types of vectors in R: atomic and non-atomic. Atomic vectors have components of the same type, say double, or integer or logical etc. These are also referred to as “numeric” vectors. By default all vectors in R are considered column-vectors.</p>
+<p>Non-atomic vectors (including “lists”) can contain heterogenous components.</p>
+<div id="recycling" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Recycling</h3>
+<p>There are no built-in scalars in R. Scalars are implemented as vectors of length 1. Most functions in R, hence, are vectorized—they take vector arguments and operate on it component-wise. For example, for the vector <code>x &lt;- 1:100</code>, the function <code>sin(x)</code> produces each component’s sine, i.e., <code>sin(1):sin(100)</code>.</p>
+<p>When we mix scalars and vectors, the scalars are automatically replicated to be the same size as the vector. For example:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="data-types-in-r-some-examples.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>##  [1]  2  3  4  5  6  7  8  9 10 11</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="data-types-in-r-some-examples.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#is the same operation as </span></span>
+<span id="cb22-2"><a href="data-types-in-r-some-examples.html#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="data-types-in-r-some-examples.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>) <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="co">#note the highly useful rep() function</span></span></code></pre></div>
+<pre><code>##  [1]  2  3  4  5  6  7  8  9 10 11</code></pre>
+<p>A related question: what happens if we add two vectors of different lengths?</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="data-types-in-r-some-examples.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span></span></code></pre></div>
+<pre><code>##  [1]  2  4  6  5  7  9  8 10 12 11 13 15 14 16 18</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="data-types-in-r-some-examples.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#is the same as</span></span>
+<span id="cb26-2"><a href="data-types-in-r-some-examples.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="data-types-in-r-some-examples.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">5</span>) <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span></span></code></pre></div>
+<pre><code>##  [1]  2  4  6  5  7  9  8 10 12 11 13 15 14 16 18</code></pre>
+<p>This is “recycling”: R replicates the shorter vector to the same length as the longer vector and then adds the two together. While such usage is uncommon for other programming languages, it has undeniable utility, though one needs to be cautious when implementing this idea.</p>
+</div>
+<div id="note" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Note</h3>
+<ol style="list-style-type: decimal">
+<li>While recycling works for vectors, it doesn’t do so for matrices or other rectangular data-types.</li>
+</ol>
+</div>
+<div id="the-c-operator" class="section level3" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> The <code>c()</code> operator</h3>
+<p>The <code>c()</code> operator stands for “concatenate” or according to some writers, “combine.”</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="data-types-in-r-some-examples.html#cb28-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb28-2"><a href="data-types-in-r-some-examples.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="data-types-in-r-some-examples.html#cb28-3" aria-hidden="true" tabindex="-1"></a>(y_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">10</span>, y)) <span class="co">#concatenate</span></span></code></pre></div>
+<pre><code>##  [1]  5  6  7  8  9 10  1  2  3  4</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="data-types-in-r-some-examples.html#cb30-1" aria-hidden="true" tabindex="-1"></a>(y_3 <span class="ot">&lt;-</span> y_2[<span class="fu">c</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">7</span>)] )<span class="co">#note the square brackets</span></span></code></pre></div>
+<pre><code>## [1]  7  8  9 10  1</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="data-types-in-r-some-examples.html#cb32-1" aria-hidden="true" tabindex="-1"></a>(y_4 <span class="ot">&lt;-</span> y_2[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)]) <span class="co">#note the - sign</span></span></code></pre></div>
+<pre><code>## [1]  6  7  9 10  1  2  3  4</code></pre>
+</div>
+</div>
+<div id="arrays-and-matrices" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Arrays and Matrices</h2>
+<p>Matrices are two-dimensional data-types with columns and rows as the two dimensions. Arrays are data-types that can contain more than two dimensions as well (height, say in addition to rows and columns). These may or may not have special named attributes such as column names or row names.</p>
+<p>Matrices can be constructed from component vectors by the usage of commands <code>cbind()</code> and <code>rbind()</code></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="data-types-in-r-some-examples.html#cb34-1" aria-hidden="true" tabindex="-1"></a>c_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>)</span>
+<span id="cb34-2"><a href="data-types-in-r-some-examples.html#cb34-2" aria-hidden="true" tabindex="-1"></a>c_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb34-3"><a href="data-types-in-r-some-examples.html#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="data-types-in-r-some-examples.html#cb34-4" aria-hidden="true" tabindex="-1"></a>(mat_c <span class="ot">&lt;-</span> <span class="fu">cbind</span>(c_1, c_2)) <span class="co">#column-bind</span></span></code></pre></div>
+<pre><code>##      c_1 c_2
+## [1,]   4  10
+## [2,]   9   3
+## [3,]  10   1
+## [4,]  12  10</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="data-types-in-r-some-examples.html#cb36-1" aria-hidden="true" tabindex="-1"></a>(mat_r <span class="ot">&lt;-</span> <span class="fu">rbind</span>(c_1, c_2)) <span class="co">#row-bind</span></span></code></pre></div>
+<pre><code>##     [,1] [,2] [,3] [,4]
+## c_1    4    9   10   12
+## c_2   10    3    1   10</code></pre>
+</div>
+<div id="dataframes" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Dataframes</h2>
+<p>Dataframes are data-types with a collection of vectors of the same length which may be of different types. Each column (variable) has a column-name that can be used to access the whole vector. Additionally, the column can be extracted by appending to the dataframe, the <code>$</code> sign followed by the column-name. The full set of names can be extracted by the command <code>names()</code></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="data-types-in-r-some-examples.html#cb38-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="fu">runif</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), </span>
+<span id="cb38-2"><a href="data-types-in-r-some-examples.html#cb38-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb38-3"><a href="data-types-in-r-some-examples.html#cb38-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">c =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb38-4"><a href="data-types-in-r-some-examples.html#cb38-4" aria-hidden="true" tabindex="-1"></a>                 )</span>
+<span id="cb38-5"><a href="data-types-in-r-some-examples.html#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="data-types-in-r-some-examples.html#cb38-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>a <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## [1] 0.3265615 0.3807169 0.5339710 0.9367128 0.6018434 0.9769731</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="data-types-in-r-some-examples.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<div id="subsetting-dataframes" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Subsetting Dataframes</h3>
+<p>If we need only part of a dataframe, we can refer to the relevant indices in square brackets appended to the name of the dataframe. Leaving an index blank includes all entries.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="data-types-in-r-some-examples.html#cb42-1" aria-hidden="true" tabindex="-1"></a>df[, <span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co">#column 1</span></span></code></pre></div>
+<pre><code>## [1] 0.3265615 0.3807169 0.5339710 0.9367128 0.6018434 0.9769731</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="data-types-in-r-some-examples.html#cb44-1" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">3</span>, ] <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co">#row 3</span></span></code></pre></div>
+<pre><code>##          a        b  c
+## 3 0.533971 1.646206 13</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="data-types-in-r-some-examples.html#cb46-1" aria-hidden="true" tabindex="-1"></a>df[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;c&quot;</span>]</span></code></pre></div>
+<pre><code>## [1] 11 12</code></pre>
+<p><strong>Subsetting with Logical Indices</strong></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="data-types-in-r-some-examples.html#cb48-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>b <span class="sc">&lt;</span> <span class="fl">0.5</span>, ] <span class="co">#only those rows whose column b has values &lt; 0.5</span></span></code></pre></div>
+<pre><code>##             a          b  c
+## 1  0.32656149 -1.4830040 11
+## 2  0.38071690 -0.3668383 12
+## 4  0.93671279 -3.3410257 14
+## 5  0.60184336 -1.0881788 15
+## 6  0.97697306 -0.2154351 16
+## 7  0.08790406 -0.7432244 17
+## 8  0.78013159 -0.6152112 18
+## 9  0.51920369  0.4783568 19
+## 10 0.96694565 -0.2409926 20</code></pre>
+<p><strong>Subsetting and Assignment</strong></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="data-types-in-r-some-examples.html#cb50-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>c <span class="sc">&gt;=</span> <span class="dv">14</span>, <span class="st">&quot;a&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb50-2"><a href="data-types-in-r-some-examples.html#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="data-types-in-r-some-examples.html#cb50-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>##            a          b  c
+## 1  0.3265615 -1.4830040 11
+## 2  0.3807169 -0.3668383 12
+## 3  0.5339710  1.6462062 13
+## 4         NA -3.3410257 14
+## 5         NA -1.0881788 15
+## 6         NA -0.2154351 16
+## 7         NA -0.7432244 17
+## 8         NA -0.6152112 18
+## 9         NA  0.4783568 19
+## 10        NA -0.2409926 20</code></pre>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pipes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

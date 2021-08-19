@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Introduction to graphics in R | Book: Statistical Finance and Computing</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Introduction to graphics in R | Book: Statistical Finance and Computing" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Introduction to graphics in R | Book: Statistical Finance and Computing" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Abhinav Anand" />
+
+
+<meta name="date" content="2021-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-basic-r.html"/>
+
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to basic <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#basics"><i class="fa fa-check"></i><b>2.2</b> Basics</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#remarks"><i class="fa fa-check"></i><b>2.2.1</b> Remarks</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#pipes"><i class="fa fa-check"></i><b>2.3</b> Pipes</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#data-types-in-r-some-examples"><i class="fa fa-check"></i><b>2.4</b> Data-types in R: Some Examples</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#vectors"><i class="fa fa-check"></i><b>2.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#recycling"><i class="fa fa-check"></i><b>2.4.2</b> Recycling</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#note"><i class="fa fa-check"></i><b>2.4.3</b> Note</a></li>
+<li class="chapter" data-level="2.4.4" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#the-c-operator"><i class="fa fa-check"></i><b>2.4.4</b> The <code>c()</code> operator</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#arrays-and-matrices"><i class="fa fa-check"></i><b>2.4.5</b> Arrays and Matrices</a></li>
+<li class="chapter" data-level="2.4.6" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#dataframes"><i class="fa fa-check"></i><b>2.4.6</b> Dataframes</a></li>
+<li class="chapter" data-level="2.4.7" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#subsetting-dataframes"><i class="fa fa-check"></i><b>2.4.7</b> Subsetting Dataframes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#functions"><i class="fa fa-check"></i><b>2.5</b> Functions</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#directory-management"><i class="fa fa-check"></i><b>2.6</b> Directory Management</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-basic-r.html"><a href="introduction-to-basic-r.html#rstudio-projects"><i class="fa fa-check"></i><b>2.7</b> RStudio Projects</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html"><i class="fa fa-check"></i><b>3</b> Introduction to graphics in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#setup-1"><i class="fa fa-check"></i><b>3.1</b> Setup</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#introduction-to-ggplot"><i class="fa fa-check"></i><b>3.2</b> Introduction to ggplot</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes"><i class="fa fa-check"></i><b>3.2.1</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#questions"><i class="fa fa-check"></i><b>3.3</b> Questions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#are-western-countries-richer-than-eastern-countries"><i class="fa fa-check"></i><b>3.3.1</b> Are “Western” countries richer than “Eastern” countries?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#graphics"><i class="fa fa-check"></i><b>3.3.2</b> Graphics</a></li>
+<li class="chapter" data-level="3.3.3" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#a-more-granular-look-china-india-france-germany"><i class="fa fa-check"></i><b>3.3.3</b> A More Granular Look: China, India, France, Germany</a></li>
+<li class="chapter" data-level="3.3.4" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes-1"><i class="fa fa-check"></i><b>3.3.4</b> Notes</a></li>
+<li class="chapter" data-level="3.3.5" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#faceting"><i class="fa fa-check"></i><b>3.3.5</b> Faceting</a></li>
+<li class="chapter" data-level="3.3.6" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#notes-2"><i class="fa fa-check"></i><b>3.3.6</b> Notes</a></li>
+<li class="chapter" data-level="3.3.7" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#the-notion-of-geoms-in-ggplot"><i class="fa fa-check"></i><b>3.3.7</b> The Notion of Geoms in <code>ggplot()</code></a></li>
+<li class="chapter" data-level="3.3.8" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#plotting-linear-trends-geom_smooth"><i class="fa fa-check"></i><b>3.3.8</b> Plotting linear trends: <code>geom_smooth()</code></a></li>
+<li class="chapter" data-level="3.3.9" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#question-what-was-population-growth-in-india"><i class="fa fa-check"></i><b>3.3.9</b> Question: What was population growth in India?</a></li>
+<li class="chapter" data-level="3.3.10" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#question-what-about-the-same-in-china"><i class="fa fa-check"></i><b>3.3.10</b> Question: What about the same in China?</a></li>
+<li class="chapter" data-level="3.3.11" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#bar-charts"><i class="fa fa-check"></i><b>3.3.11</b> Bar Charts</a></li>
+<li class="chapter" data-level="3.3.12" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#boxplots"><i class="fa fa-check"></i><b>3.3.12</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.13" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#themes"><i class="fa fa-check"></i><b>3.3.13</b> Themes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#faq-how-to-plot-multiple-variables-together"><i class="fa fa-check"></i><b>3.4</b> FAQ: How to Plot Multiple Variables Together?</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="introduction-to-graphics-in-r.html"><a href="introduction-to-graphics-in-r.html#wide-versus-long-data"><i class="fa fa-check"></i><b>3.4.1</b> Wide Versus Long Data</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Book: Statistical Finance and Computing</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-graphics-in-r" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Introduction to graphics in R</h1>
+<div id="setup-1" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Setup</h2>
+<p>The package suite <code>tidyverse</code> which includes the package <code>ggplot2</code> needs to be included.
+For installing <code>ggplot2</code>, type <code>install.packages("ggplot2")</code> or equivalently for <code>tidyverse</code>,
+type <code>install.packages("tidyverse")</code></p>
+</div>
+<div id="introduction-to-ggplot" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Introduction to ggplot</h2>
+<p>The <code>gg</code> of <code>ggplot</code> stands for (layered) “grammar of graphics”
+<!-- [@Wilkinson:2005], [@Wickham:2010].  -->
+This idea will be further explored by the means of data from the package <code>gapminder()</code>. To install, type <code>install.packages("gapminder")</code> in the RStudio console.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-graphics-in-r.html#cb59-1" aria-hidden="true" tabindex="-1"></a>data_gapminder <span class="ot">&lt;-</span> gapminder<span class="sc">::</span>gapminder </span></code></pre></div>
+<div id="notes" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Notes</h3>
+<ol style="list-style-type: decimal">
+<li><p>Why <code>&lt;-</code> as opposed to <code>=</code> ?</p></li>
+<li><p>Why <code>gapminder::gapminder</code> ?</p></li>
+<li><p>What is a dataframe?</p></li>
+</ol>
+<p>A data frame is a rectangular collection of variables (in the columns) and observations (in the rows). It’s different from a ‘mere’ matrix since the columns have variable names usually and can contain different “types,” say numeric, categorical, character and logical all together.</p>
+</div>
+</div>
+<div id="questions" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Questions</h2>
+<div id="are-western-countries-richer-than-eastern-countries" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Are “Western” countries richer than “Eastern” countries?</h3>
+<p>The current GDP/capita of Europe (in 2007):</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="introduction-to-graphics-in-r.html#cb60-1" aria-hidden="true" tabindex="-1"></a>data_eur_2007 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span> <span class="co">#what is this funny sign?</span></span>
+<span id="cb60-2"><a href="introduction-to-graphics-in-r.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span> <span class="co">#isolates variables for year 2007</span></span>
+<span id="cb60-3"><a href="introduction-to-graphics-in-r.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Europe&quot;</span>) </span>
+<span id="cb60-4"><a href="introduction-to-graphics-in-r.html#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="introduction-to-graphics-in-r.html#cb60-5" aria-hidden="true" tabindex="-1"></a>(plot_eur <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_eur_2007) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="introduction-to-graphics-in-r.html#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> country))</span>
+<span id="cb60-7"><a href="introduction-to-graphics-in-r.html#cb60-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="co">#why parentheses around the command?</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/plot_eur-1.png" width="672" /></p>
+<p>There is high variation—from Albania to Norway.</p>
+<p>What about Asian countries in 2007?</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introduction-to-graphics-in-r.html#cb61-1" aria-hidden="true" tabindex="-1"></a>data_asia_2007 <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="introduction-to-graphics-in-r.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">%&gt;%</span> <span class="co">#isolates variables for year 2007</span></span>
+<span id="cb61-3"><a href="introduction-to-graphics-in-r.html#cb61-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Asia&quot;</span>) <span class="co">#collect only Asian countries</span></span>
+<span id="cb61-4"><a href="introduction-to-graphics-in-r.html#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="introduction-to-graphics-in-r.html#cb61-5" aria-hidden="true" tabindex="-1"></a>(plot_asia <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_asia_2007) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="introduction-to-graphics-in-r.html#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> country)) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="introduction-to-graphics-in-r.html#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;GDP/capita (USD)&quot;</span>, </span>
+<span id="cb61-8"><a href="introduction-to-graphics-in-r.html#cb61-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Country&quot;</span>,</span>
+<span id="cb61-9"><a href="introduction-to-graphics-in-r.html#cb61-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;GDP per capita in Asia&quot;</span>,</span>
+<span id="cb61-10"><a href="introduction-to-graphics-in-r.html#cb61-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Put subtitle here&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/plot_asia-1.png" width="672" /></p>
+<p>Again, large variation among Asian countries but what about the bounds? What can we say about the question?</p>
+</div>
+<div id="graphics" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Graphics</h3>
+<p>We start with the function <code>ggplot()</code>. It creates a coordinate system that we will add layers to. The first argument is the dataset to use in the graph.</p>
+<p><code>ggplot(data = data_eur_2007)</code> creates an empty graph. The function <code>geom_point()</code> adds a layer of points to our plot. Each geom function in ggplot2 takes a mapping argument. This defines how variables in our dataset are mapped to aesthetics such as axes, colors, shapes etc. The <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> arguments of <code>aes()</code> specify which variables to map to the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes. Variables can also be mapped to aesthetics such as colors, shapes, sizes etc.</p>
+</div>
+<div id="a-more-granular-look-china-india-france-germany" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> A More Granular Look: China, India, France, Germany</h3>
+<p>What about life expectancy in these countries with time?</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="introduction-to-graphics-in-r.html#cb62-1" aria-hidden="true" tabindex="-1"></a>data_CIFG <span class="ot">&lt;-</span> data_gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="introduction-to-graphics-in-r.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;China&quot;</span>, </span>
+<span id="cb62-3"><a href="introduction-to-graphics-in-r.html#cb62-3" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;India&quot;</span>, </span>
+<span id="cb62-4"><a href="introduction-to-graphics-in-r.html#cb62-4" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;France&quot;</span>, </span>
+<span id="cb62-5"><a href="introduction-to-graphics-in-r.html#cb62-5" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;Germany&quot;</span></span>
+<span id="cb62-6"><a href="introduction-to-graphics-in-r.html#cb62-6" aria-hidden="true" tabindex="-1"></a>                               )</span>
+<span id="cb62-7"><a href="introduction-to-graphics-in-r.html#cb62-7" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb62-8"><a href="introduction-to-graphics-in-r.html#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="introduction-to-graphics-in-r.html#cb62-9" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_life_exp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_CIFG) <span class="sc">+</span></span>
+<span id="cb62-10"><a href="introduction-to-graphics-in-r.html#cb62-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb62-11"><a href="introduction-to-graphics-in-r.html#cb62-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">y =</span> lifeExp, </span>
+<span id="cb62-12"><a href="introduction-to-graphics-in-r.html#cb62-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">color =</span> country)</span>
+<span id="cb62-13"><a href="introduction-to-graphics-in-r.html#cb62-13" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb62-14"><a href="introduction-to-graphics-in-r.html#cb62-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG-1.png" width="672" /></p>
+</div>
+<div id="notes-1" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Notes</h3>
+<ol style="list-style-type: decimal">
+<li>Plots can be stored as variables too.</li>
+<li>Other aesthetic attributes: shape, size, alpha (transparency) etc.</li>
+<li>Note where to put the <code>+</code> sign.</li>
+<li><code>geom_line()</code> as opposed to points. Other “geoms” are <code>geom_smooth</code>, <code>geom_boxplot</code>, <code>geom_bar</code> etc.</li>
+</ol>
+</div>
+<div id="faceting" class="section level3" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> Faceting</h3>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="introduction-to-graphics-in-r.html#cb63-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_life_cont <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_CIFG) <span class="sc">+</span></span>
+<span id="cb63-2"><a href="introduction-to-graphics-in-r.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb63-3"><a href="introduction-to-graphics-in-r.html#cb63-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">y =</span> lifeExp, </span>
+<span id="cb63-4"><a href="introduction-to-graphics-in-r.html#cb63-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">color =</span> country)</span>
+<span id="cb63-5"><a href="introduction-to-graphics-in-r.html#cb63-5" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">+</span></span>
+<span id="cb63-6"><a href="introduction-to-graphics-in-r.html#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> continent)</span>
+<span id="cb63-7"><a href="introduction-to-graphics-in-r.html#cb63-7" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_Facet-1.png" width="672" /></p>
+</div>
+<div id="notes-2" class="section level3" number="3.3.6">
+<h3><span class="header-section-number">3.3.6</span> Notes</h3>
+<ol style="list-style-type: decimal">
+<li>To facet on one variable (‘continent’ here), use <code>facet_wrap()</code>.</li>
+<li>To facet on two variables, use <code>facet_grid()</code></li>
+</ol>
+</div>
+<div id="the-notion-of-geoms-in-ggplot" class="section level3" number="3.3.7">
+<h3><span class="header-section-number">3.3.7</span> The Notion of Geoms in <code>ggplot()</code></h3>
+<p>Sometimes one needs bar charts, sometimes histograms; at other times scatterplots or lines etc. All these are different “geoms” in <code>ggplot()</code>. Scatterplots can be made with <code>geom_point()</code>, lineplots can be implemented with <code>geom_line()</code>; boxplots require <code>geom_boxplot()</code>, barcharts need <code>geom_bar()</code> and so on. Multiple geoms could be part of the same graph. The library ggplot2 provides over 30 geoms.</p>
+<p>Each geom will need “aesthetic” parameters: for example, which datasets form the <span class="math inline">\(x\)</span> axis? Which ones form the <span class="math inline">\(y\)</span> axis? What colors to use for different variables?</p>
+<p>Somewhat unsurprisingly, not every aesthetic works with every geom. We could set the shape parameter of a point, but cannot do so for a line.</p>
+<p>This is how we could include multiple geoms in the same plot:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="introduction-to-graphics-in-r.html#cb64-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_mult_geom <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_CIFG) <span class="sc">+</span></span>
+<span id="cb64-2"><a href="introduction-to-graphics-in-r.html#cb64-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb64-3"><a href="introduction-to-graphics-in-r.html#cb64-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">linetype =</span> country))</span>
+<span id="cb64-4"><a href="introduction-to-graphics-in-r.html#cb64-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_Mult_Geom-1.png" width="672" /></p>
+<p>Note however, that we need to rewrite the code for aesthetic parameters: <code>x = year, y = lifeExp</code>. We could re-express the same idea in fewer lines—by passing some common aesthetic parameters as global options—by including them in the main <code>ggplot</code> argument:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-graphics-in-r.html#cb65-1" aria-hidden="true" tabindex="-1"></a>plot_CIFG_mult_geom_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_CIFG, </span>
+<span id="cb65-2"><a href="introduction-to-graphics-in-r.html#cb65-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb65-3"><a href="introduction-to-graphics-in-r.html#cb65-3" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb65-4"><a href="introduction-to-graphics-in-r.html#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span>  <span class="fu">aes</span>(<span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb65-5"><a href="introduction-to-graphics-in-r.html#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">linetype =</span> country))</span></code></pre></div>
+</div>
+<div id="plotting-linear-trends-geom_smooth" class="section level3" number="3.3.8">
+<h3><span class="header-section-number">3.3.8</span> Plotting linear trends: <code>geom_smooth()</code></h3>
+<p>Fitting a line to a set of observations is linear smoothing. Fitting a polynomial of degree 2 is quadratic smoothing and so on. When we wish to plot observations and the best linear fit computed by linear regression, we need to use <code>geom_smooth()</code> with the option <code>method = "lm"</code> where <code>lm()</code> stands for “linear model.”</p>
+</div>
+<div id="question-what-was-population-growth-in-india" class="section level3" number="3.3.9">
+<h3><span class="header-section-number">3.3.9</span> Question: What was population growth in India?</h3>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-to-graphics-in-r.html#cb66-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_pop_Ind <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">filter</span>(data_CIFG, <span class="co">#why no +?</span></span>
+<span id="cb66-2"><a href="introduction-to-graphics-in-r.html#cb66-2" aria-hidden="true" tabindex="-1"></a>                                           country <span class="sc">==</span> <span class="st">&quot;India&quot;</span>), </span>
+<span id="cb66-3"><a href="introduction-to-graphics-in-r.html#cb66-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pop)) <span class="sc">+</span></span>
+<span id="cb66-4"><a href="introduction-to-graphics-in-r.html#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb66-5"><a href="introduction-to-graphics-in-r.html#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> F) <span class="co">#se = &quot;standard errors&quot;</span></span>
+<span id="cb66-6"><a href="introduction-to-graphics-in-r.html#cb66-6" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_pop_Ind-1.png" width="672" /></p>
+</div>
+<div id="question-what-about-the-same-in-china" class="section level3" number="3.3.10">
+<h3><span class="header-section-number">3.3.10</span> Question: What about the same in China?</h3>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-to-graphics-in-r.html#cb67-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_pop_China <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">filter</span>(data_CIFG, </span>
+<span id="cb67-2"><a href="introduction-to-graphics-in-r.html#cb67-2" aria-hidden="true" tabindex="-1"></a>                                             country <span class="sc">==</span> <span class="st">&quot;China&quot;</span>), </span>
+<span id="cb67-3"><a href="introduction-to-graphics-in-r.html#cb67-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pop)) <span class="sc">+</span></span>
+<span id="cb67-4"><a href="introduction-to-graphics-in-r.html#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb67-5"><a href="introduction-to-graphics-in-r.html#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="co">#se = T by default</span></span>
+<span id="cb67-6"><a href="introduction-to-graphics-in-r.html#cb67-6" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_pop_China-1.png" width="672" /></p>
+<p>The default smoothing method however is “loess” (locally weighted scatterplot smoothing)</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="introduction-to-graphics-in-r.html#cb68-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_pop_Ind <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">filter</span>(data_CIFG, </span>
+<span id="cb68-2"><a href="introduction-to-graphics-in-r.html#cb68-2" aria-hidden="true" tabindex="-1"></a>                                           continent <span class="sc">==</span> <span class="st">&quot;Asia&quot;</span>), </span>
+<span id="cb68-3"><a href="introduction-to-graphics-in-r.html#cb68-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> pop)) <span class="sc">+</span></span>
+<span id="cb68-4"><a href="introduction-to-graphics-in-r.html#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb68-5"><a href="introduction-to-graphics-in-r.html#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() </span>
+<span id="cb68-6"><a href="introduction-to-graphics-in-r.html#cb68-6" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_pop_Asia_loess-1.png" width="672" /></p>
+</div>
+<div id="bar-charts" class="section level3" number="3.3.11">
+<h3><span class="header-section-number">3.3.11</span> Bar Charts</h3>
+<p>What about GDP per capita of CIFG countries in 2007?</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="introduction-to-graphics-in-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_pop_2007 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">filter</span>(data_CIFG,</span>
+<span id="cb69-2"><a href="introduction-to-graphics-in-r.html#cb69-2" aria-hidden="true" tabindex="-1"></a>                                            year <span class="sc">==</span> <span class="dv">2007</span>),</span>
+<span id="cb69-3"><a href="introduction-to-graphics-in-r.html#cb69-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> country, </span>
+<span id="cb69-4"><a href="introduction-to-graphics-in-r.html#cb69-4" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">y =</span> gdpPercap)) <span class="sc">+</span> </span>
+<span id="cb69-5"><a href="introduction-to-graphics-in-r.html#cb69-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> country), <span class="co">#what does this mean?</span></span>
+<span id="cb69-6"><a href="introduction-to-graphics-in-r.html#cb69-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="co">#what does this mean?</span></span>
+<span id="cb69-7"><a href="introduction-to-graphics-in-r.html#cb69-7" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_pop_2007-1.png" width="672" /></p>
+<p>While some types of plots (scatterplots) do not require any transformation—each point is plotted at <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates same as the original value, others (such as boxplots, histograms etc.) require transformations. For example, for boxplots, the median and the interquartile range (IQR) need computing.</p>
+</div>
+<div id="boxplots" class="section level3" number="3.3.12">
+<h3><span class="header-section-number">3.3.12</span> Boxplots</h3>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="introduction-to-graphics-in-r.html#cb70-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_CIFG,</span>
+<span id="cb70-2"><a href="introduction-to-graphics-in-r.html#cb70-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> country, </span>
+<span id="cb70-3"><a href="introduction-to-graphics-in-r.html#cb70-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">y =</span> lifeExp,</span>
+<span id="cb70-4"><a href="introduction-to-graphics-in-r.html#cb70-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb70-5"><a href="introduction-to-graphics-in-r.html#cb70-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_boxplot</span>()</span>
+<span id="cb70-6"><a href="introduction-to-graphics-in-r.html#cb70-6" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<p><img src="_main_files/figure-html/plot_CIFG_box-1.png" width="672" /></p>
+<p>In some cases there are many variables for which we need boxplots; and including all of them on the <span class="math inline">\(x\)</span> axis may cause their names to squish together, leading to poor visibility. In such cases, one can use the command <code>coord_flip()</code> which, as the name suggests, flips the coordinates—from <span class="math inline">\(x\)</span> to <span class="math inline">\(y\)</span> and vice versa.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="introduction-to-graphics-in-r.html#cb71-1" aria-hidden="true" tabindex="-1"></a>(plot_eur_box_flip <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">filter</span>(data_gapminder,</span>
+<span id="cb71-2"><a href="introduction-to-graphics-in-r.html#cb71-2" aria-hidden="true" tabindex="-1"></a>                                           continent <span class="sc">==</span> <span class="st">&quot;Europe&quot;</span>),</span>
+<span id="cb71-3"><a href="introduction-to-graphics-in-r.html#cb71-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> country, </span>
+<span id="cb71-4"><a href="introduction-to-graphics-in-r.html#cb71-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">y =</span> lifeExp,</span>
+<span id="cb71-5"><a href="introduction-to-graphics-in-r.html#cb71-5" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb71-6"><a href="introduction-to-graphics-in-r.html#cb71-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb71-7"><a href="introduction-to-graphics-in-r.html#cb71-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">coord_flip</span>()</span>
+<span id="cb71-8"><a href="introduction-to-graphics-in-r.html#cb71-8" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<p><img src="_main_files/figure-html/plot_eur_box_flip-1.png" width="672" /></p>
+</div>
+<div id="themes" class="section level3" number="3.3.13">
+<h3><span class="header-section-number">3.3.13</span> Themes</h3>
+<p>Themes govern the overall “look” of the plot. The default theme is <code>theme_grey()</code>. However, there are dozens of other themes which one may prefer. A small set of examples is presented here.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="introduction-to-graphics-in-r.html#cb72-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_theme <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_CIFG, </span>
+<span id="cb72-2"><a href="introduction-to-graphics-in-r.html#cb72-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb72-3"><a href="introduction-to-graphics-in-r.html#cb72-3" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb72-4"><a href="introduction-to-graphics-in-r.html#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span>  <span class="fu">aes</span>(<span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb72-5"><a href="introduction-to-graphics-in-r.html#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">linetype =</span> country)) <span class="sc">+</span></span>
+<span id="cb72-6"><a href="introduction-to-graphics-in-r.html#cb72-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Years&quot;</span>, </span>
+<span id="cb72-7"><a href="introduction-to-graphics-in-r.html#cb72-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Life Expectancy&quot;</span>,</span>
+<span id="cb72-8"><a href="introduction-to-graphics-in-r.html#cb72-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Illustration of Different Themes&quot;</span>) <span class="sc">+</span></span>
+<span id="cb72-9"><a href="introduction-to-graphics-in-r.html#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="co">#note the classic theme</span></span>
+<span id="cb72-10"><a href="introduction-to-graphics-in-r.html#cb72-10" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_theme-1.png" width="672" /></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="introduction-to-graphics-in-r.html#cb73-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_theme <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_CIFG, </span>
+<span id="cb73-2"><a href="introduction-to-graphics-in-r.html#cb73-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb73-3"><a href="introduction-to-graphics-in-r.html#cb73-3" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb73-4"><a href="introduction-to-graphics-in-r.html#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span>  <span class="fu">aes</span>(<span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb73-5"><a href="introduction-to-graphics-in-r.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">linetype =</span> country)) <span class="sc">+</span></span>
+<span id="cb73-6"><a href="introduction-to-graphics-in-r.html#cb73-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Years&quot;</span>, </span>
+<span id="cb73-7"><a href="introduction-to-graphics-in-r.html#cb73-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Life Expectancy&quot;</span>,</span>
+<span id="cb73-8"><a href="introduction-to-graphics-in-r.html#cb73-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Illustration of Different Themes&quot;</span>) <span class="sc">+</span></span>
+<span id="cb73-9"><a href="introduction-to-graphics-in-r.html#cb73-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="co">#note the bw theme (black and white)</span></span>
+<span id="cb73-10"><a href="introduction-to-graphics-in-r.html#cb73-10" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_theme-2.png" width="672" /></p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="introduction-to-graphics-in-r.html#cb74-1" aria-hidden="true" tabindex="-1"></a>(plot_CIFG_theme <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> data_CIFG, </span>
+<span id="cb74-2"><a href="introduction-to-graphics-in-r.html#cb74-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb74-3"><a href="introduction-to-graphics-in-r.html#cb74-3" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb74-4"><a href="introduction-to-graphics-in-r.html#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span>  <span class="fu">aes</span>(<span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb74-5"><a href="introduction-to-graphics-in-r.html#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">linetype =</span> country)) <span class="sc">+</span></span>
+<span id="cb74-6"><a href="introduction-to-graphics-in-r.html#cb74-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Years&quot;</span>, </span>
+<span id="cb74-7"><a href="introduction-to-graphics-in-r.html#cb74-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Life Expectancy&quot;</span>,</span>
+<span id="cb74-8"><a href="introduction-to-graphics-in-r.html#cb74-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Insert caption here&quot;</span>,</span>
+<span id="cb74-9"><a href="introduction-to-graphics-in-r.html#cb74-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Illustration of Different Themes&quot;</span>) <span class="sc">+</span></span>
+<span id="cb74-10"><a href="introduction-to-graphics-in-r.html#cb74-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="co">#note the minimal theme</span></span>
+<span id="cb74-11"><a href="introduction-to-graphics-in-r.html#cb74-11" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/CIFG_theme-3.png" width="672" /></p>
+</div>
+</div>
+<div id="faq-how-to-plot-multiple-variables-together" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> FAQ: How to Plot Multiple Variables Together?</h2>
+<div id="wide-versus-long-data" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Wide Versus Long Data</h3>
+<p>When each column is a separate variable, the dataset is said to be in the “wide” format. In the “long” format, variables are “gathered” together in one column with another containing values.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="introduction-to-graphics-in-r.html#cb75-1" aria-hidden="true" tabindex="-1"></a>temp_w <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1991</span><span class="sc">:</span><span class="dv">2010</span>, </span>
+<span id="cb75-2"><a href="introduction-to-graphics-in-r.html#cb75-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb75-3"><a href="introduction-to-graphics-in-r.html#cb75-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
+<span id="cb75-4"><a href="introduction-to-graphics-in-r.html#cb75-4" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">9</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb75-5"><a href="introduction-to-graphics-in-r.html#cb75-5" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>()</span>
+<span id="cb75-6"><a href="introduction-to-graphics-in-r.html#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(temp_w) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;N01&quot;</span>, <span class="st">&quot;N25&quot;</span>, <span class="st">&quot;N19&quot;</span>) <span class="co">#data in &quot;wide&quot; format</span></span>
+<span id="cb75-7"><a href="introduction-to-graphics-in-r.html#cb75-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-8"><a href="introduction-to-graphics-in-r.html#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(temp_w)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##    year    N01    N25    N19
+##   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1  1991 -0.964 -2.50    1.87
+## 2  1992 -0.584 -6.29    6.44
+## 3  1993 -0.391  2.39   -7.07
+## 4  1994  1.17  -0.162 -10.2 
+## 5  1995 -0.762  3.83   12.6 
+## 6  1996 -0.465  5.53    7.92</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="introduction-to-graphics-in-r.html#cb77-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">ggplot</span>(<span class="at">data =</span> temp_w,</span>
+<span id="cb77-2"><a href="introduction-to-graphics-in-r.html#cb77-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span> </span>
+<span id="cb77-3"><a href="introduction-to-graphics-in-r.html#cb77-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> N01), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb77-4"><a href="introduction-to-graphics-in-r.html#cb77-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> N25), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb77-5"><a href="introduction-to-graphics-in-r.html#cb77-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> N19), <span class="at">color =</span> <span class="st">&quot;green&quot;</span>)</span>
+<span id="cb77-6"><a href="introduction-to-graphics-in-r.html#cb77-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="co">#this method of plotting is not encouraged</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/wide_vs_long-1.png" width="672" /></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="introduction-to-graphics-in-r.html#cb78-1" aria-hidden="true" tabindex="-1"></a>temp_l <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">gather</span>(temp_w, <span class="fu">c</span>(<span class="st">&quot;N01&quot;</span>, <span class="st">&quot;N25&quot;</span>, <span class="st">&quot;N19&quot;</span>), </span>
+<span id="cb78-2"><a href="introduction-to-graphics-in-r.html#cb78-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">key =</span> <span class="st">&quot;Normal RV&quot;</span>, </span>
+<span id="cb78-3"><a href="introduction-to-graphics-in-r.html#cb78-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">value =</span> <span class="st">&quot;Normal Realization&quot;</span></span>
+<span id="cb78-4"><a href="introduction-to-graphics-in-r.html#cb78-4" aria-hidden="true" tabindex="-1"></a>                        ) <span class="co">#converting data from wide to &quot;long&quot;</span></span>
+<span id="cb78-5"><a href="introduction-to-graphics-in-r.html#cb78-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-6"><a href="introduction-to-graphics-in-r.html#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(temp_l)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##    year `Normal RV` `Normal Realization`
+##   &lt;dbl&gt; &lt;chr&gt;                      &lt;dbl&gt;
+## 1  1991 N01                       -0.964
+## 2  1992 N01                       -0.584
+## 3  1993 N01                       -0.391
+## 4  1994 N01                        1.17 
+## 5  1995 N01                       -0.762
+## 6  1996 N01                       -0.465</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="introduction-to-graphics-in-r.html#cb80-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">ggplot</span>(<span class="at">data =</span> temp_l,</span>
+<span id="cb80-2"><a href="introduction-to-graphics-in-r.html#cb80-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, </span>
+<span id="cb80-3"><a href="introduction-to-graphics-in-r.html#cb80-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">y =</span> <span class="st">`</span><span class="at">Normal Realization</span><span class="st">`</span>,</span>
+<span id="cb80-4"><a href="introduction-to-graphics-in-r.html#cb80-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> <span class="st">`</span><span class="at">Normal RV</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb80-5"><a href="introduction-to-graphics-in-r.html#cb80-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span>
+<span id="cb80-6"><a href="introduction-to-graphics-in-r.html#cb80-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="co">#the preferred way of plotting is in the long format</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/wide_vs_long-2.png" width="672" /></p>
+<!-- ## References -->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-basic-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-intro_r_graphics.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
