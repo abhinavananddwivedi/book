@@ -398,7 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-4"><a href="introduction-to-basic-r.html#cb36-4" aria-hidden="true" tabindex="-1"></a>                 )</span>
 <span id="cb36-5"><a href="introduction-to-basic-r.html#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-6"><a href="introduction-to-basic-r.html#cb36-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>a <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>## [1] 0.7962160 0.8256270 0.8806768 0.5027571 0.7302074 0.3600830</code></pre>
+<pre><code>## [1] 0.6869448 0.1693236 0.5423545 0.9421526 0.7592550 0.8610232</code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="introduction-to-basic-r.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)</span></code></pre></div>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
 </div>
@@ -406,35 +406,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.4.7</span> Subsetting Dataframes</h3>
 <p>If we need only part of a dataframe, we can refer to the relevant indices in square brackets appended to the name of the dataframe. Leaving an index blank includes all entries.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="introduction-to-basic-r.html#cb40-1" aria-hidden="true" tabindex="-1"></a>df[, <span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co">#column 1</span></span></code></pre></div>
-<pre><code>## [1] 0.7962160 0.8256270 0.8806768 0.5027571 0.7302074 0.3600830</code></pre>
+<pre><code>## [1] 0.6869448 0.1693236 0.5423545 0.9421526 0.7592550 0.8610232</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="introduction-to-basic-r.html#cb42-1" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">3</span>, ] <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co">#row 3</span></span></code></pre></div>
 <pre><code>##           a         b  c
-## 3 0.8806768 -1.254443 13</code></pre>
+## 3 0.5423545 -2.075364 13</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="introduction-to-basic-r.html#cb44-1" aria-hidden="true" tabindex="-1"></a>df[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;c&quot;</span>]</span></code></pre></div>
 <pre><code>## [1] 11 12</code></pre>
 <p><strong>Subsetting with Logical Indices</strong></p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="introduction-to-basic-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>b <span class="sc">&lt;</span> <span class="fl">0.5</span>, ] <span class="co">#only those rows whose column b has values &lt; 0.5</span></span></code></pre></div>
 <pre><code>##            a          b  c
-## 1  0.7962160 -0.4358187 11
-## 3  0.8806768 -1.2544429 13
-## 6  0.3600830 -0.7157370 16
-## 7  0.9840496 -0.4980695 17
-## 10 0.1356141 -0.3081540 20</code></pre>
+## 1  0.6869448 -1.3862900 11
+## 2  0.1693236 -0.7558863 12
+## 3  0.5423545 -2.0753637 13
+## 4  0.9421526 -1.4420419 14
+## 5  0.7592550  0.3675191 15
+## 6  0.8610232 -0.5955198 16
+## 7  0.2387585 -0.4763817 17
+## 8  0.5800371 -1.7426393 18
+## 9  0.3185291 -0.7606365 19
+## 10 0.2363959 -0.0674493 20</code></pre>
 <p><strong>Subsetting and Assignment</strong></p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="introduction-to-basic-r.html#cb48-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>c <span class="sc">&gt;=</span> <span class="dv">14</span>, <span class="st">&quot;a&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb48-2"><a href="introduction-to-basic-r.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="introduction-to-basic-r.html#cb48-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>##            a          b  c
-## 1  0.7962160 -0.4358187 11
-## 2  0.8256270  0.7694979 12
-## 3  0.8806768 -1.2544429 13
-## 4         NA  1.0808217 14
-## 5         NA  1.2710286 15
-## 6         NA -0.7157370 16
-## 7         NA -0.4980695 17
-## 8         NA  3.1910734 18
-## 9         NA  0.6673823 19
-## 10        NA -0.3081540 20</code></pre>
+## 1  0.6869448 -1.3862900 11
+## 2  0.1693236 -0.7558863 12
+## 3  0.5423545 -2.0753637 13
+## 4         NA -1.4420419 14
+## 5         NA  0.3675191 15
+## 6         NA -0.5955198 16
+## 7         NA -0.4763817 17
+## 8         NA -1.7426393 18
+## 9         NA -0.7606365 19
+## 10        NA -0.0674493 20</code></pre>
 </div>
 </div>
 <div id="functions" class="section level2" number="2.5">
@@ -457,12 +462,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb51-6"><a href="introduction-to-basic-r.html#cb51-6" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb51-7"><a href="introduction-to-basic-r.html#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-8"><a href="introduction-to-basic-r.html#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">norm_std</span>(t_1, <span class="dv">5</span>, <span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.) <span class="co">#what does this mean?</span></span></code></pre></div>
-<pre><code>## [1]  2.6600539 -0.7709417 -1.6094629  0.1946189  0.5406417  0.7344608</code></pre>
+<pre><code>## [1] -1.0050458 -1.3685015  1.2261746  0.5854495  0.4948335  1.5100481</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introduction-to-basic-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">norm_std</span>(t_2, <span class="dv">10</span>, <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)</span></code></pre></div>
-<pre><code>## [1] -0.6732682556  0.9066280680  2.4150492120 -3.3811156614 -0.0006845677
-## [6]  0.0406820311</code></pre>
+<pre><code>## [1]  1.09038640 -1.45222791 -0.31702943  0.23362880  0.02600798  0.47265498</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introduction-to-basic-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">norm_std</span>(t_3, <span class="dv">20</span>, <span class="dv">200</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)</span></code></pre></div>
-<pre><code>## [1]  1.9888906 -0.4136522  0.4595195  0.8467714  0.2944065  1.4520311</code></pre>
+<pre><code>## [1] -0.8346108  0.4106750 -1.1592631  0.6575659 -1.2196177 -1.0160243</code></pre>
 </div>
 <div id="directory-management" class="section level2" number="2.6">
 <h2><span class="header-section-number">2.6</span> Directory Management</h2>
