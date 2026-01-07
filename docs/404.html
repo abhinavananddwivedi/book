@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Page not found | Stochastic Calculus from Scratch</title>
+  <meta name="description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Page not found | Stochastic Calculus from Scratch" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
+  <meta name="github-repo" content="abhinavananddwivedi/book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Page not found | Stochastic Calculus from Scratch" />
+  
+  <meta name="twitter:description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
+  
+
+<meta name="author" content="Abhinav Anand" />
+
+
+<meta name="date" content="2026-01-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Stochastic Calculus from Scratch</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-youll-learn"><i class="fa fa-check"></i>What You’ll Learn</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-this-book"><i class="fa fa-check"></i>About This Book</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html"><i class="fa fa-check"></i><b>1</b> Random Walks and Brownian Motion</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#simple-random-walk"><i class="fa fa-check"></i><b>1.1</b> Simple Random Walk</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#key-properties"><i class="fa fa-check"></i><b>1.1.1</b> Key Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#scaling-to-continuous-time"><i class="fa fa-check"></i><b>1.2</b> Scaling to Continuous Time</a></li>
+<li class="chapter" data-level="1.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#brownian-motion-emerges"><i class="fa fa-check"></i><b>1.3</b> Brownian Motion Emerges</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#formal-definition"><i class="fa fa-check"></i><b>1.3.1</b> Formal Definition</a></li>
+<li class="chapter" data-level="1.3.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#a-shocking-fact"><i class="fa fa-check"></i><b>1.3.2</b> A Shocking Fact</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#properties-of-brownian-motion"><i class="fa fa-check"></i><b>1.4</b> Properties of Brownian Motion</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#quadratic-variation"><i class="fa fa-check"></i><b>1.4.1</b> Quadratic Variation</a></li>
+<li class="chapter" data-level="1.4.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#markov-property"><i class="fa fa-check"></i><b>1.4.2</b> Markov Property</a></li>
+<li class="chapter" data-level="1.4.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#martingale-property"><i class="fa fa-check"></i><b>1.4.3</b> Martingale Property</a></li>
+<li class="chapter" data-level="1.4.4" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#scaling-properties"><i class="fa fa-check"></i><b>1.4.4</b> Scaling Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#historical-note"><i class="fa fa-check"></i><b>1.5</b> Historical Note</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html"><i class="fa fa-check"></i><b>2</b> Itô Integral and Itô’s Lemma</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#the-challenge-of-stochastic-integration"><i class="fa fa-check"></i><b>2.1</b> The Challenge of Stochastic Integration</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#the-problem"><i class="fa fa-check"></i><b>2.1.1</b> The Problem</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#the-it%C3%B4-integral"><i class="fa fa-check"></i><b>2.2</b> The Itô Integral</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> Definition</a></li>
+<li class="chapter" data-level="2.2.2" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#why-the-left-endpoint"><i class="fa fa-check"></i><b>2.2.2</b> Why the Left Endpoint?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#a-crucial-example-int_0t-bs-dbs"><i class="fa fa-check"></i><b>2.3</b> A Crucial Example: <span class="math inline">\(\int_0^t B(s) \, dB(s)\)</span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#the-quadratic-variation-miracle"><i class="fa fa-check"></i><b>2.3.1</b> The Quadratic Variation Miracle</a></li>
+<li class="chapter" data-level="2.3.2" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#the-shock"><i class="fa fa-check"></i><b>2.3.2</b> The Shock</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#quadratic-variation-and-the-formal-rule-db2-dt"><i class="fa fa-check"></i><b>2.4</b> Quadratic Variation and the Formal Rule <span class="math inline">\((dB)^2 = dt\)</span></a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#multiplication-rules"><i class="fa fa-check"></i><b>2.4.1</b> Multiplication Rules</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#it%C3%B4s-lemma-the-fundamental-theorem"><i class="fa fa-check"></i><b>2.5</b> Itô’s Lemma: The Fundamental Theorem</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#the-derivation"><i class="fa fa-check"></i><b>2.5.1</b> The Derivation</a></li>
+<li class="chapter" data-level="2.5.2" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#it%C3%B4s-lemma-for-fbt"><i class="fa fa-check"></i><b>2.5.2</b> Itô’s Lemma for <span class="math inline">\(f(B(t))\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#verification-recovering-our-earlier-result"><i class="fa fa-check"></i><b>2.6</b> Verification: Recovering Our Earlier Result</a></li>
+<li class="chapter" data-level="2.7" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#example-the-exponential"><i class="fa fa-check"></i><b>2.7</b> Example: The Exponential</a></li>
+<li class="chapter" data-level="2.8" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#general-it%C3%B4s-lemma"><i class="fa fa-check"></i><b>2.8</b> General Itô’s Lemma</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#the-pattern"><i class="fa fa-check"></i><b>2.8.1</b> The Pattern</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html#why-it%C3%B4s-choice"><i class="fa fa-check"></i><b>2.9</b> Why Itô’s Choice?</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html"><i class="fa fa-check"></i><b>3</b> Stochastic Differential Equations</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#introduction-to-sdes"><i class="fa fa-check"></i><b>3.1</b> Introduction to SDEs</a></li>
+<li class="chapter" data-level="3.2" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#geometric-brownian-motion"><i class="fa fa-check"></i><b>3.2</b> Geometric Brownian Motion</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#interpretation"><i class="fa fa-check"></i><b>3.2.1</b> Interpretation</a></li>
+<li class="chapter" data-level="3.2.2" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#solving-gbm"><i class="fa fa-check"></i><b>3.2.2</b> Solving GBM</a></li>
+<li class="chapter" data-level="3.2.3" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#key-observations"><i class="fa fa-check"></i><b>3.2.3</b> Key Observations</a></li>
+<li class="chapter" data-level="3.2.4" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#the-it%C3%B4-correction-explained"><i class="fa fa-check"></i><b>3.2.4</b> The Itô Correction Explained</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#ornstein-uhlenbeck-process"><i class="fa fa-check"></i><b>3.3</b> Ornstein-Uhlenbeck Process</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#interpretation-1"><i class="fa fa-check"></i><b>3.3.1</b> Interpretation</a></li>
+<li class="chapter" data-level="3.3.2" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#solving-the-ou-process"><i class="fa fa-check"></i><b>3.3.2</b> Solving the OU Process</a></li>
+<li class="chapter" data-level="3.3.3" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#properties-of-the-solution"><i class="fa fa-check"></i><b>3.3.3</b> Properties of the Solution</a></li>
+<li class="chapter" data-level="3.3.4" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#generalization-ou-with-mean-mu"><i class="fa fa-check"></i><b>3.3.4</b> Generalization: OU with Mean <span class="math inline">\(\mu\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#general-strategy-for-solving-sdes"><i class="fa fa-check"></i><b>3.4</b> General Strategy for Solving SDEs</a></li>
+<li class="chapter" data-level="3.5" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#linear-sdes"><i class="fa fa-check"></i><b>3.5</b> Linear SDEs</a></li>
+<li class="chapter" data-level="3.6" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#existence-and-uniqueness"><i class="fa fa-check"></i><b>3.6</b> Existence and Uniqueness</a></li>
+<li class="chapter" data-level="3.7" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#strong-vs.-weak-solutions"><i class="fa fa-check"></i><b>3.7</b> Strong vs. Weak Solutions</a></li>
+<li class="chapter" data-level="3.8" data-path="stochastic-differential-equations.html"><a href="stochastic-differential-equations.html#multidimensional-sdes"><i class="fa fa-check"></i><b>3.8</b> Multidimensional SDEs</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html"><i class="fa fa-check"></i><b>4</b> Feynman-Kac and PDEs</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#the-bridge-between-probability-and-analysis"><i class="fa fa-check"></i><b>4.1</b> The Bridge Between Probability and Analysis</a></li>
+<li class="chapter" data-level="4.2" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#the-backward-kolmogorov-equation"><i class="fa fa-check"></i><b>4.2</b> The Backward Kolmogorov Equation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#heuristic-derivation"><i class="fa fa-check"></i><b>4.2.1</b> Heuristic Derivation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#example-the-heat-equation"><i class="fa fa-check"></i><b>4.3</b> Example: The Heat Equation</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#probabilistic-interpretation"><i class="fa fa-check"></i><b>4.3.1</b> Probabilistic Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#the-black-scholes-pde"><i class="fa fa-check"></i><b>4.4</b> The Black-Scholes PDE</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#solving-for-a-european-call"><i class="fa fa-check"></i><b>4.4.1</b> Solving for a European Call</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#the-forward-kolmogorov-equation"><i class="fa fa-check"></i><b>4.5</b> The Forward Kolmogorov Equation</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#the-duality"><i class="fa fa-check"></i><b>4.5.1</b> The Duality</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#feynman-kac-formula-general-version"><i class="fa fa-check"></i><b>4.6</b> Feynman-Kac Formula (General Version)</a></li>
+<li class="chapter" data-level="4.7" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#applications"><i class="fa fa-check"></i><b>4.7</b> Applications</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#option-pricing"><i class="fa fa-check"></i><b>4.7.1</b> Option Pricing</a></li>
+<li class="chapter" data-level="4.7.2" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#statistical-mechanics"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Mechanics</a></li>
+<li class="chapter" data-level="4.7.3" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#control-theory"><i class="fa fa-check"></i><b>4.7.3</b> Control Theory</a></li>
+<li class="chapter" data-level="4.7.4" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#biology"><i class="fa fa-check"></i><b>4.7.4</b> Biology</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#numerical-methods"><i class="fa fa-check"></i><b>4.8</b> Numerical Methods</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>4.8.1</b> Monte Carlo Simulation</a></li>
+<li class="chapter" data-level="4.8.2" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#pde-methods"><i class="fa fa-check"></i><b>4.8.2</b> PDE Methods</a></li>
+<li class="chapter" data-level="4.8.3" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#hybrid-methods"><i class="fa fa-check"></i><b>4.8.3</b> Hybrid Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="feynman-kac-and-pdes.html"><a href="feynman-kac-and-pdes.html#summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html"><i class="fa fa-check"></i><b>5</b> Risk-Neutral Pricing and Martingales</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#martingales-fair-games"><i class="fa fa-check"></i><b>5.1</b> Martingales: Fair Games</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#examples"><i class="fa fa-check"></i><b>5.1.1</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#the-fundamental-theorem-of-asset-pricing"><i class="fa fa-check"></i><b>5.2</b> The Fundamental Theorem of Asset Pricing</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#whats-arbitrage"><i class="fa fa-check"></i><b>5.2.1</b> What’s Arbitrage?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#the-risk-neutral-measure"><i class="fa fa-check"></i><b>5.2.2</b> The Risk-Neutral Measure</a></li>
+<li class="chapter" data-level="5.2.3" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#girsanovs-theorem"><i class="fa fa-check"></i><b>5.2.3</b> Girsanov’s Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#risk-neutral-pricing-formula"><i class="fa fa-check"></i><b>5.3</b> Risk-Neutral Pricing Formula</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#the-miracle"><i class="fa fa-check"></i><b>5.3.1</b> The Miracle</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#why-does-this-work"><i class="fa fa-check"></i><b>5.4</b> Why Does This Work?</a></li>
+<li class="chapter" data-level="5.5" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#example-forward-contracts"><i class="fa fa-check"></i><b>5.5</b> Example: Forward Contracts</a></li>
+<li class="chapter" data-level="5.6" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#change-of-numeraire"><i class="fa fa-check"></i><b>5.6</b> Change of Numeraire</a></li>
+<li class="chapter" data-level="5.7" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#market-price-of-risk"><i class="fa fa-check"></i><b>5.7</b> Market Price of Risk</a></li>
+<li class="chapter" data-level="5.8" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#incomplete-markets"><i class="fa fa-check"></i><b>5.8</b> Incomplete Markets</a></li>
+<li class="chapter" data-level="5.9" data-path="risk-neutral-pricing-and-martingales.html"><a href="risk-neutral-pricing-and-martingales.html#summary-1"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html"><i class="fa fa-check"></i><b>6</b> Black-Scholes Theory</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#the-black-scholes-formula"><i class="fa fa-check"></i><b>6.1</b> The Black-Scholes Formula</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#derivation"><i class="fa fa-check"></i><b>6.1.1</b> Derivation</a></li>
+<li class="chapter" data-level="6.1.2" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#interpretation-2"><i class="fa fa-check"></i><b>6.1.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#the-greeks"><i class="fa fa-check"></i><b>6.2</b> The Greeks</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#delta-delta"><i class="fa fa-check"></i><b>6.2.1</b> Delta (<span class="math inline">\(\Delta\)</span>)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#gamma-gamma"><i class="fa fa-check"></i><b>6.2.2</b> Gamma (<span class="math inline">\(\Gamma\)</span>)</a></li>
+<li class="chapter" data-level="6.2.3" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#vega-mathcalv"><i class="fa fa-check"></i><b>6.2.3</b> Vega (<span class="math inline">\(\mathcal{V}\)</span>)</a></li>
+<li class="chapter" data-level="6.2.4" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#theta-theta"><i class="fa fa-check"></i><b>6.2.4</b> Theta (<span class="math inline">\(\Theta\)</span>)</a></li>
+<li class="chapter" data-level="6.2.5" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#rho-rho"><i class="fa fa-check"></i><b>6.2.5</b> Rho (<span class="math inline">\(\rho\)</span>)</a></li>
+<li class="chapter" data-level="6.2.6" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#the-greeks-relationship"><i class="fa fa-check"></i><b>6.2.6</b> The Greeks Relationship</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#delta-hedging"><i class="fa fa-check"></i><b>6.3</b> Delta Hedging</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#the-strategy"><i class="fa fa-check"></i><b>6.3.1</b> The Strategy</a></li>
+<li class="chapter" data-level="6.3.2" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#discrete-hedging-pl"><i class="fa fa-check"></i><b>6.3.2</b> Discrete Hedging P&amp;L</a></li>
+<li class="chapter" data-level="6.3.3" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#the-catch"><i class="fa fa-check"></i><b>6.3.3</b> The Catch</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#put-call-parity"><i class="fa fa-check"></i><b>6.4</b> Put-Call Parity</a></li>
+<li class="chapter" data-level="6.5" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#implied-volatility"><i class="fa fa-check"></i><b>6.5</b> Implied Volatility</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#the-volatility-smile"><i class="fa fa-check"></i><b>6.5.1</b> The Volatility Smile</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#american-options"><i class="fa fa-check"></i><b>6.6</b> American Options</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#early-exercise-premium"><i class="fa fa-check"></i><b>6.6.1</b> Early Exercise Premium</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#extensions"><i class="fa fa-check"></i><b>6.7</b> Extensions</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#dividends"><i class="fa fa-check"></i><b>6.7.1</b> Dividends</a></li>
+<li class="chapter" data-level="6.7.2" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#exotic-options"><i class="fa fa-check"></i><b>6.7.2</b> Exotic Options</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="black-scholes-theory.html"><a href="black-scholes-theory.html#limitations-of-black-scholes"><i class="fa fa-check"></i><b>6.8</b> Limitations of Black-Scholes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html"><i class="fa fa-check"></i><b>7</b> Jump-Diffusion Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#why-jumps-matter"><i class="fa fa-check"></i><b>7.1</b> Why Jumps Matter</a></li>
+<li class="chapter" data-level="7.2" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#the-poisson-process"><i class="fa fa-check"></i><b>7.2</b> The Poisson Process</a></li>
+<li class="chapter" data-level="7.3" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#compound-poisson-process"><i class="fa fa-check"></i><b>7.3</b> Compound Poisson Process</a></li>
+<li class="chapter" data-level="7.4" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#mertons-jump-diffusion-model"><i class="fa fa-check"></i><b>7.4</b> Merton’s Jump-Diffusion Model</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#why-ey---1"><i class="fa fa-check"></i><b>7.4.1</b> Why <span class="math inline">\(e^Y - 1\)</span>?</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#it%C3%B4s-lemma-with-jumps"><i class="fa fa-check"></i><b>7.5</b> Itô’s Lemma with Jumps</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#example-log-price"><i class="fa fa-check"></i><b>7.5.1</b> Example: Log Price</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#risk-neutral-pricing-with-jumps"><i class="fa fa-check"></i><b>7.6</b> Risk-Neutral Pricing with Jumps</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#the-critical-insight"><i class="fa fa-check"></i><b>7.6.1</b> The Critical Insight</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#mertons-option-pricing-formula"><i class="fa fa-check"></i><b>7.7</b> Merton’s Option Pricing Formula</a></li>
+<li class="chapter" data-level="7.8" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#the-pide"><i class="fa fa-check"></i><b>7.8</b> The PIDE</a></li>
+<li class="chapter" data-level="7.9" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#market-implications"><i class="fa fa-check"></i><b>7.9</b> Market Implications</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#volatility-smile"><i class="fa fa-check"></i><b>7.9.1</b> Volatility Smile</a></li>
+<li class="chapter" data-level="7.9.2" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#greeks"><i class="fa fa-check"></i><b>7.9.2</b> Greeks</a></li>
+<li class="chapter" data-level="7.9.3" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#calibration"><i class="fa fa-check"></i><b>7.9.3</b> Calibration</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#extensions-1"><i class="fa fa-check"></i><b>7.10</b> Extensions</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#double-exponential-jumps"><i class="fa fa-check"></i><b>7.10.1</b> Double exponential jumps</a></li>
+<li class="chapter" data-level="7.10.2" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#stochastic-intensity"><i class="fa fa-check"></i><b>7.10.2</b> Stochastic intensity</a></li>
+<li class="chapter" data-level="7.10.3" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#jump-to-default"><i class="fa fa-check"></i><b>7.10.3</b> Jump-to-default</a></li>
+</ul></li>
+<li class="chapter" data-level="7.11" data-path="jump-diffusion-models.html"><a href="jump-diffusion-models.html#summary-2"><i class="fa fa-check"></i><b>7.11</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="lévy-processes.html"><a href="lévy-processes.html"><i class="fa fa-check"></i><b>8</b> Lévy Processes</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="lévy-processes.html"><a href="lévy-processes.html#the-ultimate-generalization"><i class="fa fa-check"></i><b>8.1</b> The Ultimate Generalization</a></li>
+<li class="chapter" data-level="8.2" data-path="lévy-processes.html"><a href="lévy-processes.html#examples-we-know"><i class="fa fa-check"></i><b>8.2</b> Examples We Know</a></li>
+<li class="chapter" data-level="8.3" data-path="lévy-processes.html"><a href="lévy-processes.html#the-l%C3%A9vy-khintchine-representation"><i class="fa fa-check"></i><b>8.3</b> The Lévy-Khintchine Representation</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="lévy-processes.html"><a href="lévy-processes.html#the-l%C3%A9vy-khintchine-formula"><i class="fa fa-check"></i><b>8.3.1</b> The Lévy-Khintchine Formula</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="lévy-processes.html"><a href="lévy-processes.html#types-of-jump-behavior"><i class="fa fa-check"></i><b>8.4</b> Types of Jump Behavior</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="lévy-processes.html"><a href="lévy-processes.html#finite-activity"><i class="fa fa-check"></i><b>8.4.1</b> Finite Activity</a></li>
+<li class="chapter" data-level="8.4.2" data-path="lévy-processes.html"><a href="lévy-processes.html#infinite-activity"><i class="fa fa-check"></i><b>8.4.2</b> Infinite Activity</a></li>
+<li class="chapter" data-level="8.4.3" data-path="lévy-processes.html"><a href="lévy-processes.html#finite-variation"><i class="fa fa-check"></i><b>8.4.3</b> Finite Variation</a></li>
+<li class="chapter" data-level="8.4.4" data-path="lévy-processes.html"><a href="lévy-processes.html#infinite-variation"><i class="fa fa-check"></i><b>8.4.4</b> Infinite Variation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="lévy-processes.html"><a href="lévy-processes.html#popular-l%C3%A9vy-processes-in-finance"><i class="fa fa-check"></i><b>8.5</b> Popular Lévy Processes in Finance</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="lévy-processes.html"><a href="lévy-processes.html#variance-gamma-vg"><i class="fa fa-check"></i><b>8.5.1</b> Variance Gamma (VG)</a></li>
+<li class="chapter" data-level="8.5.2" data-path="lévy-processes.html"><a href="lévy-processes.html#normal-inverse-gaussian-nig"><i class="fa fa-check"></i><b>8.5.2</b> Normal Inverse Gaussian (NIG)</a></li>
+<li class="chapter" data-level="8.5.3" data-path="lévy-processes.html"><a href="lévy-processes.html#cgmy-carr-geman-madan-yor"><i class="fa fa-check"></i><b>8.5.3</b> CGMY (Carr-Geman-Madan-Yor)</a></li>
+<li class="chapter" data-level="8.5.4" data-path="lévy-processes.html"><a href="lévy-processes.html#tempered-stable-processes"><i class="fa fa-check"></i><b>8.5.4</b> Tempered Stable Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="lévy-processes.html"><a href="lévy-processes.html#why-l%C3%A9vy-processes-matter-for-finance"><i class="fa fa-check"></i><b>8.6</b> Why Lévy Processes Matter for Finance</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="lévy-processes.html"><a href="lévy-processes.html#empirical-fit"><i class="fa fa-check"></i><b>8.6.1</b> Empirical Fit</a></li>
+<li class="chapter" data-level="8.6.2" data-path="lévy-processes.html"><a href="lévy-processes.html#infinite-divisibility"><i class="fa fa-check"></i><b>8.6.2</b> Infinite Divisibility</a></li>
+<li class="chapter" data-level="8.6.3" data-path="lévy-processes.html"><a href="lévy-processes.html#tractability"><i class="fa fa-check"></i><b>8.6.3</b> Tractability</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="lévy-processes.html"><a href="lévy-processes.html#pricing-with-l%C3%A9vy-processes"><i class="fa fa-check"></i><b>8.7</b> Pricing with Lévy Processes</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="lévy-processes.html"><a href="lévy-processes.html#characteristic-function-method"><i class="fa fa-check"></i><b>8.7.1</b> Characteristic Function Method</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="lévy-processes.html"><a href="lévy-processes.html#the-l%C3%A9vy-landscape"><i class="fa fa-check"></i><b>8.8</b> The Lévy Landscape</a></li>
+<li class="chapter" data-level="8.9" data-path="lévy-processes.html"><a href="lévy-processes.html#subordination"><i class="fa fa-check"></i><b>8.9</b> Subordination</a></li>
+<li class="chapter" data-level="8.10" data-path="lévy-processes.html"><a href="lévy-processes.html#limitations-and-extensions"><i class="fa fa-check"></i><b>8.10</b> Limitations and Extensions</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="lévy-processes.html"><a href="lévy-processes.html#what-l%C3%A9vy-processes-cannot-capture"><i class="fa fa-check"></i><b>8.10.1</b> What Lévy processes cannot capture</a></li>
+<li class="chapter" data-level="8.10.2" data-path="lévy-processes.html"><a href="lévy-processes.html#modern-extensions"><i class="fa fa-check"></i><b>8.10.2</b> Modern extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.11" data-path="lévy-processes.html"><a href="lévy-processes.html#the-full-circle"><i class="fa fa-check"></i><b>8.11</b> The Full Circle</a></li>
+<li class="chapter" data-level="8.12" data-path="lévy-processes.html"><a href="lévy-processes.html#further-directions"><i class="fa fa-check"></i><b>8.12</b> Further Directions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/abhinavananddwivedi/book" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stochastic Calculus from Scratch</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/abhinavananddwivedi/book/edit/main/%s",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["stochastic-calculus.pdf", "stochastic-calculus.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
