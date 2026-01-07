@@ -1,0 +1,17 @@
+book_filename: "stochastic-calculus"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+output_dir: "docs"
+rmd_files: [
+  "index.Rmd",
+  "01-brownian-motion.Rmd",
+  "02-ito-calculus.Rmd",
+  "03-sdes.Rmd",
+  "04-feynman-kac.Rmd",
+  "05-risk-neutral.Rmd",
+  "06-black-scholes.Rmd",
+  "07-jumps.Rmd",
+  "08-levy.Rmd"
+]

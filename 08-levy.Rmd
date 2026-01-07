@@ -1,0 +1,273 @@
+# Lévy Processes
+
+## The Ultimate Generalization
+
+**Lévy processes** unify everything we've learned: random walks, Brownian motion, Poisson processes, and jump-diffusions are all special cases.
+
+**Definition**: A process $L(t)$ is a Lévy process if:
+
+1. $L(0) = 0$
+2. **Independent increments**: $L(t) - L(s)$ independent of past for $t > s$
+3. **Stationary increments**: $L(t) - L(s) \sim L(t-s)$ (distribution depends only on time difference)
+4. **Stochastic continuity**: $\lim_{h \to 0} P(|L(t+h) - L(t)| > \epsilon) = 0$ for all $\epsilon > 0$
+5. **Càdlàg paths**: Right-continuous with left limits (allows jumps)
+
+Lévy processes are the natural class of "time-homogeneous processes with independent increments."
+
+## Examples We Know
+
+All of these are Lévy processes:
+
+- **Brownian motion**: Continuous paths, no jumps
+- **Poisson process**: Jumps of size 1
+- **Compound Poisson**: Random-sized jumps at Poisson times
+- **Merton jump-diffusion**: Brownian + Compound Poisson
+- **Stable processes**: Including Cauchy process
+- **Variance Gamma**: Time-changed Brownian motion
+- **Normal Inverse Gaussian (NIG)**: Popular in finance
+
+## The Lévy-Khintchine Representation
+
+Here's the magic: **Every Lévy process decomposes into three independent parts:**
+
+$$\boxed{L(t) = \gamma t + \sigma B(t) + J(t)}$$
+
+where:
+
+- $\gamma t$: **Linear drift** (deterministic)
+- $\sigma B(t)$: **Brownian component** (continuous random)
+- $J(t)$: **Pure jump component** (discontinuous)
+
+The jump component is characterized by a **Lévy measure** $\nu(dy)$ which tells us:
+- How often jumps of size around $y$ occur
+- Can have infinitely many jumps in finite time!
+
+### The Lévy-Khintchine Formula
+
+The characteristic function (Fourier transform) is:
+
+$$E[e^{i\theta L(t)}] = \exp\left[t\psi(\theta)\right]$$
+
+where the **Lévy symbol** is:
+
+$$\psi(\theta) = i\theta\gamma - \frac{1}{2}\sigma^2\theta^2 + \int_{-\infty}^{\infty}(e^{i\theta y} - 1 - i\theta y\mathbb{1}_{|y|<1})\nu(dy)$$
+
+The **Lévy triplet** $(\gamma, \sigma^2, \nu)$ completely characterizes any Lévy process!
+
+## Types of Jump Behavior
+
+The Lévy measure $\nu$ determines the jump structure.
+
+### Finite Activity
+
+$$\int \nu(dy) < \infty$$
+
+Finitely many jumps in any finite interval. Example: Compound Poisson.
+
+### Infinite Activity
+
+$$\int \nu(dy) = \infty$$
+
+Infinitely many jumps, but most are tiny. Examples: Variance Gamma, NIG.
+
+**Intuition**: Like continuous process, but with "microstructure" of tiny jumps.
+
+### Finite Variation
+
+$$\int |y| \nu(dy) < \infty$$
+
+Total jump variation is finite. Path has bounded variation.
+
+### Infinite Variation
+
+$$\int |y| \nu(dy) = \infty$$
+
+Accumulation of many small jumps creates unbounded variation, like Brownian motion.
+
+## Popular Lévy Processes in Finance
+
+### Variance Gamma (VG)
+
+- **Infinite activity, finite variation**
+- Time-changed Brownian motion: $VG(t) = B(\Gamma(t))$ where $\Gamma$ is a gamma process
+- Lévy density: $\nu(dy) = \frac{C}{|y|}e^{-\lambda|y|}dy$
+- Three parameters to fit: shape volatility smile
+- Computationally tractable (FFT methods)
+
+**Use**: Equity options, capturing skewness and kurtosis.
+
+### Normal Inverse Gaussian (NIG)
+
+- **Infinite activity, infinite variation**
+- Hyperbolic distribution for log-returns
+- Lévy density involves modified Bessel function
+- Four parameters: very flexible
+- Good fit to empirical return distributions
+
+**Use**: General modeling when need flexible, fat-tailed distribution.
+
+### CGMY (Carr-Geman-Madan-Yor)
+
+- Generalizes many models
+- Lévy density: $\nu(dy) = C \frac{e^{-G|y|}}{|y|^{1+Y}}$ for $y < 0$, similar for $y > 0$
+- Parameter $Y$ controls fine vs coarse structure:
+  - $Y < 0$: Finite activity
+  - $0 < Y < 1$: Infinite activity, finite variation
+  - $1 < Y < 2$: Infinite activity, infinite variation
+  - $Y = 0$: Reduces to Variance Gamma
+
+**Use**: Ultimate flexibility in modeling jump behavior.
+
+### Tempered Stable Processes
+
+- Compromise between stable (heavy tails) and exponential (light tails)
+- Lévy density has power-law behavior near 0, exponential decay at infinity
+- Captures both frequent small jumps and rare large jumps
+
+**Use**: Modeling extreme events while maintaining tractability.
+
+## Why Lévy Processes Matter for Finance
+
+### Empirical Fit
+
+Real asset return distributions exhibit:
+
+1. **Fat tails**: $P(|R| > x)$ decays slower than Gaussian
+2. **Skewness**: Asymmetric (negative skew for equities)
+3. **Excess kurtosis**: More peaked at center, fatter tails
+
+Lévy processes can match all three!
+
+### Infinite Divisibility
+
+Any time period can be subdivided arbitrarily:
+
+$$L(t) \stackrel{d}{=} L(t/n) + L(t/n) + \cdots + L(t/n)$$
+
+This mirrors the multiplicativity of returns in finance.
+
+### Tractability
+
+Despite complexity:
+
+- **Semi-closed form option prices** via Fourier methods
+- **Fast computation** using FFT
+- **Analytical Greeks** (sometimes)
+- **Efficient simulation** algorithms
+
+The balance of realism and tractability makes them practical.
+
+## Pricing with Lévy Processes
+
+For stock following:
+
+$$\frac{dS}{S} = r \, dt + dL(t)$$
+
+where $L$ is a Lévy process under $\mathbb{Q}$, the option price satisfies:
+
+$$\frac{\partial V}{\partial t} + (r - \psi(-i))S\frac{\partial V}{\partial S} + \frac{1}{2}\sigma^2 S^2\frac{\partial^2 V}{\partial S^2}$$
+$$+ \int_{-\infty}^{\infty}\left[V(t, Se^y) - V(t,S) - S(e^y - 1)\frac{\partial V}{\partial S}\right]\nu(dy) = rV$$
+
+This **PIDE** is generally solved using:
+
+1. **Fourier methods**: Transform to frequency domain, solve algebraically, transform back
+2. **Monte Carlo**: Simulate Lévy process paths, average payoffs
+3. **Finite differences**: Discretize the PIDE on a grid
+
+### Characteristic Function Method
+
+For European options, use:
+
+$$C(K) = \frac{e^{-rT}}{2\pi}\int_{-\infty}^{\infty} e^{-i\omega \log K} \hat{g}(\omega) \, d\omega$$
+
+where $\hat{g}$ is the Fourier transform of the payoff function, computed using the characteristic function of $L(T)$.
+
+**Fast Fourier Transform** (FFT) makes this efficient for computing prices across many strikes simultaneously.
+
+## The Lévy Landscape
+
+```
+                    Lévy Processes
+                         |
+        +----------------+----------------+
+        |                                 |
+   Continuous                         Jumps
+   (Brownian)                             |
+                          +---------------+---------------+
+                          |                               |
+                   Finite activity                 Infinite activity
+                   (Compound Poisson)                     |
+                                          +---------------+---------------+
+                                          |                               |
+                                   Finite variation              Infinite variation
+                                   (VG, some CGMY)              (NIG, some CGMY)
+```
+
+## Subordination
+
+Many Lévy processes arise through **subordination**: time-changing one process by another.
+
+If $X(t)$ is a Lévy process and $T(t)$ is an increasing Lévy process (subordinator), then:
+
+$$Y(t) = X(T(t))$$
+
+is also a Lévy process.
+
+**Examples**:
+- **Variance Gamma**: $VG(t) = B(T(t))$ where $T$ is gamma
+- **NIG**: Time-change Brownian motion by inverse Gaussian
+
+This gives an intuitive way to build flexible processes.
+
+## Limitations and Extensions
+
+### What Lévy processes cannot capture
+
+- **Stochastic volatility**: Volatility itself random and path-dependent
+- **Volatility clustering**: High volatility periods persist
+- **Long-range dependence**: Correlations decay slowly
+
+### Modern extensions
+
+- **Lévy-driven SDEs**: $dX = \mu(X) dt + \sigma(X) dL$
+- **Time-changed Lévy processes**: Random time changes
+- **Lévy copulas**: Multivariate Lévy dependence
+- **Fractional Lévy processes**: Long memory
+- **Rough volatility**: Paths rougher than Brownian
+
+These are active research areas combining stochastic calculus with other mathematical tools.
+
+## The Full Circle
+
+We started with:
+
+**Random walks** → (scaling) → **Brownian motion** → (SDEs) → **Jump-diffusion** → (generalization) → **Lévy processes**
+
+Each step added:
+- **Brownian**: Continuous randomness
+- **SDEs**: State-dependent dynamics
+- **Jumps**: Discontinuous shocks  
+- **Lévy**: Full generality of time-homogeneous randomness
+
+All unified by:
+- **PDEs/PIDEs** (analytical methods)
+- **Martingales** (probabilistic methods)
+- **Fourier methods** (computational finance)
+- **Itô calculus** (the foundation)
+
+This framework underlies modern quantitative finance, connecting pure mathematics, probability theory, and real-world markets in a beautiful and practical way.
+
+## Further Directions
+
+Having mastered stochastic calculus and Lévy processes, you can explore:
+
+- **Stochastic volatility models** (Heston, SABR)
+- **Local volatility** and implied volatility surfaces
+- **Rough volatility** and fractional Brownian motion
+- **Term structure models** (interest rates, credit)
+- **Optimal stopping** and American options
+- **Stochastic control** and dynamic programming
+- **Filtering theory** and partial information
+- **Malliavin calculus** and Monte Carlo methods
+
+The journey never ends - but you now have the foundation to explore any of these advanced topics. Congratulations!

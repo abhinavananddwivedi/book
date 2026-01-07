@@ -1,0 +1,224 @@
+# Itô Integral and Itô's Lemma
+
+## The Challenge of Stochastic Integration
+
+In regular calculus, we integrate smooth functions:
+
+$$\int_0^t f(s) \, ds = \lim_{\Delta s \to 0} \sum_{i} f(s_i) \Delta s$$
+
+For smooth functions $f$, it doesn't matter whether we evaluate at the left endpoint, right endpoint, or midpoint of each interval - we get the same answer in the limit.
+
+But what about:
+
+$$\int_0^t f(s) \, dB(s) \quad ?$$
+
+This means integrating $f$ with respect to Brownian motion. Instead of accumulating tiny areas $f(s_i) \Delta s$, we're accumulating **random** contributions $f(s_i) \Delta B_i$ where $\Delta B_i = B(s_{i+1}) - B(s_i)$.
+
+### The Problem
+
+Because Brownian motion is so rough (nowhere differentiable), the choice of evaluation point **matters critically**! Different choices give different answers, even in the limit.
+
+This isn't just a technical nuisance - it reflects a fundamental ambiguity about how to define integration with respect to a rough, random path.
+
+## The Itô Integral
+
+Kiyoshi Itô made a choice that turned out to be mathematically natural and practically useful: **always evaluate at the left endpoint**.
+
+### Definition
+
+The **Itô integral** is defined as:
+
+$$\int_0^t f(s) \, dB(s) = \lim_{n \to \infty} \sum_{i=0}^{n-1} f(s_i) [B(s_{i+1}) - B(s_i)]$$
+
+where $0 = s_0 < s_1 < \cdots < s_n = t$ is a partition that gets progressively finer, and we use $f(s_i)$ from the **left** of each interval.
+
+### Why the Left Endpoint?
+
+This choice makes $f(s_i)$ **independent** of $\Delta B_i = B(s_{i+1}) - B(s_i)$, because $f(s_i)$ depends only on information up to time $s_i$, while $\Delta B_i$ is the future increment.
+
+This independence gives us beautiful properties:
+
+1. **Martingale property**: $\int_0^t f(s) \, dB(s)$ is a martingale (under appropriate conditions on $f$)
+2. **Zero expectation**: $E\left[\int_0^t f(s) \, dB(s)\right] = 0$
+3. **Isometry**: $E\left[\left(\int_0^t f(s) \, dB(s)\right)^2\right] = E\left[\int_0^t f^2(s) \, ds\right]$
+
+The third property is called the **Itô isometry** and is fundamental for proving convergence.
+
+## A Crucial Example: $\int_0^t B(s) \, dB(s)$
+
+Let's compute this integral using the definition. We want:
+
+$$\lim_{n \to \infty} \sum_{i=0}^{n-1} B(s_i) [B(s_{i+1}) - B(s_i)]$$
+
+Here's a clever algebraic trick. Note that:
+
+$$B^2(s_{i+1}) - B^2(s_i) = [B(s_{i+1}) - B(s_i)]^2 + 2B(s_i)[B(s_{i+1}) - B(s_i)]$$
+
+Rearranging:
+
+$$B(s_i)[B(s_{i+1}) - B(s_i)] = \frac{1}{2}[B^2(s_{i+1}) - B^2(s_i)] - \frac{1}{2}[B(s_{i+1}) - B(s_i)]^2$$
+
+Summing over all intervals:
+
+$$\sum_{i=0}^{n-1} B(s_i) \Delta B_i = \frac{1}{2}[B^2(t) - B^2(0)] - \frac{1}{2}\sum_{i=0}^{n-1} (\Delta B_i)^2$$
+
+The first term telescopes to give $\frac{1}{2}B^2(t)$. But what about that second sum?
+
+### The Quadratic Variation Miracle
+
+Each $(\Delta B_i)^2$ has expected value $E[(\Delta B_i)^2] = s_{i+1} - s_i = \Delta t_i$. 
+
+As the partition gets finer, by the law of large numbers:
+
+$$\sum_{i=0}^{n-1} (\Delta B_i)^2 \to t$$
+
+This is the **quadratic variation** we mentioned earlier. Remarkably, it converges to the *deterministic* value $t$!
+
+Therefore:
+
+$$\boxed{\int_0^t B(s) \, dB(s) = \frac{1}{2}B^2(t) - \frac{1}{2}t}$$
+
+### The Shock
+
+In regular calculus, $\int_0^t x \, dx = \frac{1}{2}x^2$. But here we get an extra $-\frac{t}{2}$ term! 
+
+This correction term is the **signature of stochastic calculus** - it comes from the non-zero quadratic variation of Brownian motion.
+
+## Quadratic Variation and the Formal Rule $(dB)^2 = dt$
+
+The key insight is:
+
+$$\sum_{i=0}^{n-1} (\Delta B_i)^2 \to t \quad \text{as } n \to \infty$$
+
+In differential notation, we write this as the formal rule:
+
+$$(dB)^2 = dt$$
+
+This is *not* literally true (both sides are zero!), but it's a mnemonic for the limiting behavior.
+
+### Multiplication Rules
+
+From $(dB)^2 = dt$, we can derive multiplication rules for stochastic differentials:
+
+| Term | Value | Reason |
+|------|-------|--------|
+| $dt \cdot dt$ | $0$ | Second order in deterministic time |
+| $dt \cdot dB$ | $0$ | Deterministic times random of order $\sqrt{dt}$ |
+| $dB \cdot dB$ | $dt$ | Quadratic variation! |
+
+These rules are essential for applying Itô's lemma.
+
+## Itô's Lemma: The Fundamental Theorem
+
+Now we come to the crown jewel - the chain rule for stochastic calculus.
+
+In regular calculus, if $x(t)$ is differentiable and $f$ is smooth:
+
+$$\frac{d}{dt}f(x(t)) = f'(x(t)) \cdot \frac{dx}{dt}$$
+
+Or in differential form: $df = f'(x) \, dx$
+
+**Question**: If $B(t)$ is Brownian motion and $f$ is smooth, what is $df(B(t))$?
+
+Naive guess: $df = f'(B) \, dB$? **Wrong!**
+
+### The Derivation
+
+Use Taylor expansion for small changes:
+
+$$f(B(t + dt)) - f(B(t)) = f'(B) \cdot dB + \frac{1}{2}f''(B) \cdot (dB)^2 + \frac{1}{6}f'''(B) \cdot (dB)^3 + \cdots$$
+
+In regular calculus, $(dx)^2$ and higher terms vanish as $dt \to 0$. But **$(dB)^2 = dt$**!
+
+So the second-order term becomes:
+
+$$\frac{1}{2}f''(B) \cdot (dB)^2 = \frac{1}{2}f''(B) \cdot dt$$
+
+This term **survives**! The higher terms $(dB)^3, (dB)^4, \ldots$ do vanish (they're of order $dt^{3/2}, dt^2, \ldots$).
+
+### Itô's Lemma for $f(B(t))$
+
+$$\boxed{df(B) = f'(B) \, dB + \frac{1}{2}f''(B) \, dt}$$
+
+The extra $\frac{1}{2}f''(B) \, dt$ term is the **Itô correction** - the price we pay for the roughness of Brownian motion.
+
+## Verification: Recovering Our Earlier Result
+
+Let's verify with $f(x) = x^2$, so $f'(x) = 2x$ and $f''(x) = 2$.
+
+Itô's lemma gives:
+
+$$d(B^2) = 2B \, dB + \frac{1}{2} \cdot 2 \, dt = 2B \, dB + dt$$
+
+Integrating from 0 to $t$:
+
+$$B^2(t) - B^2(0) = 2\int_0^t B(s) \, dB(s) + t$$
+
+Since $B(0) = 0$:
+
+$$B^2(t) = 2\int_0^t B(s) \, dB(s) + t$$
+
+Therefore:
+
+$$\int_0^t B(s) \, dB(s) = \frac{1}{2}B^2(t) - \frac{1}{2}t \quad \checkmark$$
+
+Perfect match!
+
+## Example: The Exponential
+
+Take $f(x) = e^x$, so $f'(x) = f''(x) = e^x$.
+
+Itô's lemma:
+
+$$d(e^B) = e^B \, dB + \frac{1}{2}e^B \, dt = e^B \left(dB + \frac{1}{2}dt\right)$$
+
+Integrating:
+
+$$e^{B(t)} = 1 + \int_0^t e^{B(s)} \, dB(s) + \frac{1}{2}\int_0^t e^{B(s)} \, ds$$
+
+This is an **integral equation** for the exponential of Brownian motion.
+
+Taking expectations (the stochastic integral has zero mean):
+
+$$E[e^{B(t)}] = 1 + \frac{1}{2}\int_0^t E[e^{B(s)}] \, ds$$
+
+Let $m(t) = E[e^{B(t)}]$. Then $m'(t) = \frac{1}{2}m(t)$ with $m(0) = 1$.
+
+Solution: $E[e^{B(t)}] = e^{t/2}$
+
+You can verify this directly: since $B(t) \sim N(0,t)$, the moment generating function gives $E[e^{B(t)}] = e^{t/2}$. ✓
+
+## General Itô's Lemma
+
+For a function $f(t, x)$ of both time and space, and a process $X(t)$:
+
+$$\boxed{df(t, X) = \frac{\partial f}{\partial t}dt + \frac{\partial f}{\partial x}dX + \frac{1}{2}\frac{\partial^2 f}{\partial x^2}(dX)^2}$$
+
+This is the form we'll use most often in applications.
+
+### The Pattern
+
+To apply Itô's lemma:
+
+1. Identify the function $f$ and the stochastic process $X$
+2. Compute the partial derivatives: $\frac{\partial f}{\partial t}$, $\frac{\partial f}{\partial x}$, $\frac{\partial^2 f}{\partial x^2}$
+3. Compute $(dX)^2$ using the multiplication rules
+4. Substitute everything into the formula
+
+This becomes second nature with practice!
+
+## Why Itô's Choice?
+
+Other choices for the evaluation point lead to other stochastic calculi:
+
+- **Stratonovich integral**: Uses the midpoint, gives different rules
+- **Backward integral**: Uses the right endpoint
+
+Itô's calculus won out because:
+
+1. **Martingale property**: Itô integrals are martingales
+2. **Natural for finance**: Fits the "no-anticipation" principle
+3. **Connection to PDEs**: Leads naturally to Feynman-Kac
+4. **Computational advantage**: Easier to simulate
+
+The Itô convention is now standard in probability, finance, and most applications.

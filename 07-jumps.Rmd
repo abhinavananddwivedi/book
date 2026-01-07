@@ -1,0 +1,209 @@
+# Jump-Diffusion Models
+
+## Why Jumps Matter
+
+Brownian motion assumes continuous price paths. But real markets exhibit:
+
+- **Earnings announcements**: Stock gaps 10%+ overnight
+- **Central bank decisions**: FX rates jump instantly
+- **Black swan events**: Market crashes, flash crashes
+- **Fat tails**: Extreme returns occur more often than log-normal predicts
+
+Purely diffusive models systematically underprice out-of-the-money options.
+
+## The Poisson Process
+
+Before jumps, we need to count random events.
+
+**Definition**: $N(t)$ is a Poisson process with intensity $\lambda$ if:
+
+1. $N(0) = 0$
+2. Independent increments
+3. $N(t) - N(s) \sim \text{Poisson}(\lambda(t-s))$ for $t > s$
+4. Paths are step functions (jumps of size 1)
+
+**Properties**:
+- $E[N(t)] = \lambda t$ (average $\lambda$ events per unit time)
+- $\text{Var}(N(t)) = \lambda t$
+- $P(N(t) = k) = \frac{(\lambda t)^k e^{-\lambda t}}{k!}$
+- Waiting times between events: exponential with rate $\lambda$
+
+**Differential notation**:
+$$dN(t) = \begin{cases} 1 & \text{with probability } \lambda \, dt \\ 0 & \text{with probability } 1 - \lambda \, dt \end{cases}$$
+
+Key property: $(dN)^2 = dN$ (since $dN \in \{0,1\}$ and $1^2 = 1$).
+
+## Compound Poisson Process
+
+Add random jump sizes:
+
+$$J(t) = \sum_{i=1}^{N(t)} Y_i$$
+
+where $Y_i$ are i.i.d. random jumps (often $Y_i \sim N(\mu_J, \sigma_J^2)$).
+
+In differential form:
+$$dJ(t) = Y \, dN(t)$$
+
+where $Y$ is drawn when a jump occurs.
+
+## Merton's Jump-Diffusion Model
+
+Combine Brownian motion with compound Poisson jumps:
+
+$$\boxed{\frac{dS}{S} = \mu \, dt + \sigma \, dB + (e^Y - 1) \, dN}$$
+
+**Components**:
+- $\mu \, dt$: Deterministic drift
+- $\sigma \, dB$: Continuous diffusion (Brownian)
+- $(e^Y - 1) \, dN$: Discontinuous jumps
+
+**Jump structure**:
+- Jumps arrive with intensity $\lambda$
+- When jump occurs: $S \to S \cdot e^Y$ (multiplicative)
+- Typically $Y \sim N(\mu_J, \sigma_J^2)$ (log-normal jumps)
+
+### Why $e^Y - 1$?
+
+If $Y = \log(1 + k)$ where $k$ is the percentage jump:
+
+$$S_{\text{after}} = S_{\text{before}} \cdot e^Y = S_{\text{before}} \cdot (1 + k)$$
+
+So a 10% down move corresponds to $Y = \log(0.9) \approx -0.105$.
+
+## Itô's Lemma with Jumps
+
+For a function $f(S)$ where $S$ follows jump-diffusion, Itô's lemma becomes:
+
+$$df = \frac{\partial f}{\partial S}dS + \frac{1}{2}\frac{\partial^2 f}{\partial S^2}(dS)^2 + [f(Se^Y) - f(S) - \frac{\partial f}{\partial S}S(e^Y - 1)]\,dN$$
+
+The last term is the **jump correction**: actual jump minus first-order Taylor approximation.
+
+**Multiplication rules**:
+- $dB \cdot dN = 0$ (jumps and diffusion independent)
+- $dt \cdot dN = 0$
+- $dN \cdot dN = dN$ (only one jump at a time)
+
+### Example: Log Price
+
+Apply to $f(S) = \log S$:
+
+$$d(\log S) = \left(\mu - \frac{\sigma^2}{2}\right)dt + \sigma \, dB + Y \, dN$$
+
+Integrating:
+
+$$\log S(t) = \log S(0) + \left(\mu - \frac{\sigma^2}{2}\right)t + \sigma B(t) + \sum_{i=1}^{N(t)} Y_i$$
+
+Log price = drift + Brownian + sum of jumps. Clean decomposition!
+
+## Risk-Neutral Pricing with Jumps
+
+Under $\mathbb{Q}$, discounted price must be martingale:
+
+$$\frac{dS}{S} = (r - \lambda \kappa) \, dt + \sigma \, d\tilde{B} + (e^Y - 1) \, d\tilde{N}$$
+
+where $\kappa = E^{\mathbb{Q}}[e^Y - 1]$ is the expected jump size.
+
+The drift adjustment $-\lambda \kappa$ compensates for jumps to maintain martingale property.
+
+If jumps are log-normal: $Y \sim N(\mu_J, \sigma_J^2)$, then:
+
+$$\kappa = e^{\mu_J + \sigma_J^2/2} - 1$$
+
+### The Critical Insight
+
+**With jumps, you cannot perfectly hedge!** 
+
+Jump risk cannot be eliminated through continuous rebalancing. This fundamentally changes the pricing problem.
+
+## Merton's Option Pricing Formula
+
+For a European call:
+
+$$\boxed{C(S, t) = \sum_{n=0}^{\infty} \frac{e^{-\lambda'(T-t)}[\lambda'(T-t)]^n}{n!} \text{BS}(S, K, r_n, \sigma_n, T-t)}$$
+
+where:
+- $\lambda' = \lambda(1 + \kappa)$ is adjusted intensity
+- $\text{BS}(\cdot)$ is Black-Scholes formula with modified parameters:
+  - $r_n = r - \lambda\kappa + \frac{n\log(1+\kappa)}{T-t}$
+  - $\sigma_n^2 = \sigma^2 + \frac{n\sigma_J^2}{T-t}$
+
+**Interpretation**: Weighted average of Black-Scholes prices, each term corresponding to exactly $n$ jumps before maturity.
+
+## The PIDE
+
+For general derivatives, the pricing equation becomes a **partial integro-differential equation**:
+
+$$\frac{\partial V}{\partial t} + (r - \lambda\kappa)S\frac{\partial V}{\partial S} + \frac{1}{2}\sigma^2 S^2\frac{\partial^2 V}{\partial S^2}$$
+$$+ \lambda\int_{-\infty}^{\infty}[V(t, Se^y) - V(t,S)]f(y)\,dy = rV$$
+
+The integral accounts for all possible jump outcomes, weighted by their probability density $f(y)$.
+
+**Much harder to solve** than Black-Scholes PDE! Typically requires numerical methods:
+- Monte Carlo simulation
+- Fourier methods (FFT)
+- Finite difference on jump-diffusion grid
+
+## Market Implications
+
+### Volatility Smile
+
+Jump models naturally produce volatility smiles:
+- Out-of-the-money puts protect against downward jumps → higher implied vol
+- Near-the-money options less affected → lower implied vol
+- Creates the characteristic "smirk" in equity markets
+
+### Greeks
+
+Greeks behave differently with jumps:
+- **Delta** no longer perfect hedge ratio
+- **Vega** has two components: diffusion vol + jump vol
+- **New Greeks**: sensitivity to jump intensity ($\partial V/\partial \lambda$), jump size
+- **Jump risk premium**: additional risk that can't be hedged
+
+### Calibration
+
+More parameters to fit:
+- Brownian: $\mu$, $\sigma$
+- Jumps: $\lambda$, $\mu_J$, $\sigma_J$
+
+Pros: More flexible, fits market data better
+Cons: Harder to calibrate, identifiability issues
+
+## Extensions
+
+### Double exponential jumps
+
+Use asymmetric exponential distributions for up/down jumps:
+
+$$f(y) = \begin{cases} 
+p \eta_u e^{-\eta_u y} & y \geq 0 \\
+(1-p) \eta_d e^{\eta_d y} & y < 0
+\end{cases}$$
+
+Allows different behavior for positive and negative jumps (market asymmetry).
+
+### Stochastic intensity
+
+Let $\lambda$ itself be random:
+
+$$d\lambda = a(\lambda) \, dt + b(\lambda) \, dW$$
+
+Models "volatility clustering" of jumps (crises come in waves).
+
+### Jump-to-default
+
+Special case: when jump occurs, stock goes to zero (bankruptcy):
+
+$$P(\text{jump to default in } dt) = h \, dt$$
+
+Used in credit risk models.
+
+## Summary
+
+Jump-diffusion models capture:
+- Discrete shocks in addition to continuous uncertainty
+- Fat tails and skewness in return distributions
+- Incomplete markets and non-hedgeable risk
+- More realistic market dynamics
+
+They're the bridge between Black-Scholes and more sophisticated Lévy process models.

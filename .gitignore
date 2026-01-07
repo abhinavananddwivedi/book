@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.log
+*.aux
+*.out
+*.toc
+_bookdown_files/
+_book/
+*.rds
+*.pdf
+*.epub
+.DS_Store

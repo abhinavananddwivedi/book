@@ -1,0 +1,238 @@
+# Stochastic Differential Equations
+
+## Introduction to SDEs
+
+A **stochastic differential equation (SDE)** describes how a random process evolves over time, combining deterministic trends with random fluctuations.
+
+The general form is:
+
+$$dX(t) = \mu(t, X) \, dt + \sigma(t, X) \, dB(t)$$
+
+where:
+
+- $\mu(t, X)$ is the **drift coefficient** - the deterministic trend
+- $\sigma(t, X)$ is the **diffusion coefficient** (or volatility) - controls the random fluctuations
+- $B(t)$ is standard Brownian motion
+
+This differential equation is shorthand for the integral equation:
+
+$$X(t) = X(0) + \int_0^t \mu(s, X(s)) \, ds + \int_0^t \sigma(s, X(s)) \, dB(s)$$
+
+The first integral is ordinary (deterministic), the second is an Itô integral (random).
+
+## Geometric Brownian Motion
+
+The most famous SDE in finance models stock prices:
+
+$$dS = \mu S \, dt + \sigma S \, dB$$
+
+where $\mu$ and $\sigma$ are constants.
+
+### Interpretation
+
+Rewrite as:
+
+$$\frac{dS}{S} = \mu \, dt + \sigma \, dB$$
+
+The **return** $dS/S$ has two components:
+
+- Deterministic drift: $\mu \, dt$ per unit time
+- Random shock: $\sigma \, dB$ with volatility $\sigma$
+
+This says returns (not prices!) have a constant drift and volatility.
+
+### Solving GBM
+
+We can't just "integrate" the SDE directly. Instead, we use Itô's lemma to find the right transformation!
+
+**Strategy**: Try $f(S) = \log S$.
+
+Then:
+- $f'(S) = 1/S$
+- $f''(S) = -1/S^2$
+
+From the SDE: $dS = \mu S \, dt + \sigma S \, dB$
+
+Therefore: $(dS)^2 = (\mu S \, dt + \sigma S \, dB)^2 = \sigma^2 S^2 (dB)^2 = \sigma^2 S^2 \, dt$
+
+(The $dt \cdot dB$ and $(dt)^2$ terms vanish.)
+
+By Itô's lemma:
+
+$$d(\log S) = \frac{1}{S} dS + \frac{1}{2}\left(-\frac{1}{S^2}\right)(dS)^2$$
+
+$$= \frac{1}{S}(\mu S \, dt + \sigma S \, dB) - \frac{1}{2} \cdot \frac{1}{S^2} \cdot \sigma^2 S^2 \, dt$$
+
+$$= \mu \, dt + \sigma \, dB - \frac{\sigma^2}{2} \, dt$$
+
+$$= \left(\mu - \frac{\sigma^2}{2}\right) dt + \sigma \, dB$$
+
+This is **linear** in $\log S$! Integrating from 0 to $t$:
+
+$$\log S(t) - \log S(0) = \left(\mu - \frac{\sigma^2}{2}\right)t + \sigma B(t)$$
+
+Exponentiating:
+
+$$\boxed{S(t) = S(0) \exp\left[\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma B(t)\right]}$$
+
+### Key Observations
+
+1. **Always positive**: $S(t) > 0$ always (good for stock prices!)
+2. **Log-normal**: $\log S(t)$ is normally distributed
+3. **Itô correction**: The drift in the exponent is $\mu - \sigma^2/2$, not $\mu$
+4. **Expected value**: $E[S(t)] = S(0)e^{\mu t}$ (using the moment generating function)
+5. **Median**: $\text{median}[S(t)] = S(0)e^{(\mu - \sigma^2/2)t}$
+
+The difference between $\mu$ and $\mu - \sigma^2/2$ is sometimes called **Jensen's inequality correction** or the **convexity adjustment**.
+
+### The Itô Correction Explained
+
+Why the $-\sigma^2/2$ term?
+
+The exponential function is **convex**. Because of volatility, $S(t)$ spends more time in regions where the exponential curves upward. To maintain the correct expected drift rate, we need to adjust downward by $\sigma^2/2$.
+
+This is a general feature: non-linear transformations of stochastic processes pick up correction terms proportional to the second derivative (curvature).
+
+## Ornstein-Uhlenbeck Process
+
+This SDE models **mean reversion** - a tendency to return to a long-term average:
+
+$$dX = -\theta X \, dt + \sigma \, dB$$
+
+where $\theta > 0$ is the mean reversion speed.
+
+### Interpretation
+
+- When $X > 0$: drift is negative (pulled toward zero)
+- When $X < 0$: drift is positive (pushed toward zero)  
+- Strength of pull proportional to distance from zero
+
+This models:
+- Interest rates (tend to revert to long-term average)
+- Commodity prices (mean reversion due to supply/demand)
+- Temperature (seasonal mean reversion)
+
+### Solving the OU Process
+
+Try the transformation $f(t, X) = e^{\theta t} X$.
+
+Partial derivatives:
+- $\frac{\partial f}{\partial t} = \theta e^{\theta t} X$
+- $\frac{\partial f}{\partial X} = e^{\theta t}$
+- $\frac{\partial^2 f}{\partial X^2} = 0$
+
+By Itô's lemma:
+
+$$d(e^{\theta t} X) = \theta e^{\theta t} X \, dt + e^{\theta t} dX + 0$$
+
+Substitute $dX = -\theta X \, dt + \sigma \, dB$:
+
+$$d(e^{\theta t} X) = \theta e^{\theta t} X \, dt + e^{\theta t}(-\theta X \, dt + \sigma \, dB)$$
+
+$$= \sigma e^{\theta t} \, dB$$
+
+The drift terms cancel! Integrating:
+
+$$e^{\theta t} X(t) - X(0) = \sigma \int_0^t e^{\theta s} \, dB(s)$$
+
+Therefore:
+
+$$\boxed{X(t) = X(0)e^{-\theta t} + \sigma \int_0^t e^{-\theta(t-s)} \, dB(s)}$$
+
+### Properties of the Solution
+
+1. **Exponential decay**: The initial condition $X(0)$ decays as $e^{-\theta t}$
+2. **Half-life**: Time to halve: $t_{1/2} = \frac{\log 2}{\theta}$
+3. **Gaussian**: $X(t)$ is normally distributed (it's a linear combination of Brownian increments)
+4. **Mean**: $E[X(t)] = X(0)e^{-\theta t} \to 0$ as $t \to \infty$
+5. **Variance**: $\text{Var}(X(t)) = \frac{\sigma^2}{2\theta}(1 - e^{-2\theta t}) \to \frac{\sigma^2}{2\theta}$ as $t \to \infty$
+
+The process reaches a **stationary distribution** $N(0, \sigma^2/(2\theta))$ as $t \to \infty$.
+
+### Generalization: OU with Mean $\mu$
+
+The SDE:
+
+$$dX = \theta(\mu - X) \, dt + \sigma \, dB$$
+
+reverts to a non-zero mean $\mu$. The solution is:
+
+$$X(t) = \mu + [X(0) - \mu]e^{-\theta t} + \sigma \int_0^t e^{-\theta(t-s)} \, dB(s)$$
+
+Stationary distribution: $N(\mu, \sigma^2/(2\theta))$
+
+## General Strategy for Solving SDEs
+
+Not all SDEs have closed-form solutions, but when they do, the strategy is:
+
+1. **Guess a transformation** $f(X)$ or $f(t, X)$ that might linearize or simplify things
+2. **Apply Itô's lemma** to find $df$
+3. **Hope that $df$ is simpler** (ideally linear or separable)
+4. **Integrate and solve** for $f$
+5. **Transform back** to find $X$
+
+Common tricks:
+- For multiplicative noise: try $\log X$
+- For mean reversion: try $e^{\theta t} X$  
+- For time-dependent drift: try integrating factors
+- For Bessel processes: try $X^2$
+
+This is an art! Intuition comes with practice.
+
+## Linear SDEs
+
+SDEs of the form:
+
+$$dX = [a(t) + b(t)X] \, dt + [c(t) + d(t)X] \, dB$$
+
+where $a, b, c, d$ are deterministic functions, can always be solved using integrating factors.
+
+The solution involves:
+1. Solving the homogeneous equation
+2. Variation of parameters for the particular solution
+3. Combining with the stochastic integral
+
+This parallels the theory of linear ODEs, but with stochastic integrals replacing ordinary integrals.
+
+## Existence and Uniqueness
+
+When does an SDE have a solution? When is it unique?
+
+**Theorem** (Existence and Uniqueness): If $\mu(t, x)$ and $\sigma(t, x)$ satisfy:
+
+1. **Lipschitz condition**: There exists $K > 0$ such that
+   $$|\mu(t,x) - \mu(t,y)| + |\sigma(t,x) - \sigma(t,y)| \leq K|x - y|$$
+   for all $t, x, y$
+
+2. **Linear growth**: There exists $C > 0$ such that
+   $$|\mu(t,x)| + |\sigma(t,x)| \leq C(1 + |x|)$$
+   for all $t, x$
+
+Then the SDE has a **unique strong solution** for any initial condition $X(0)$.
+
+These conditions ensure the drift and diffusion are "nice enough" - not too wild or growing too fast.
+
+## Strong vs. Weak Solutions
+
+- **Strong solution**: Constructed pathwise on a given probability space with a given Brownian motion
+- **Weak solution**: The probability distribution of the solution is specified, but the construction may vary
+
+Most applications in finance use weak solutions - we care about distributions of prices, not individual paths.
+
+## Multidimensional SDEs
+
+SDEs can be vectors:
+
+$$dX_i = \mu_i(t, \mathbf{X}) \, dt + \sum_{j=1}^d \sigma_{ij}(t, \mathbf{X}) \, dB_j$$
+
+where $\mathbf{X} = (X_1, \ldots, X_n)$ and $B_1, \ldots, B_d$ are independent Brownian motions.
+
+The matrix $\sigma = (\sigma_{ij})$ is the **diffusion matrix**. The covariance structure is:
+
+$$d\langle X_i, X_j \rangle = \sum_{k=1}^d \sigma_{ik} \sigma_{jk} \, dt = (\sigma \sigma^T)_{ij} \, dt$$
+
+Multidimensional Itô's lemma becomes:
+
+$$df(\mathbf{X}) = \sum_i \frac{\partial f}{\partial x_i} dX_i + \frac{1}{2}\sum_{i,j} \frac{\partial^2 f}{\partial x_i \partial x_j} d\langle X_i, X_j \rangle$$
+
+This is essential for modeling portfolios, interest rate curves, and other multivariate phenomena.

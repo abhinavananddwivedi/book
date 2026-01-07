@@ -1,0 +1,48 @@
+--- 
+title: "Stochastic Calculus from Scratch"
+author: "Abhinav Anand"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+description: "A comprehensive introduction to stochastic calculus with applications to finance"
+url: 'https://abhinavananddwivedi.github.io/book/'
+github-repo: "abhinavananddwivedi/book"
+---
+
+# Preface {-}
+
+Welcome to **Stochastic Calculus from Scratch**! This book provides a comprehensive journey through random processes and their applications in financial mathematics.
+
+## What You'll Learn {-}
+
+This book covers:
+
+- Random walks and Brownian motion
+- Itô's lemma and stochastic integration
+- Stochastic differential equations (SDEs)
+- The Feynman-Kac connection between SDEs and PDEs
+- Risk-neutral pricing and martingales
+- Black-Scholes theory and the Greeks
+- Jump-diffusion models
+- Lévy processes
+
+## Prerequisites {-}
+
+Readers should be comfortable with:
+
+- Calculus (derivatives, integrals)
+- Basic probability theory (random variables, expectations, variance)
+- Linear algebra fundamentals
+
+## About This Book {-}
+
+This book grew out of an interactive teaching session focused on building intuition for stochastic calculus from first principles. The emphasis is on understanding *why* things work, not just *what* the formulas are.
+
+Each chapter builds on previous concepts, so I recommend reading sequentially, especially if you're new to the subject.
+
+---
+
+Let's begin our journey into the beautiful world of stochastic calculus!

@@ -1,0 +1,117 @@
+# Random Walks and Brownian Motion
+
+## Simple Random Walk
+
+Imagine flipping a fair coin repeatedly. After each flip, you take a step: heads = +1, tails = -1. Your position after $n$ steps is:
+
+$$S_n = X_1 + X_2 + \cdots + X_n$$
+
+where each $X_i \in \{-1, +1\}$ with equal probability. This is a **simple random walk**.
+
+### Key Properties
+
+The random walk has several important characteristics:
+
+- **Expected position**: $E[S_n] = 0$ (you expect to end where you started)
+- **Variance**: $\text{Var}(S_n) = n$ (the variance grows linearly with time)
+- **Asymptotic behavior**: $S_n \sim \sqrt{n} \cdot N(0,1)$ approximately, by the Central Limit Theorem
+
+The last property tells us that even though each individual step is discrete, the rescaled position becomes approximately normal for large $n$.
+
+## Scaling to Continuous Time
+
+Now here's the beautiful leap: Let's speed up time and shrink the steps. 
+
+Divide time into tiny intervals of length $\Delta t$, and let each step have size $\Delta x$. After time $t$, we've taken $n = t/\Delta t$ steps.
+
+If we want the limiting process to have the same "spreading" behavior, we need $\text{Var}(S_n) \sim t$. Since variance adds, and we take $n = t/\Delta t$ steps:
+
+$$n \cdot (\Delta x)^2 = \frac{t}{\Delta t} \cdot (\Delta x)^2 \sim t$$
+
+This means we need: 
+
+$$(\Delta x)^2 \sim \Delta t$$
+
+or equivalently:
+
+$$\Delta x \sim \sqrt{\Delta t}$$
+
+**This is the crucial scaling!** Steps shrink like the *square root* of the time interval, not proportionally to time itself. This counterintuitive scaling is at the heart of stochastic calculus.
+
+## Brownian Motion Emerges
+
+Taking the limit as $\Delta t \to 0$, we get a continuous random process $B(t)$ called **Brownian motion** (or the Wiener process).
+
+### Formal Definition
+
+A stochastic process $B(t)$ is Brownian motion if it satisfies:
+
+1. **Initial condition**: $B(0) = 0$
+2. **Independent increments**: For any $t > s$, the increment $B(t) - B(s)$ is independent of all information up to time $s$
+3. **Normal increments**: $B(t) - B(s) \sim N(0, t-s)$ for $t > s$
+4. **Continuous paths**: $B(t)$ has continuous paths (no jumps)
+
+The third property captures that crucial $\Delta x \sim \sqrt{\Delta t}$ scaling we derived above.
+
+### A Shocking Fact
+
+Despite being continuous everywhere, Brownian motion is **differentiable nowhere**. The path is infinitely jagged at every scale. 
+
+To see why, consider the "derivative":
+
+$$\frac{B(t + \Delta t) - B(t)}{\Delta t} \sim \frac{N(0, \Delta t)}{\Delta t} \sim \frac{\sqrt{\Delta t}}{\Delta t} = \frac{1}{\sqrt{\Delta t}} \to \infty$$
+
+as $\Delta t \to 0$. The "instantaneous velocity" is infinite!
+
+This is why we need new mathematical tools - traditional calculus breaks down for such rough functions.
+
+## Properties of Brownian Motion
+
+### Quadratic Variation
+
+For any partition $0 = t_0 < t_1 < \cdots < t_n = t$, consider:
+
+$$\sum_{i=0}^{n-1} [B(t_{i+1}) - B(t_i)]^2$$
+
+As the partition gets finer, this sum converges to $t$ (not zero, as it would for smooth functions!). We write:
+
+$$[B, B](t) = t$$
+
+This is called the **quadratic variation** of Brownian motion.
+
+### Markov Property
+
+Brownian motion is a **Markov process**: The future is independent of the past given the present. Formally:
+
+$$P(B(t) \in A \mid B(s), s \leq t_0) = P(B(t) \in A \mid B(t_0))$$
+
+for $t > t_0$.
+
+### Martingale Property
+
+Brownian motion is a **martingale**: The best prediction of future position is the current position:
+
+$$E[B(t) \mid \mathcal{F}_s] = B(s)$$ 
+
+for all $t \geq s$, where $\mathcal{F}_s$ represents all information up to time $s$.
+
+### Scaling Properties
+
+Brownian motion has interesting scaling invariance:
+
+- **Time scaling**: If $B(t)$ is Brownian motion, so is $\frac{1}{\sqrt{c}} B(ct)$ for any $c > 0$
+- **Reflection**: $-B(t)$ is also Brownian motion
+- **Time reversal**: The process $t B(1/t)$ for $t > 0$ is Brownian motion
+
+These symmetries make Brownian motion mathematically elegant and practically useful.
+
+## Historical Note
+
+Brownian motion is named after botanist Robert Brown, who in 1827 observed the erratic movement of pollen grains suspended in water. However, the mathematical theory was developed much later:
+
+- **1900**: Louis Bachelier used it to model stock prices (before Einstein!)
+- **1905**: Albert Einstein explained the physical phenomenon
+- **1923**: Norbert Wiener gave the first rigorous mathematical construction
+- **1944**: Kiyoshi Itô developed the calculus of Brownian motion
+
+This mathematical object bridges physics, biology, finance, and pure mathematics - a testament to its fundamental importance.

@@ -1,0 +1,217 @@
+# Feynman-Kac and PDEs
+
+## The Bridge Between Probability and Analysis
+
+One of the most beautiful results in mathematics connects two seemingly different worlds:
+
+- **Stochastic differential equations** (SDEs) - the probabilistic world
+- **Partial differential equations** (PDEs) - the analytical world
+
+This connection, known as the **Feynman-Kac formula**, allows us to:
+- Solve PDEs by simulating random processes (Monte Carlo)
+- Solve SDEs by solving PDEs (numerical PDE methods)
+- Gain intuition about both simultaneously
+
+## The Backward Kolmogorov Equation
+
+Consider an SDE:
+
+$$dX(t) = \mu(X) \, dt + \sigma(X) \, dB(t)$$
+
+Define the function:
+
+$$u(t, x) = E[g(X(T)) \mid X(t) = x]$$
+
+This represents the expected value of some payoff function $g$ at terminal time $T$, given that the process is at position $x$ at time $t$.
+
+**Question**: What PDE does $u(t,x)$ satisfy?
+
+### Heuristic Derivation
+
+Apply Itô's lemma to $u(t, X(t))$:
+
+$$du = \frac{\partial u}{\partial t}dt + \frac{\partial u}{\partial x}dX + \frac{1}{2}\frac{\partial^2 u}{\partial x^2}(dX)^2$$
+
+Substitute $dX = \mu \, dt + \sigma \, dB$ and $(dX)^2 = \sigma^2 \, dt$:
+
+$$du = \left[\frac{\partial u}{\partial t} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2}\right]dt + \sigma\frac{\partial u}{\partial x}dB$$
+
+Integrate from $t$ to $T$ and take expectations. The stochastic integral has zero expectation, so:
+
+$$E[u(T, X(T))] - u(t, x) = E\left[\int_t^T \left(\frac{\partial u}{\partial s} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2}\right)ds\right]$$
+
+At terminal time: $u(T, X(T)) = g(X(T))$ by definition.
+
+For this to hold for all paths, we need:
+
+$$\boxed{\frac{\partial u}{\partial t} + \mu(x)\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2(x)\frac{\partial^2 u}{\partial x^2} = 0}$$
+
+with boundary condition $u(T, x) = g(x)$.
+
+This is the **backward Kolmogorov equation** (also called the **Fokker-Planck backward equation**).
+
+## Example: The Heat Equation
+
+Take the simplest SDE: $dX = dB$ (pure Brownian motion, $\mu = 0$, $\sigma = 1$).
+
+The backward equation becomes:
+
+$$\frac{\partial u}{\partial t} + \frac{1}{2}\frac{\partial^2 u}{\partial x^2} = 0$$
+
+Change time direction by setting $\tau = T - t$:
+
+$$\boxed{\frac{\partial u}{\partial \tau} = \frac{1}{2}\frac{\partial^2 u}{\partial x^2}}$$
+
+This is the **heat equation**!
+
+### Probabilistic Interpretation
+
+The solution to the heat equation with initial condition $u(0, x) = g(x)$ is:
+
+$$u(\tau, x) = E[g(X(\tau)) \mid X(0) = x] = \int_{-\infty}^{\infty} g(y) \frac{1}{\sqrt{2\pi\tau}} e^{-(y-x)^2/(2\tau)} dy$$
+
+The heat kernel $\frac{1}{\sqrt{2\pi\tau}} e^{-(y-x)^2/(2\tau)}$ is precisely the transition density of Brownian motion!
+
+**Deep insight**: Heat diffusion is mathematically identical to Brownian motion. Temperature spreads like a random walk.
+
+## The Black-Scholes PDE
+
+Now consider geometric Brownian motion:
+
+$$dS = \mu S \, dt + \sigma S \, dB$$
+
+For a derivative with payoff $g(S(T))$ at time $T$, we want the price:
+
+$$V(t, S) = E[g(S(T)) \mid S(t) = S]$$
+
+But we need to account for **discounting** at the risk-free rate $r$. In a risk-neutral world (more on this later), we replace $\mu$ with $r$ and define:
+
+$$V(t, S) = e^{-r(T-t)}E^{\mathbb{Q}}[g(S(T)) \mid S(t) = S]$$
+
+Let $u(t, S) = e^{-r(T-t)}V(t, S)$ to factor out the discounting. By Itô's lemma and similar arguments:
+
+$$\boxed{\frac{\partial V}{\partial t} + rS\frac{\partial V}{\partial S} + \frac{1}{2}\sigma^2 S^2\frac{\partial^2 V}{\partial S^2} = rV}$$
+
+with terminal condition $V(T, S) = g(S)$.
+
+This is the **Black-Scholes PDE**!
+
+### Solving for a European Call
+
+For $g(S) = \max(S - K, 0)$, the solution is:
+
+$$V(t, S) = S\Phi(d_1) - Ke^{-r(T-t)}\Phi(d_2)$$
+
+where:
+$$d_1 = \frac{\log(S/K) + (r + \sigma^2/2)(T-t)}{\sigma\sqrt{T-t}}, \quad d_2 = d_1 - \sigma\sqrt{T-t}$$
+
+We'll derive this in the next chapter using risk-neutral pricing.
+
+## The Forward Kolmogorov Equation
+
+There's also a **forward equation** that describes how the **probability density** $p(t, x)$ of $X(t)$ evolves:
+
+$$\frac{\partial p}{\partial t} = -\frac{\partial}{\partial x}[\mu(x)p] + \frac{1}{2}\frac{\partial^2}{\partial x^2}[\sigma^2(x)p]$$
+
+This is the **forward Kolmogorov equation** (or **Fokker-Planck forward equation**).
+
+### The Duality
+
+- **Backward equation**: Expects values along future paths (pricing)
+- **Forward equation**: Probability density evolution (statistical mechanics)
+
+These are dual perspectives on the same stochastic process.
+
+## Feynman-Kac Formula (General Version)
+
+The most general form handles running costs and discounting:
+
+**Theorem**: Consider the SDE $dX = \mu(X) \, dt + \sigma(X) \, dB$ with initial condition $X(t) = x$. 
+
+Define:
+
+$$u(t, x) = E\left[g(X(T))e^{-\int_t^T c(X(s))ds} + \int_t^T f(X(s))e^{-\int_t^s c(X(r))dr}ds \mid X(t) = x\right]$$
+
+Then $u$ satisfies:
+
+$$\frac{\partial u}{\partial t} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2} - c(x)u + f(x) = 0$$
+
+with $u(T, x) = g(x)$.
+
+Here:
+- $c(x)$ is a discount rate (e.g., interest rate)
+- $f(x)$ is a running payoff (e.g., dividends)
+- $g(x)$ is terminal payoff
+
+## Applications
+
+### Option Pricing
+
+The Feynman-Kac formula underpins all of option pricing theory:
+- Price = expected discounted payoff under risk-neutral measure
+- Can solve either the PDE or simulate the SDE
+
+### Statistical Mechanics
+
+In physics, the heat equation describes:
+- Temperature diffusion
+- Particle density evolution
+- Quantum mechanics (Schrödinger equation with imaginary time)
+
+### Control Theory
+
+Optimal control problems (Hamilton-Jacobi-Bellman equations) connect to SDEs through Feynman-Kac.
+
+### Biology
+
+Population dynamics, gene frequency evolution, and neural activity models all use this connection.
+
+## Numerical Methods
+
+### Monte Carlo Simulation
+
+To compute $u(t,x) = E[g(X(T)) \mid X(t) = x]$:
+
+1. Simulate many paths of the SDE starting from $X(t) = x$
+2. Evaluate $g(X(T))$ for each path
+3. Average the results
+
+Advantages: Easy to implement, works in high dimensions
+Disadvantages: Slow convergence ($\mathcal{O}(1/\sqrt{N})$), difficult for early exercise
+
+### PDE Methods
+
+Discretize the PDE on a grid using:
+- Finite differences (explicit, implicit, Crank-Nicolson)
+- Finite elements
+- Spectral methods
+
+Advantages: Fast, handles early exercise naturally
+Disadvantages: Curse of dimensionality, boundary conditions tricky
+
+### Hybrid Methods
+
+Modern approaches combine both:
+- Use PDE methods when low-dimensional
+- Use Monte Carlo when high-dimensional
+- Use sparse grids, reduced basis methods, etc.
+
+## Summary
+
+The Feynman-Kac connection is profound:
+
+```
+SDE: dX = μdt + σdB
+     ↓ (Itô's lemma)
+PDE: ∂u/∂t + μ∂u/∂x + ½σ²∂²u/∂x² = 0
+     ↕ (Feynman-Kac)
+Probabilistic representation: u(t,x) = E[g(X(T)) | X(t)=x]
+```
+
+This bridges:
+- Probability ↔ Analysis
+- Random walks ↔ Differential equations
+- Simulation ↔ Analytic solutions
+- Physics ↔ Finance
+
+It's one of the most beautiful and useful results in applied mathematics.

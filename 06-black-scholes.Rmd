@@ -1,0 +1,209 @@
+# Black-Scholes Theory
+
+## The Black-Scholes Formula
+
+For a European call option with strike $K$ and maturity $T$, the price at time $t$ with stock price $S$ is:
+
+$$\boxed{C(t, S) = S\Phi(d_1) - Ke^{-r(T-t)}\Phi(d_2)}$$
+
+where:
+$$d_1 = \frac{\log(S/K) + (r + \sigma^2/2)(T-t)}{\sigma\sqrt{T-t}}, \quad d_2 = d_1 - \sigma\sqrt{T-t}$$
+
+and $\Phi$ is the standard normal CDF.
+
+### Derivation
+
+Under the risk-neutral measure, stock price evolves as:
+
+$$S(T) = S(t)\exp\left[\left(r - \frac{\sigma^2}{2}\right)(T-t) + \sigma\sqrt{T-t}Z\right]$$
+
+where $Z \sim N(0,1)$.
+
+The call price is:
+$$C = e^{-r(T-t)}E^{\mathbb{Q}}[\max(S(T) - K, 0)]$$
+
+After working through the integral (completing the square), we obtain the formula above.
+
+### Interpretation
+
+$$C = S\Phi(d_1) - Ke^{-r(T-t)}\Phi(d_2)$$
+
+- $S\Phi(d_1)$: Expected present value of stock *if exercised*
+- $Ke^{-r(T-t)}\Phi(d_2)$: Expected present value of strike payment
+- $\Phi(d_2)$: Risk-neutral probability option finishes in-the-money
+- $\Phi(d_1)$: "Delta" of the option (hedge ratio)
+
+## The Greeks
+
+The Greeks measure sensitivities of option prices to various parameters. They're essential for risk management and hedging.
+
+### Delta ($\Delta$)
+
+$$\Delta = \frac{\partial C}{\partial S} = \Phi(d_1)$$
+
+**Interpretation**: 
+- How much the option price changes per $1 change in stock price
+- Hedge ratio: to hedge a short call, buy $\Delta$ shares
+- Ranges from 0 (deep out-of-money) to 1 (deep in-the-money)
+
+### Gamma ($\Gamma$)
+
+$$\Gamma = \frac{\partial^2 C}{\partial S^2} = \frac{\phi(d_1)}{S\sigma\sqrt{T-t}}$$
+
+where $\phi$ is the standard normal PDF.
+
+**Interpretation**:
+- Rate of change of Delta
+- Measures convexity of option price
+- Maximum at-the-money
+- Hedging $\Gamma$ is expensive (requires frequent rebalancing)
+
+### Vega ($\mathcal{V}$)
+
+$$\mathcal{V} = \frac{\partial C}{\partial \sigma} = S\phi(d_1)\sqrt{T-t}$$
+
+**Interpretation**:
+- Sensitivity to volatility
+- Options are "long volatility" - gain value when $\sigma$ increases
+- Maximum at-the-money
+- Long-dated options have more Vega
+
+### Theta ($\Theta$)
+
+$$\Theta = \frac{\partial C}{\partial t} = -\frac{S\phi(d_1)\sigma}{2\sqrt{T-t}} - rKe^{-r(T-t)}\Phi(d_2)$$
+
+**Interpretation**:
+- Time decay - value lost per day
+- Usually negative for long options (you lose time value)
+- Accelerates as expiration approaches
+
+### Rho ($\rho$)
+
+$$\rho = \frac{\partial C}{\partial r} = K(T-t)e^{-r(T-t)}\Phi(d_2)$$
+
+**Interpretation**:
+- Sensitivity to interest rates
+- Usually less important than other Greeks
+- More relevant for long-dated options
+
+### The Greeks Relationship
+
+They satisfy the Black-Scholes PDE:
+
+$$\Theta + \frac{1}{2}\sigma^2 S^2\Gamma + rS\Delta - rC = 0$$
+
+This connects time decay, convexity, and delta in a beautiful way.
+
+## Delta Hedging
+
+You're a market maker who sold a call option. How to hedge the risk?
+
+### The Strategy
+
+1. At time $t$: Hold $\Delta(t) = \Phi(d_1)$ shares of stock
+2. As stock moves: Continuously rebalance to maintain $\Delta(t)$ shares
+3. If hedged perfectly with correct volatility: Earn the risk-free rate
+
+### Discrete Hedging P&L
+
+Over small time $dt$, the P&L is approximately:
+
+$$dP\&L \approx \frac{1}{2}\Gamma(dS)^2 - \Theta \, dt$$
+
+- $(dS)^2$ term: Realized variance
+- $\Theta$ term: Time decay
+
+If realized volatility = implied volatility used for pricing, these balance out.
+
+### The Catch
+
+In practice:
+- Can't rebalance continuously (transaction costs)
+- Don't know true volatility in advance
+- If realized vol $\neq$ implied vol, you make/lose money
+
+This is why options trading is essentially trading volatility!
+
+## Put-Call Parity
+
+For European options with same strike and maturity:
+
+$$C - P = S - Ke^{-r(T-t)}$$
+
+**Proof**: Both sides have payoff $S(T) - K$ at maturity. By no-arbitrage, they must have equal value today.
+
+**Uses**:
+- Price puts from calls (or vice versa)
+- Identify arbitrage opportunities
+- Understand synthetic positions
+
+## Implied Volatility
+
+The market quotes option prices, not volatilities. **Implied volatility** is the $\sigma$ that makes the Black-Scholes formula match the market price:
+
+$$C_{\text{market}} = C_{BS}(S, K, T, r, \sigma_{implied})$$
+
+### The Volatility Smile
+
+In practice, implied volatility varies with strike:
+- **Equity markets**: Volatility skew (higher for low strikes)
+- **FX markets**: Volatility smile (higher for extreme strikes)
+
+This violates Black-Scholes assumptions! Real markets have:
+- Fat tails (more crashes than log-normal predicts)
+- Stochastic volatility
+- Jumps
+
+Modern models address these issues.
+
+## American Options
+
+American options can be exercised anytime before maturity. No closed-form formula exists!
+
+Must solve the **free boundary problem**:
+
+$$\max\left(\frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2\frac{\partial^2 V}{\partial S^2} + rS\frac{\partial V}{\partial S} - rV, \, g(S) - V\right) = 0$$
+
+where $g(S)$ is the exercise payoff.
+
+### Early Exercise Premium
+
+$$V_{American} = V_{European} + \text{Early Exercise Premium}$$
+
+For calls on non-dividend paying stocks: Early exercise premium = 0 (never optimal to exercise early).
+
+For puts: Early exercise can be optimal (when deep in-the-money).
+
+## Extensions
+
+### Dividends
+
+If stock pays continuous dividend yield $q$:
+
+$$C = Se^{-q(T-t)}\Phi(d_1) - Ke^{-r(T-t)}\Phi(d_2)$$
+
+where $d_1, d_2$ are modified to include $q$.
+
+### Exotic Options
+
+- **Digital options**: Pay $1 or $0
+- **Barrier options**: Activated/deactivated if stock crosses barrier
+- **Asian options**: Payoff depends on average price
+- **Lookback options**: Payoff depends on maximum/minimum
+
+Each requires specialized techniques!
+
+## Limitations of Black-Scholes
+
+1. **Constant volatility**: Real volatility varies and is stochastic
+2. **No jumps**: Stocks can gap (earnings, news)
+3. **Log-normal distribution**: Real returns have fat tails
+4. **Continuous trading**: Transaction costs exist
+5. **Known parameters**: Volatility and drift are unknown
+
+Despite limitations, Black-Scholes is:
+- A benchmark for pricing and hedging
+- The foundation for more sophisticated models
+- Still widely used (with adjustments)
+
+The framework is more important than the formula itself!

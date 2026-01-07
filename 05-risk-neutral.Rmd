@@ -1,0 +1,159 @@
+# Risk-Neutral Pricing and Martingales
+
+## Martingales: Fair Games
+
+A stochastic process $M(t)$ is a **martingale** if:
+
+$$E[M(t) \mid \mathcal{F}_s] = M(s) \quad \text{for all } t \geq s$$
+
+where $\mathcal{F}_s$ represents all information up to time $s$.
+
+**Intuitive meaning**: The best prediction of tomorrow's value is today's value. No drift, just random fluctuations. It's a "fair game" - you can't make money on average.
+
+**Key property**: If $M(t)$ is a martingale, then $E[M(t)] = E[M(0)]$ for all $t$.
+
+### Examples
+
+- **Brownian motion**: $B(t)$ is a martingale
+- **Itô integral**: $\int_0^t f(s) \, dB(s)$ is a martingale (if $f$ satisfies certain conditions)
+- **Exponential martingale**: $\exp(\sigma B(t) - \frac{1}{2}\sigma^2 t)$ is a martingale
+- **Casino winnings**: Your wealth in a fair game
+
+## The Fundamental Theorem of Asset Pricing
+
+This is the **nuclear bomb** of mathematical finance:
+
+**Theorem**: A market is **arbitrage-free** if and only if there exists a probability measure $\mathbb{Q}$ (the **risk-neutral measure**) under which all discounted asset prices are martingales.
+
+Let me unpack this carefully.
+
+### What's Arbitrage?
+
+An arbitrage is a "free lunch" - a trading strategy that:
+1. Costs nothing to set up
+2. Never loses money
+3. Sometimes makes money
+
+Markets without arbitrage are called **arbitrage-free**. This is a minimal rationality assumption.
+
+### The Risk-Neutral Measure
+
+In the real world (measure $\mathbb{P}$), a stock might follow:
+
+$$dS = \mu S \, dt + \sigma S \, dB$$
+
+where $\mu$ is the real drift (could be 8%, 12%, whatever).
+
+The discounted price is $\tilde{S}(t) = e^{-rt}S(t)$ where $r$ is the risk-free rate.
+
+By Itô's lemma:
+$$d\tilde{S} = \tilde{S}[(\mu - r)dt + \sigma \, dB]$$
+
+This has drift $\mu - r$. If $\mu \neq r$, this is NOT a martingale under $\mathbb{P}$.
+
+**The trick**: Change to a different probability measure $\mathbb{Q}$ where the drift vanishes!
+
+### Girsanov's Theorem
+
+Under $\mathbb{Q}$, we define a new Brownian motion:
+
+$$\tilde{B}(t) = B(t) + \frac{\mu - r}{\sigma}t$$
+
+By Girsanov's theorem (deep measure theory), $\tilde{B}(t)$ is a Brownian motion under $\mathbb{Q}$.
+
+Then under $\mathbb{Q}$:
+$$d\tilde{S} = \tilde{S}\sigma \, d\tilde{B}$$
+
+**No drift!** The discounted stock price is a martingale under $\mathbb{Q}$.
+
+## Risk-Neutral Pricing Formula
+
+Since $\tilde{S}(t) = e^{-rt}S(t)$ is a $\mathbb{Q}$-martingale:
+
+$$e^{-rt}S(t) = E^{\mathbb{Q}}[e^{-rT}S(T) \mid \mathcal{F}_t]$$
+
+For a derivative with payoff $g(S(T))$ at time $T$, no-arbitrage requires:
+
+$$\boxed{V(t) = e^{-r(T-t)}E^{\mathbb{Q}}[g(S(T)) \mid S(t)]}$$
+
+This is the **universal pricing formula**!
+
+### The Miracle
+
+- The real drift $\mu$ doesn't appear!
+- Risk preferences are already encoded in $S(t)$
+- Only need: $S(t)$, $r$, $\sigma$, and payoff $g$
+
+Under $\mathbb{Q}$, assets grow at rate $r$ (not $\mu$):
+
+$$dS = rS \, dt + \sigma S \, d\tilde{B}$$
+
+This is why it's called "risk-neutral" - it's as if investors are indifferent to risk.
+
+## Why Does This Work?
+
+The key insight: **replication**.
+
+If you can replicate the derivative's payoff using the underlying asset, then to avoid arbitrage, the derivative's price must equal the replication cost.
+
+The risk-neutral measure emerges from imposing no-arbitrage across all possible replication strategies.
+
+## Example: Forward Contracts
+
+A forward contract obliges you to buy stock at price $K$ at time $T$. Payoff: $S(T) - K$.
+
+Price:
+$$V(t) = e^{-r(T-t)}E^{\mathbb{Q}}[S(T) - K]$$
+$$= e^{-r(T-t)}[E^{\mathbb{Q}}[S(T)] - K]$$
+$$= e^{-r(T-t)}[S(t)e^{r(T-t)} - K]$$
+$$= S(t) - Ke^{-r(T-t)}$$
+
+The **forward price** (fair delivery price) is $F = S(t)e^{r(T-t)}$.
+
+## Change of Numeraire
+
+You can use any traded asset as the "numeraire" (unit of account). 
+
+If you use asset $N(t)$ as numeraire, there exists a measure $\mathbb{Q}^N$ under which all prices relative to $N(t)$ are martingales:
+
+$$\frac{S(t)}{N(t)} \text{ is a } \mathbb{Q}^N\text{-martingale}$$
+
+Common choices:
+- **Money market account**: $N(t) = e^{rt}$ → standard risk-neutral measure
+- **Zero-coupon bond**: Useful for interest rate derivatives
+- **Stock itself**: Useful for options on options
+
+This technique is powerful for simplifying derivative pricing.
+
+## Market Price of Risk
+
+The drift shift from $\mathbb{P}$ to $\mathbb{Q}$ is governed by the **market price of risk** $\lambda$:
+
+$$\lambda = \frac{\mu - r}{\sigma}$$
+
+This measures the excess return per unit of volatility. Under $\mathbb{Q}$:
+
+$$d\tilde{B} = dB + \lambda \, dt$$
+
+Different assets may have different market prices of risk. In a complete market, all risks are spanned by traded assets, so there's a unique $\mathbb{Q}$.
+
+## Incomplete Markets
+
+If not all risks can be hedged (e.g., jumps, stochastic volatility without tradable volatility derivatives), the market is **incomplete**.
+
+Then:
+- Multiple risk-neutral measures exist
+- No unique price for derivatives
+- Need to choose $\mathbb{Q}$ based on additional criteria (e.g., minimize risk, match market prices)
+
+This is a major research area in quantitative finance.
+
+## Summary
+
+The martingale approach to pricing:
+
+1. Identify the source of randomness (Brownian motions)
+2. Find the risk-neutral measure (Girsanov theorem)
+3. Price as discounted expectation under $\mathbb{Q}$
+
+This elegant framework unifies all of derivative pricing and connects probability theory to finance in a profound way.
