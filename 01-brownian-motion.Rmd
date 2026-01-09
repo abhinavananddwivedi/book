@@ -1,3 +1,26 @@
+```{r setup, include=FALSE}
+# Default for all chunks
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+# Specific defaults for figures
+knitr::opts_chunk$set(
+  echo = FALSE,
+  fig.align = 'center',
+  out.width = '80%',
+  fig.width = 8,
+  fig.height = 6,
+  dpi = 300
+)
+
+library(tidyverse)
+library(knitr)
+```
+
+
 # Random Walks and Brownian Motion
 
 ## Simple Random Walk
@@ -8,15 +31,72 @@ $$S_n = X_1 + X_2 + \cdots + X_n$$
 
 where each $X_i \in \{-1, +1\}$ with equal probability. This is a **simple random walk**.
 
+
+
 ### Key Properties
 
 The random walk has several important characteristics:
 
-- **Expected position**: $E[S_n] = 0$ (you expect to end where you started)
+- **Expected position**: $\mathbb{E}[S_n] = 0$ (you expect to end where you started)
 - **Variance**: $\text{Var}(S_n) = n$ (the variance grows linearly with time)
 - **Asymptotic behavior**: $S_n \sim \sqrt{n} \cdot N(0,1)$ approximately, by the Central Limit Theorem
 
 The last property tells us that even though each individual step is discrete, the rescaled position becomes approximately normal for large $n$.
+
+To get a sense of what the above implies, let's look at a few pictures! 
+
+
+
+
+
+```{r rw_simulate, fig.cap="Some random walks",echo=FALSE}
+knitr::include_graphics(c("figures/random_walk_simulate.png"))
+```
+
+The above picture shows the position of the random walk as time progresses. Note that theoretically the expected value of the random walk should be 0 and its variance at time $t$ should be $t$. Hence we see that the sample paths of several random walk are distributed around the time axis.
+
+```{r rw_sqrt,  fig.cap="Random walk volatility"}
+knitr::include_graphics("figures/random_sd_sqrt_n.png")
+```
+
+The plot above shows that while the sample path of the random walk remains centered around 0, its variance (and standard deviation) rises as $n$. This implies that the range of values possible for random walks increases with time and the unit standard deviation envelope as a function of time is plotted to encourage visual benchmarking.
+
+Empirically, the values of mean and variance should be around 0 and $n$ respectively. Hence we test out empirical means and variances of the random walk in figures below. As expected, the empirical values stay close to the theoretical predictions.
+
+```{r rw_mean,  fig.cap="Random walk means"}
+knitr::include_graphics("figures/random_walk_mean.png")
+```
+
+```{r rw_variance,  fig.cap="Random walk variance"}
+knitr::include_graphics("figures/random_walk_variance.png")
+```
+
+If we standardize the random walk, by subtracting from the sum, its mean (0) and dividing by
+the standard deviation (1), the histograms of the random walk should approach the standard normal's density.
+
+```{r rw_clt,  fig.cap="Standardized random walks"}
+knitr::include_graphics("figures/random_std_clt.png")
+```
+
+Further, the empirical quantiles of the random walk should align closely to theoretical quantiles 
+of the standard normal's density.
+
+```{r qq,  fig.cap="Quantile-quantile plot"}
+knitr::include_graphics("figures/random_qq.png")
+```
+
+
+Let's review the visual evidence: random walks in which the process can go one step up or down with equal
+chance are spread around the 0 mean position and their standard deviation rises in lockstep with time 
+($std(S_n) = n$). Further, as time progresses, the standardized random walk's empirical distribution 
+converges to the theoretical standard normal density. In other words:
+
+\begin{align*}
+\frac{S_n-0}{\sqrt{n}} &\overset{d}{\rightarrow} \mathcal{N}(0,1)\\
+S_n &\overset{d}{\rightarrow} \sqrt{n}\cdot\mathcal{N}(0,1)
+\end{align*}
+
+
 
 ## Scaling to Continuous Time
 

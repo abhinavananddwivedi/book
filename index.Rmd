@@ -1,20 +1,43 @@
---- 
-title: "Stochastic Calculus from Scratch"
+
+---
+title: "Stochastic Calculus: An Idiosyncratic Approach"
 author: "Abhinav Anand"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
-biblio-style: apalike
+biblio-style: plainnat
 link-citations: yes
 description: "A comprehensive introduction to stochastic calculus with applications to finance"
 url: 'https://abhinavananddwivedi.github.io/book/'
 github-repo: "abhinavananddwivedi/book"
 ---
 
+```{r setup, include=FALSE}
+# Default for all chunks
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+# Specific defaults for figures
+knitr::opts_chunk$set(
+  echo = FALSE,
+  fig.align = 'center',
+  out.width = '80%',
+  fig.width = 8,
+  fig.height = 6,
+  dpi = 300
+)
+
+library(tidyverse)
+library(knitr)
+```
+
 # Preface {-}
 
-Welcome to **Stochastic Calculus from Scratch**! This book provides a comprehensive journey through random processes and their applications in financial mathematics.
+Welcome to **Stochastic Calculus: An Idiosyncratic Approach**! This book provides a discussion regarding special features of the mathematics behind random processes like the Brownian Motion and their applications in finance.
 
 ## What You'll Learn {-}
 
@@ -39,10 +62,11 @@ Readers should be comfortable with:
 
 ## About This Book {-}
 
-This book grew out of an interactive teaching session focused on building intuition for stochastic calculus from first principles. The emphasis is on understanding *why* things work, not just *what* the formulas are.
+This book grew out of years of instruction at the PhD and MBA levels in IIMs Bangalore and Kozhikode. It reflects my idiosyncratic perspective on topics in mathematical finance and its pedagogy. The emphasis is on understanding *why* things work, not *what* the formulas are.
+
 
 Each chapter builds on previous concepts, so I recommend reading sequentially, especially if you're new to the subject.
 
 ---
 
-Let's begin our journey into the beautiful world of stochastic calculus!
+
