@@ -1,8 +1,5 @@
 
----
-title: "Random Walks and Brownian Motion"
-<!-- output: html_document -->
----
+
 ```{r setup, include=FALSE}
 # Default for all chunks
 knitr::opts_chunk$set(
