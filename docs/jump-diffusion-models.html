@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Jump-Diffusion Models | Stochastic Calculus: An Idiosyncratic Approach</title>
+  <title>Chapter 7 Jump-Diffusion Models | Random Walks and Brownian Motion</title>
   <meta name="description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Jump-Diffusion Models | Stochastic Calculus: An Idiosyncratic Approach" />
+  <meta property="og:title" content="Chapter 7 Jump-Diffusion Models | Random Walks and Brownian Motion" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
   <meta name="github-repo" content="abhinavananddwivedi/book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Jump-Diffusion Models | Stochastic Calculus: An Idiosyncratic Approach" />
+  <meta name="twitter:title" content="Chapter 7 Jump-Diffusion Models | Random Walks and Brownian Motion" />
   
   <meta name="twitter:description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Abhinav Anand" />
 
 
-<meta name="date" content="2026-01-09" />
+<meta name="date" content="2026-01-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -84,24 +84,38 @@
 </ul></li>
 <li class="chapter" data-level="1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html"><i class="fa fa-check"></i><b>1</b> Random Walks and Brownian Motion</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#simple-random-walk"><i class="fa fa-check"></i><b>1.1</b> Simple Random Walk</a>
+<li class="chapter" data-level="1.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#why-random-walks-matter"><i class="fa fa-check"></i><b>1.1</b> Why Random Walks Matter</a></li>
+<li class="chapter" data-level="1.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#simple-random-walk"><i class="fa fa-check"></i><b>1.2</b> Simple Random Walk</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#key-properties"><i class="fa fa-check"></i><b>1.1.1</b> Key Properties</a></li>
+<li class="chapter" data-level="1.2.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#key-properties"><i class="fa fa-check"></i><b>1.2.1</b> Key Properties</a></li>
+<li class="chapter" data-level="1.2.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#visualizing-random-walk-behavior"><i class="fa fa-check"></i><b>1.2.2</b> Visualizing Random Walk Behavior</a></li>
+<li class="chapter" data-level="1.2.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#the-central-limit-theorem-in-action"><i class="fa fa-check"></i><b>1.2.3</b> The Central Limit Theorem in Action</a></li>
+<li class="chapter" data-level="1.2.4" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#synthesis-what-weve-learned"><i class="fa fa-check"></i><b>1.2.4</b> Synthesis: What We’ve Learned</a></li>
+<li class="chapter" data-level="1.2.5" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#common-pitfalls-and-misconceptions"><i class="fa fa-check"></i><b>1.2.5</b> Common Pitfalls and Misconceptions</a></li>
+<li class="chapter" data-level="1.2.6" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#from-discrete-to-continuous-brownian-motion-preview"><i class="fa fa-check"></i><b>1.2.6</b> From Discrete to Continuous: Brownian Motion Preview</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#scaling-to-continuous-time"><i class="fa fa-check"></i><b>1.2</b> Scaling to Continuous Time</a></li>
-<li class="chapter" data-level="1.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#brownian-motion-emerges"><i class="fa fa-check"></i><b>1.3</b> Brownian Motion Emerges</a>
+<li class="chapter" data-level="1.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#from-discrete-steps-to-continuous-paths"><i class="fa fa-check"></i><b>1.3</b> From Discrete Steps to Continuous Paths</a>
 <ul>
-<li class="chapter" data-level="1.3.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#formal-definition"><i class="fa fa-check"></i><b>1.3.1</b> Formal Definition</a></li>
-<li class="chapter" data-level="1.3.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#a-shocking-fact"><i class="fa fa-check"></i><b>1.3.2</b> A Shocking Fact</a></li>
+<li class="chapter" data-level="1.3.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#the-scaling-thought-experiment"><i class="fa fa-check"></i><b>1.3.1</b> The Scaling Thought Experiment</a></li>
+<li class="chapter" data-level="1.3.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#the-crucial-scaling-derivation"><i class="fa fa-check"></i><b>1.3.2</b> The Crucial Scaling Derivation</a></li>
+<li class="chapter" data-level="1.3.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#visualizing-the-convergence"><i class="fa fa-check"></i><b>1.3.3</b> Visualizing the Convergence</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#properties-of-brownian-motion"><i class="fa fa-check"></i><b>1.4</b> Properties of Brownian Motion</a>
+<li class="chapter" data-level="1.4" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#brownian-motion-the-continuous-limit"><i class="fa fa-check"></i><b>1.4</b> Brownian Motion: The Continuous Limit</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#quadratic-variation"><i class="fa fa-check"></i><b>1.4.1</b> Quadratic Variation</a></li>
-<li class="chapter" data-level="1.4.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#markov-property"><i class="fa fa-check"></i><b>1.4.2</b> Markov Property</a></li>
-<li class="chapter" data-level="1.4.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#martingale-property"><i class="fa fa-check"></i><b>1.4.3</b> Martingale Property</a></li>
-<li class="chapter" data-level="1.4.4" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#scaling-properties"><i class="fa fa-check"></i><b>1.4.4</b> Scaling Properties</a></li>
+<li class="chapter" data-level="1.4.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#formal-definition"><i class="fa fa-check"></i><b>1.4.1</b> Formal Definition</a></li>
+<li class="chapter" data-level="1.4.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#understanding-the-properties"><i class="fa fa-check"></i><b>1.4.2</b> Understanding the Properties</a></li>
+<li class="chapter" data-level="1.4.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#an-important-consequence-quadratic-variation"><i class="fa fa-check"></i><b>1.4.3</b> An Important Consequence: Quadratic Variation</a></li>
+<li class="chapter" data-level="1.4.4" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#the-shocking-fact-nowhere-differentiable"><i class="fa fa-check"></i><b>1.4.4</b> The Shocking Fact: Nowhere Differentiable</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#historical-note"><i class="fa fa-check"></i><b>1.5</b> Historical Note</a></li>
+<li class="chapter" data-level="1.5" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#a-crisis-and-an-opportunity-rethinking-calculus"><i class="fa fa-check"></i><b>1.5</b> A Crisis and An Opportunity: Rethinking Calculus</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#why-classical-calculus-fails"><i class="fa fa-check"></i><b>1.5.1</b> Why Classical Calculus Fails</a></li>
+<li class="chapter" data-level="1.5.2" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#the-key-insight-build-from-changes-not-slopes"><i class="fa fa-check"></i><b>1.5.2</b> The Key Insight: Build from Changes, Not Slopes</a></li>
+<li class="chapter" data-level="1.5.3" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#the-arithmetic-of-infinitesimals-db2-neq-0"><i class="fa fa-check"></i><b>1.5.3</b> The Arithmetic of Infinitesimals: <span class="math inline">\((dB)^2 \neq 0\)</span></a></li>
+<li class="chapter" data-level="1.5.4" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#comparing-classical-and-stochastic-infinitesimals"><i class="fa fa-check"></i><b>1.5.4</b> Comparing Classical and Stochastic Infinitesimals</a></li>
+<li class="chapter" data-level="1.5.5" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#quadratic-variation-a-new-concept"><i class="fa fa-check"></i><b>1.5.5</b> Quadratic Variation: A New Concept</a></li>
+<li class="chapter" data-level="1.5.6" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html#a-new-foundation-for-calculus"><i class="fa fa-check"></i><b>1.5.6</b> A New Foundation for Calculus</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="itô-integral-and-itôs-lemma.html"><a href="itô-integral-and-itôs-lemma.html"><i class="fa fa-check"></i><b>2</b> Itô Integral and Itô’s Lemma</a>
 <ul>
@@ -342,7 +356,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stochastic Calculus: An Idiosyncratic Approach</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Random Walks and Brownian Motion</a>
           </h1>
         </div>
 
