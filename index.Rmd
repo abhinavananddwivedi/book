@@ -1,19 +1,14 @@
-
 ---
 title: "Stochastic Calculus: An Idiosyncratic Approach"
 author: "Abhinav Anand"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [book.bib]
+bibliography: book.bib
 biblio-style: plainnat
 link-citations: yes
-description: "A comprehensive introduction to stochastic calculus with applications to finance"
-url: 'https://abhinavananddwivedi.github.io/book/'
-github-repo: "abhinavananddwivedi/book"
+description: "An idiosyncratic approach to stochastic calculus with applications to mathematical finance."
 ---
-
-
 
 # Preface {-}
 
@@ -44,9 +39,74 @@ Readers should be comfortable with:
 
 This book grew out of years of instruction at the PhD and MBA levels in IIMs Bangalore and Kozhikode. It reflects my idiosyncratic perspective on topics in mathematical finance and its pedagogy. The emphasis is on understanding *why* things work, not *what* the formulas are.
 
-
 Each chapter builds on previous concepts, so I recommend reading sequentially, especially if you're new to the subject.
+
+## Book Overview {-}
+
+This book is organized into eight chapters that build progressively from foundational concepts to advanced generalizations.
 
 ---
 
+**Part I: Foundations**
 
+1. [Random Walks and Brownian Motion](random-walks-and-brownian-motion.html)
+   
+   *From discrete coin flips to continuous paths—establishing why $(dB)^2 = dt$*
+   
+   We begin with the simple random walk and watch it transform into Brownian motion through careful scaling. The central revelation: stochastic infinitesimals behave differently from classical ones, setting the stage for everything that follows.
+
+2. [Itô Integral and Itô's Lemma](itô-integral-and-itôs-lemma.html)
+   
+   *The fundamental theorem for stochastic processes*
+   
+   Classical integration fails for Brownian paths. We construct the Itô integral and derive Itô's lemma—the chain rule of stochastic calculus, complete with its surprising correction term.
+
+3. [Stochastic Differential Equations](stochastic-differential-equations.html)
+   
+   *Geometric Brownian Motion, Ornstein-Uhlenbeck, and solution techniques*
+   
+   The workhorse models of mathematical finance. We solve key SDEs and develop intuition for when closed-form solutions exist.
+
+---
+
+**Part II: The PDE Connection**
+
+4. [Feynman-Kac and PDEs](feynman-kac-and-pdes.html)
+   
+   *The bridge between probability and partial differential equations*
+   
+   A remarkable duality: expectations over random paths solve deterministic PDEs. This connection underlies both theoretical insights and computational methods.
+
+---
+
+**Part III: Mathematical Finance**
+
+5. [Risk-Neutral Pricing and Martingales](risk-neutral-pricing-and-martingales.html)
+   
+   *No-arbitrage, Girsanov's theorem, and the fundamental theorem of asset pricing*
+   
+   The conceptual foundation of derivative pricing. We explore why "fair games" (martingales) are central to finance and how changing probability measures eliminates arbitrage.
+
+6. [Black-Scholes Theory](black-scholes-theory.html)
+   
+   *Option pricing, the Greeks, and delta hedging*
+   
+   The celebrated formula and its practical toolkit. We derive the Greeks, understand hedging, and confront the model's limitations through implied volatility.
+
+---
+
+**Part IV: Beyond Diffusions**
+
+7. [Jump-Diffusion Models](jump-diffusion-models.html)
+   
+   *When continuous paths aren't enough—Merton's model and the PIDE*
+   
+   Markets jump. We extend our framework to incorporate discontinuous price movements, leading to partial integro-differential equations.
+
+8. [Lévy Processes](lévy-processes.html)
+   
+   *The ultimate generalization: infinite divisibility and the Lévy-Khintchine formula*
+   
+   The grand unification. Every process with independent, stationary increments—from Brownian motion to pure jump processes—falls under this umbrella.
+
+---

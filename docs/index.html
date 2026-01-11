@@ -5,25 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Stochastic Calculus: An Idiosyncratic Approach</title>
-  <meta name="description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
+  <meta name="description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Stochastic Calculus: An Idiosyncratic Approach" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
-  <meta name="github-repo" content="abhinavananddwivedi/book" />
+  <meta property="og:description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
+  
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Stochastic Calculus: An Idiosyncratic Approach" />
   
-  <meta name="twitter:description" content="A comprehensive introduction to stochastic calculus with applications to finance" />
+  <meta name="twitter:description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
   
 
 <meta name="author" content="Abhinav Anand" />
 
 
-<meta name="date" content="2026-01-10" />
+<meta name="date" content="2026-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -81,6 +81,7 @@
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-youll-learn"><i class="fa fa-check"></i>What You’ll Learn</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-this-book"><i class="fa fa-check"></i>About This Book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#book-overview"><i class="fa fa-check"></i>Book Overview</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="random-walks-and-brownian-motion.html"><a href="random-walks-and-brownian-motion.html"><i class="fa fa-check"></i><b>1</b> Random Walks and Brownian Motion</a>
 <ul>
@@ -367,7 +368,7 @@
 <div id="header">
 <h1 class="title">Stochastic Calculus: An Idiosyncratic Approach</h1>
 <p class="author"><em>Abhinav Anand</em></p>
-<p class="date"><em>2026-01-10</em></p>
+<p class="date"><em>2026-01-11</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered hasAnchor">
 <h1>Preface<a href="index.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -399,6 +400,50 @@
 <h2>About This Book<a href="index.html#about-this-book" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This book grew out of years of instruction at the PhD and MBA levels in IIMs Bangalore and Kozhikode. It reflects my idiosyncratic perspective on topics in mathematical finance and its pedagogy. The emphasis is on understanding <em>why</em> things work, not <em>what</em> the formulas are.</p>
 <p>Each chapter builds on previous concepts, so I recommend reading sequentially, especially if you’re new to the subject.</p>
+</div>
+<div id="book-overview" class="section level2 unnumbered hasAnchor">
+<h2>Book Overview<a href="index.html#book-overview" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This book is organized into eight chapters that build progressively from foundational concepts to advanced generalizations.</p>
+<hr />
+<p><strong>Part I: Foundations</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><a href="random-walks-and-brownian-motion.html">Random Walks and Brownian Motion</a></p>
+<p><em>From discrete coin flips to continuous paths—establishing why <span class="math inline">\((dB)^2 = dt\)</span></em></p>
+<p>We begin with the simple random walk and watch it transform into Brownian motion through careful scaling. The central revelation: stochastic infinitesimals behave differently from classical ones, setting the stage for everything that follows.</p></li>
+<li><p><a href="it%C3%B4-integral-and-it%C3%B4s-lemma.html">Itô Integral and Itô’s Lemma</a></p>
+<p><em>The fundamental theorem for stochastic processes</em></p>
+<p>Classical integration fails for Brownian paths. We construct the Itô integral and derive Itô’s lemma—the chain rule of stochastic calculus, complete with its surprising correction term.</p></li>
+<li><p><a href="stochastic-differential-equations.html">Stochastic Differential Equations</a></p>
+<p><em>Geometric Brownian Motion, Ornstein-Uhlenbeck, and solution techniques</em></p>
+<p>The workhorse models of mathematical finance. We solve key SDEs and develop intuition for when closed-form solutions exist.</p></li>
+</ol>
+<hr />
+<p><strong>Part II: The PDE Connection</strong></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p><a href="feynman-kac-and-pdes.html">Feynman-Kac and PDEs</a></p>
+<p><em>The bridge between probability and partial differential equations</em></p>
+<p>A remarkable duality: expectations over random paths solve deterministic PDEs. This connection underlies both theoretical insights and computational methods.</p></li>
+</ol>
+<hr />
+<p><strong>Part III: Mathematical Finance</strong></p>
+<ol start="5" style="list-style-type: decimal">
+<li><p><a href="risk-neutral-pricing-and-martingales.html">Risk-Neutral Pricing and Martingales</a></p>
+<p><em>No-arbitrage, Girsanov’s theorem, and the fundamental theorem of asset pricing</em></p>
+<p>The conceptual foundation of derivative pricing. We explore why “fair games” (martingales) are central to finance and how changing probability measures eliminates arbitrage.</p></li>
+<li><p><a href="black-scholes-theory.html">Black-Scholes Theory</a></p>
+<p><em>Option pricing, the Greeks, and delta hedging</em></p>
+<p>The celebrated formula and its practical toolkit. We derive the Greeks, understand hedging, and confront the model’s limitations through implied volatility.</p></li>
+</ol>
+<hr />
+<p><strong>Part IV: Beyond Diffusions</strong></p>
+<ol start="7" style="list-style-type: decimal">
+<li><p><a href="jump-diffusion-models.html">Jump-Diffusion Models</a></p>
+<p><em>When continuous paths aren’t enough—Merton’s model and the PIDE</em></p>
+<p>Markets jump. We extend our framework to incorporate discontinuous price movements, leading to partial integro-differential equations.</p></li>
+<li><p><a href="l%C3%A9vy-processes.html">Lévy Processes</a></p>
+<p><em>The ultimate generalization: infinite divisibility and the Lévy-Khintchine formula</em></p>
+<p>The grand unification. Every process with independent, stationary increments—from Brownian motion to pure jump processes—falls under this umbrella.</p></li>
+</ol>
 <hr />
 
 </div>
