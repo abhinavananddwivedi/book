@@ -1,0 +1,251 @@
+# (APPENDIX) Appendices {-}
+
+# Essential Linear Algebra {#linear-algebra}
+
+> *"The purpose of computing is insight, not numbers."*
+> — Richard Hamming
+
+This appendix provides the geometric intuition behind linear algebra that underlies much of stochastic calculus and its applications. We emphasize *what linear transformations do* rather than computational recipes.
+
+## Why Geometry Matters {-}
+
+Linear algebra is often taught as a collection of matrix manipulations. But matrices *are* geometric transformations, and understanding this perspective unlocks deep insights:
+
+- Covariance matrices describe the *shape* of probability distributions
+- Eigenvalues reveal the *principal directions* of variation
+- The singular value decomposition shows that *every* linear map is fundamentally simple
+
+The payoff for finance: principal component analysis, factor models, and risk decomposition all become geometrically transparent.
+
+## Vectors and Linear Transformations
+
+### Vectors as Arrows {-}
+
+A vector $\mathbf{v} \in \mathbb{R}^n$ is an arrow from the origin. In $\mathbb{R}^2$:
+
+$$\mathbf{v} = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}$$
+
+represents a displacement of $v_1$ units horizontally and $v_2$ units vertically.
+
+### Matrices as Transformations {-}
+
+A matrix $A$ is not just a grid of numbers—it's an *instruction* for transforming space. When we compute $A\mathbf{v}$, we're asking: "Where does the arrow $\mathbf{v}$ land after applying transformation $A$?"
+
+**The column perspective:** The columns of $A$ tell you where the standard basis vectors land. If
+
+$$A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$$
+
+then:
+
+- The first column $(a, c)^T$ is where $\mathbf{e}_1 = (1, 0)^T$ goes
+- The second column $(b, d)^T$ is where $\mathbf{e}_2 = (0, 1)^T$ goes
+
+Every other vector, being a linear combination of $\mathbf{e}_1$ and $\mathbf{e}_2$, gets carried along accordingly.
+
+### What Can Linear Transformations Do? {-}
+
+Linear transformations can:
+
+- **Rotate** (turn space around the origin)
+- **Scale** (stretch or compress along axes)
+- **Shear** (slide layers past each other)
+- **Reflect** (flip across a line or plane)
+- **Project** (flatten onto a lower-dimensional subspace)
+
+What they *cannot* do: translate (shift the origin), bend, or curve space.
+
+## Eigendecomposition: Finding the Fixed Directions
+
+### The Central Question {-}
+
+Given a transformation $A$, are there any directions that remain unchanged—vectors that get scaled but not rotated?
+
+**Definition.** A nonzero vector $\mathbf{v}$ is an *eigenvector* of $A$ with *eigenvalue* $\lambda$ if:
+
+$$A\mathbf{v} = \lambda \mathbf{v}$$
+
+The transformation $A$ acts on $\mathbf{v}$ by simply stretching (or compressing, or flipping) it by factor $\lambda$.
+
+### Eigenvectors as Fixed Directions {-}
+
+This is the geometric essence: **eigenvectors are the directions that "survive" the transformation unchanged in orientation.**
+
+Consider what happens to a general vector under repeated application of $A$:
+
+- Directions aligned with eigenvectors corresponding to $|\lambda| > 1$ get amplified
+- Directions aligned with eigenvectors corresponding to $|\lambda| < 1$ get suppressed
+- The eigenvector with the largest $|\lambda|$ eventually dominates
+
+This explains why:
+
+- Dominant eigenvectors emerge in iterative processes
+- Principal components capture the most important directions of variation
+- Markov chains converge to stationary distributions (the eigenvector with $\lambda = 1$)
+
+### The Eigendecomposition {-}
+
+For a matrix $A$ with $n$ linearly independent eigenvectors, we can write:
+
+$$A = V \Lambda V^{-1}$$
+
+where:
+
+- $V$ is the matrix whose columns are eigenvectors
+- $\Lambda$ is diagonal with eigenvalues on the diagonal
+
+**Geometric interpretation:** To apply $A$:
+
+1. Express the input in the eigenvector basis ($V^{-1}$)
+2. Scale each component by its eigenvalue ($\Lambda$)
+3. Convert back to the standard basis ($V$)
+
+### Special Case: Symmetric Matrices {-}
+
+When $A = A^T$ (symmetric), something beautiful happens:
+
+- All eigenvalues are real
+- Eigenvectors corresponding to different eigenvalues are *orthogonal*
+- We can choose an orthonormal eigenvector basis
+
+The decomposition becomes:
+
+$$A = Q \Lambda Q^T$$
+
+where $Q$ is orthogonal ($Q^{-1} = Q^T$). This is the *spectral decomposition*.
+
+**Why this matters:** Covariance matrices are symmetric. Their eigenvectors define orthogonal axes of variation, and their eigenvalues measure variance along each axis.
+
+## Singular Value Decomposition
+
+### Beyond Square Matrices {-}
+
+Eigendecomposition requires square matrices. But what about rectangular matrices—say, a $m \times n$ data matrix with $m$ observations and $n$ variables?
+
+The **singular value decomposition (SVD)** extends the geometric insight to *any* matrix.
+
+### The SVD Theorem {-}
+
+**Theorem.** Any $m \times n$ matrix $A$ can be written as:
+
+$$A = U \Sigma V^T$$
+
+where:
+
+- $U$ is $m \times m$ orthogonal (columns are *left singular vectors*)
+- $\Sigma$ is $m \times n$ diagonal with non-negative *singular values* $\sigma_1 \geq \sigma_2 \geq \cdots \geq 0$
+- $V$ is $n \times n$ orthogonal (columns are *right singular vectors*)
+
+### The Geometric Revelation {-}
+
+The SVD reveals that **every linear transformation is a rotation, followed by scaling, followed by another rotation**:
+
+$$A\mathbf{x} = U \Sigma V^T \mathbf{x}$$
+
+Reading right to left:
+
+1. **$V^T$: First rotation** — Rotate the input space to align with the "natural axes" of the transformation
+2. **$\Sigma$: Scaling** — Scale along each axis by the singular values (and possibly embed into a different dimension)
+3. **$U$: Second rotation** — Rotate the output space to the final orientation
+
+This is remarkable: no matter how complicated $A$ appears, its action is fundamentally three simple operations.
+
+### Connection to Eigendecomposition {-}
+
+The SVD and eigendecomposition are intimately related:
+
+- The columns of $V$ are eigenvectors of $A^T A$
+- The columns of $U$ are eigenvectors of $A A^T$
+- The singular values $\sigma_i$ are square roots of eigenvalues of $A^T A$ (or $A A^T$)
+
+**For symmetric positive semi-definite matrices:** The SVD coincides with the eigendecomposition, and singular values equal eigenvalues.
+
+### Geometric Interpretation of Singular Values {-}
+
+Consider the unit sphere $\{\mathbf{x} : \|\mathbf{x}\| = 1\}$. Under transformation $A$:
+
+- The sphere becomes an ellipsoid
+- The semi-axes of the ellipsoid point in directions $U$
+- The lengths of the semi-axes are the singular values $\sigma_i$
+
+The largest singular value $\sigma_1$ is the maximum "stretch factor"—the operator norm of $A$.
+
+### Low-Rank Approximation {-}
+
+A key property: if we keep only the $k$ largest singular values, we get the *best* rank-$k$ approximation to $A$:
+
+$$A_k = \sum_{i=1}^{k} \sigma_i \mathbf{u}_i \mathbf{v}_i^T$$
+
+"Best" means minimizing the Frobenius norm of the error. This is the foundation of dimensionality reduction.
+
+## Implications: Principal Component Analysis
+
+### The Setup {-}
+
+You have a data matrix $X$ with $n$ observations (rows) and $p$ variables (columns), centered so each column has mean zero. The *sample covariance matrix* is:
+
+$$S = \frac{1}{n-1} X^T X$$
+
+This symmetric matrix encodes how variables co-vary.
+
+### The Geometric View {-}
+
+The data points form a cloud in $p$-dimensional space. The covariance matrix $S$ describes the *shape* of this cloud:
+
+- Eigenvectors of $S$ point along the principal axes of the ellipsoidal cloud
+- Eigenvalues measure the variance (spread) along each axis
+
+### Principal Components {-}
+
+**Definition.** The *principal components* are the eigenvectors of the covariance matrix, ordered by decreasing eigenvalue.
+
+- The first principal component (PC1) points in the direction of maximum variance
+- PC2 is orthogonal to PC1 and captures the most remaining variance
+- And so on...
+
+### The SVD Connection {-}
+
+We can bypass the covariance matrix entirely using the SVD of the centered data matrix:
+
+$$X = U \Sigma V^T$$
+
+Then:
+
+- The columns of $V$ are the principal component directions
+- The principal component scores are $U\Sigma$ (or equivalently, $XV$)
+- The variance explained by the $i$-th component is $\sigma_i^2 / (n-1)$
+
+### Why PCA Matters for Finance {-}
+
+1. **Dimensionality reduction:** Hundreds of asset returns can often be summarized by a handful of factors
+
+2. **Factor discovery:** The first few principal components of equity returns often correspond to interpretable factors (market, size, value...)
+
+3. **Risk decomposition:** Eigenvalues of the covariance matrix reveal how risk is distributed across independent directions
+
+4. **Noise reduction:** Discarding small eigenvalues (and their eigenvectors) filters out estimation noise
+
+### A Caution {-}
+
+PCA finds directions of maximum *variance*, not maximum *importance*. In finance:
+
+- High variance might reflect noise, not signal
+- The most predictive features may not be the most variable
+- Covariance estimates are notoriously unstable
+
+Use PCA as a tool for exploration and compression, but interpret with care.
+
+## Summary {-}
+
+The geometric view of linear algebra reveals:
+
+| Concept | Geometric Meaning |
+|:--------|:------------------|
+| Matrix | A transformation of space |
+| Eigenvector | A direction that survives unchanged |
+| Eigenvalue | The scaling factor along that direction |
+| Symmetric matrix | Has orthogonal eigenvectors |
+| SVD | Any transformation = rotate, scale, rotate |
+| Singular values | Semi-axes of the transformed unit sphere |
+| PCA | Find the axes of maximum spread |
+
+This geometric intuition makes covariance matrices, factor models, and dimensionality reduction transparent—essential tools for working with multivariate stochastic processes.

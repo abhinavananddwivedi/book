@@ -171,3 +171,8 @@ what-lévy-processes-cannot-capture
 modern-extensions
 the-full-circle
 further-directions
+linear-algebra
+vectors-and-linear-transformations
+eigendecomposition-finding-the-fixed-directions
+singular-value-decomposition
+implications-principal-component-analysis

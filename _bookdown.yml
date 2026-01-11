@@ -13,5 +13,7 @@ rmd_files: [
   "05-risk-neutral.Rmd",
   "06-black-scholes.Rmd",
   "07-jumps.Rmd",
-  "08-levy.Rmd"
+  "08-levy.Rmd",
+  "A1-linear-algebra.Rmd"
 ]
+

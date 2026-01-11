@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Feynman-Kac and PDEs | Stochastic Calculus: An Idiosyncratic Approach</title>
+  <title>A Essential Linear Algebra | Stochastic Calculus: An Idiosyncratic Approach</title>
   <meta name="description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Feynman-Kac and PDEs | Stochastic Calculus: An Idiosyncratic Approach" />
+  <meta property="og:title" content="A Essential Linear Algebra | Stochastic Calculus: An Idiosyncratic Approach" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Feynman-Kac and PDEs | Stochastic Calculus: An Idiosyncratic Approach" />
+  <meta name="twitter:title" content="A Essential Linear Algebra | Stochastic Calculus: An Idiosyncratic Approach" />
   
   <meta name="twitter:description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="stochastic-differential-equations.html"/>
-<link rel="next" href="risk-neutral-pricing-and-martingales.html"/>
+<link rel="prev" href="lévy-processes.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -402,176 +402,266 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="feynman-kac-and-pdes" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Feynman-Kac and PDEs<a href="feynman-kac-and-pdes.html#feynman-kac-and-pdes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="the-bridge-between-probability-and-analysis" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> The Bridge Between Probability and Analysis<a href="feynman-kac-and-pdes.html#the-bridge-between-probability-and-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>One of the most beautiful results in mathematics connects two seemingly different worlds:</p>
+<div id="linear-algebra" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">A</span> Essential Linear Algebra<a href="linear-algebra.html#linear-algebra" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<blockquote>
+<p><em>“The purpose of computing is insight, not numbers.”</em>
+— Richard Hamming</p>
+</blockquote>
+<p>This appendix provides the geometric intuition behind linear algebra that underlies much of stochastic calculus and its applications. We emphasize <em>what linear transformations do</em> rather than computational recipes.</p>
+<div id="why-geometry-matters" class="section level2 unnumbered hasAnchor">
+<h2>Why Geometry Matters<a href="linear-algebra.html#why-geometry-matters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Linear algebra is often taught as a collection of matrix manipulations. But matrices <em>are</em> geometric transformations, and understanding this perspective unlocks deep insights:</p>
 <ul>
-<li><strong>Stochastic differential equations</strong> (SDEs) - the probabilistic world</li>
-<li><strong>Partial differential equations</strong> (PDEs) - the analytical world</li>
+<li>Covariance matrices describe the <em>shape</em> of probability distributions</li>
+<li>Eigenvalues reveal the <em>principal directions</em> of variation</li>
+<li>The singular value decomposition shows that <em>every</em> linear map is fundamentally simple</li>
 </ul>
-<p>This connection, known as the <strong>Feynman-Kac formula</strong>, allows us to:
-- Solve PDEs by simulating random processes (Monte Carlo)
-- Solve SDEs by solving PDEs (numerical PDE methods)
-- Gain intuition about both simultaneously</p>
+<p>The payoff for finance: principal component analysis, factor models, and risk decomposition all become geometrically transparent.</p>
 </div>
-<div id="the-backward-kolmogorov-equation" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> The Backward Kolmogorov Equation<a href="feynman-kac-and-pdes.html#the-backward-kolmogorov-equation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Consider an SDE:</p>
-<p><span class="math display">\[dX(t) = \mu(X) \, dt + \sigma(X) \, dB(t)\]</span></p>
-<p>Define the function:</p>
-<p><span class="math display">\[u(t, x) = E[g(X(T)) \mid X(t) = x]\]</span></p>
-<p>This represents the expected value of some payoff function <span class="math inline">\(g\)</span> at terminal time <span class="math inline">\(T\)</span>, given that the process is at position <span class="math inline">\(x\)</span> at time <span class="math inline">\(t\)</span>.</p>
-<p><strong>Question</strong>: What PDE does <span class="math inline">\(u(t,x)\)</span> satisfy?</p>
-<div id="heuristic-derivation" class="section level3 hasAnchor" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Heuristic Derivation<a href="feynman-kac-and-pdes.html#heuristic-derivation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Apply Itô’s lemma to <span class="math inline">\(u(t, X(t))\)</span>:</p>
-<p><span class="math display">\[du = \frac{\partial u}{\partial t}dt + \frac{\partial u}{\partial x}dX + \frac{1}{2}\frac{\partial^2 u}{\partial x^2}(dX)^2\]</span></p>
-<p>Substitute <span class="math inline">\(dX = \mu \, dt + \sigma \, dB\)</span> and <span class="math inline">\((dX)^2 = \sigma^2 \, dt\)</span>:</p>
-<p><span class="math display">\[du = \left[\frac{\partial u}{\partial t} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2}\right]dt + \sigma\frac{\partial u}{\partial x}dB\]</span></p>
-<p>Integrate from <span class="math inline">\(t\)</span> to <span class="math inline">\(T\)</span> and take expectations. The stochastic integral has zero expectation, so:</p>
-<p><span class="math display">\[E[u(T, X(T))] - u(t, x) = E\left[\int_t^T \left(\frac{\partial u}{\partial s} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2}\right)ds\right]\]</span></p>
-<p>At terminal time: <span class="math inline">\(u(T, X(T)) = g(X(T))\)</span> by definition.</p>
-<p>For this to hold for all paths, we need:</p>
-<p><span class="math display">\[\boxed{\frac{\partial u}{\partial t} + \mu(x)\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2(x)\frac{\partial^2 u}{\partial x^2} = 0}\]</span></p>
-<p>with boundary condition <span class="math inline">\(u(T, x) = g(x)\)</span>.</p>
-<p>This is the <strong>backward Kolmogorov equation</strong> (also called the <strong>Fokker-Planck backward equation</strong>).</p>
+<div id="vectors-and-linear-transformations" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">A.1</span> Vectors and Linear Transformations<a href="linear-algebra.html#vectors-and-linear-transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="vectors-as-arrows" class="section level3 unnumbered hasAnchor">
+<h3>Vectors as Arrows<a href="linear-algebra.html#vectors-as-arrows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A vector <span class="math inline">\(\mathbf{v} \in \mathbb{R}^n\)</span> is an arrow from the origin. In <span class="math inline">\(\mathbb{R}^2\)</span>:</p>
+<p><span class="math display">\[\mathbf{v} = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}\]</span></p>
+<p>represents a displacement of <span class="math inline">\(v_1\)</span> units horizontally and <span class="math inline">\(v_2\)</span> units vertically.</p>
 </div>
-</div>
-<div id="example-the-heat-equation" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Example: The Heat Equation<a href="feynman-kac-and-pdes.html#example-the-heat-equation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Take the simplest SDE: <span class="math inline">\(dX = dB\)</span> (pure Brownian motion, <span class="math inline">\(\mu = 0\)</span>, <span class="math inline">\(\sigma = 1\)</span>).</p>
-<p>The backward equation becomes:</p>
-<p><span class="math display">\[\frac{\partial u}{\partial t} + \frac{1}{2}\frac{\partial^2 u}{\partial x^2} = 0\]</span></p>
-<p>Change time direction by setting <span class="math inline">\(\tau = T - t\)</span>:</p>
-<p><span class="math display">\[\boxed{\frac{\partial u}{\partial \tau} = \frac{1}{2}\frac{\partial^2 u}{\partial x^2}}\]</span></p>
-<p>This is the <strong>heat equation</strong>!</p>
-<div id="probabilistic-interpretation" class="section level3 hasAnchor" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Probabilistic Interpretation<a href="feynman-kac-and-pdes.html#probabilistic-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The solution to the heat equation with initial condition <span class="math inline">\(u(0, x) = g(x)\)</span> is:</p>
-<p><span class="math display">\[u(\tau, x) = E[g(X(\tau)) \mid X(0) = x] = \int_{-\infty}^{\infty} g(y) \frac{1}{\sqrt{2\pi\tau}} e^{-(y-x)^2/(2\tau)} dy\]</span></p>
-<p>The heat kernel <span class="math inline">\(\frac{1}{\sqrt{2\pi\tau}} e^{-(y-x)^2/(2\tau)}\)</span> is precisely the transition density of Brownian motion!</p>
-<p><strong>Deep insight</strong>: Heat diffusion is mathematically identical to Brownian motion. Temperature spreads like a random walk.</p>
-</div>
-</div>
-<div id="the-black-scholes-pde" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> The Black-Scholes PDE<a href="feynman-kac-and-pdes.html#the-black-scholes-pde" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now consider geometric Brownian motion:</p>
-<p><span class="math display">\[dS = \mu S \, dt + \sigma S \, dB\]</span></p>
-<p>For a derivative with payoff <span class="math inline">\(g(S(T))\)</span> at time <span class="math inline">\(T\)</span>, we want the price:</p>
-<p><span class="math display">\[V(t, S) = E[g(S(T)) \mid S(t) = S]\]</span></p>
-<p>But we need to account for <strong>discounting</strong> at the risk-free rate <span class="math inline">\(r\)</span>. In a risk-neutral world (more on this later), we replace <span class="math inline">\(\mu\)</span> with <span class="math inline">\(r\)</span> and define:</p>
-<p><span class="math display">\[V(t, S) = e^{-r(T-t)}E^{\mathbb{Q}}[g(S(T)) \mid S(t) = S]\]</span></p>
-<p>Let <span class="math inline">\(u(t, S) = e^{-r(T-t)}V(t, S)\)</span> to factor out the discounting. By Itô’s lemma and similar arguments:</p>
-<p><span class="math display">\[\boxed{\frac{\partial V}{\partial t} + rS\frac{\partial V}{\partial S} + \frac{1}{2}\sigma^2 S^2\frac{\partial^2 V}{\partial S^2} = rV}\]</span></p>
-<p>with terminal condition <span class="math inline">\(V(T, S) = g(S)\)</span>.</p>
-<p>This is the <strong>Black-Scholes PDE</strong>!</p>
-<div id="solving-for-a-european-call" class="section level3 hasAnchor" number="4.4.1">
-<h3><span class="header-section-number">4.4.1</span> Solving for a European Call<a href="feynman-kac-and-pdes.html#solving-for-a-european-call" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For <span class="math inline">\(g(S) = \max(S - K, 0)\)</span>, the solution is:</p>
-<p><span class="math display">\[V(t, S) = S\Phi(d_1) - Ke^{-r(T-t)}\Phi(d_2)\]</span></p>
-<p>where:
-<span class="math display">\[d_1 = \frac{\log(S/K) + (r + \sigma^2/2)(T-t)}{\sigma\sqrt{T-t}}, \quad d_2 = d_1 - \sigma\sqrt{T-t}\]</span></p>
-<p>We’ll derive this in the next chapter using risk-neutral pricing.</p>
-</div>
-</div>
-<div id="the-forward-kolmogorov-equation" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> The Forward Kolmogorov Equation<a href="feynman-kac-and-pdes.html#the-forward-kolmogorov-equation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There’s also a <strong>forward equation</strong> that describes how the <strong>probability density</strong> <span class="math inline">\(p(t, x)\)</span> of <span class="math inline">\(X(t)\)</span> evolves:</p>
-<p><span class="math display">\[\frac{\partial p}{\partial t} = -\frac{\partial}{\partial x}[\mu(x)p] + \frac{1}{2}\frac{\partial^2}{\partial x^2}[\sigma^2(x)p]\]</span></p>
-<p>This is the <strong>forward Kolmogorov equation</strong> (or <strong>Fokker-Planck forward equation</strong>).</p>
-<div id="the-duality" class="section level3 hasAnchor" number="4.5.1">
-<h3><span class="header-section-number">4.5.1</span> The Duality<a href="feynman-kac-and-pdes.html#the-duality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="matrices-as-transformations" class="section level3 unnumbered hasAnchor">
+<h3>Matrices as Transformations<a href="linear-algebra.html#matrices-as-transformations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A matrix <span class="math inline">\(A\)</span> is not just a grid of numbers—it’s an <em>instruction</em> for transforming space. When we compute <span class="math inline">\(A\mathbf{v}\)</span>, we’re asking: “Where does the arrow <span class="math inline">\(\mathbf{v}\)</span> land after applying transformation <span class="math inline">\(A\)</span>?”</p>
+<p><strong>The column perspective:</strong> The columns of <span class="math inline">\(A\)</span> tell you where the standard basis vectors land. If</p>
+<p><span class="math display">\[A = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix}\]</span></p>
+<p>then:</p>
 <ul>
-<li><strong>Backward equation</strong>: Expects values along future paths (pricing)</li>
-<li><strong>Forward equation</strong>: Probability density evolution (statistical mechanics)</li>
+<li>The first column <span class="math inline">\((a, c)^T\)</span> is where <span class="math inline">\(\mathbf{e}_1 = (1, 0)^T\)</span> goes</li>
+<li>The second column <span class="math inline">\((b, d)^T\)</span> is where <span class="math inline">\(\mathbf{e}_2 = (0, 1)^T\)</span> goes</li>
 </ul>
-<p>These are dual perspectives on the same stochastic process.</p>
+<p>Every other vector, being a linear combination of <span class="math inline">\(\mathbf{e}_1\)</span> and <span class="math inline">\(\mathbf{e}_2\)</span>, gets carried along accordingly.</p>
+</div>
+<div id="what-can-linear-transformations-do" class="section level3 unnumbered hasAnchor">
+<h3>What Can Linear Transformations Do?<a href="linear-algebra.html#what-can-linear-transformations-do" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Linear transformations can:</p>
+<ul>
+<li><strong>Rotate</strong> (turn space around the origin)</li>
+<li><strong>Scale</strong> (stretch or compress along axes)</li>
+<li><strong>Shear</strong> (slide layers past each other)</li>
+<li><strong>Reflect</strong> (flip across a line or plane)</li>
+<li><strong>Project</strong> (flatten onto a lower-dimensional subspace)</li>
+</ul>
+<p>What they <em>cannot</em> do: translate (shift the origin), bend, or curve space.</p>
 </div>
 </div>
-<div id="feynman-kac-formula-general-version" class="section level2 hasAnchor" number="4.6">
-<h2><span class="header-section-number">4.6</span> Feynman-Kac Formula (General Version)<a href="feynman-kac-and-pdes.html#feynman-kac-formula-general-version" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The most general form handles running costs and discounting:</p>
-<p><strong>Theorem</strong>: Consider the SDE <span class="math inline">\(dX = \mu(X) \, dt + \sigma(X) \, dB\)</span> with initial condition <span class="math inline">\(X(t) = x\)</span>.</p>
-<p>Define:</p>
-<p><span class="math display">\[u(t, x) = E\left[g(X(T))e^{-\int_t^T c(X(s))ds} + \int_t^T f(X(s))e^{-\int_t^s c(X(r))dr}ds \mid X(t) = x\right]\]</span></p>
-<p>Then <span class="math inline">\(u\)</span> satisfies:</p>
-<p><span class="math display">\[\frac{\partial u}{\partial t} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2} - c(x)u + f(x) = 0\]</span></p>
-<p>with <span class="math inline">\(u(T, x) = g(x)\)</span>.</p>
-<p>Here:
-- <span class="math inline">\(c(x)\)</span> is a discount rate (e.g., interest rate)
-- <span class="math inline">\(f(x)\)</span> is a running payoff (e.g., dividends)
-- <span class="math inline">\(g(x)\)</span> is terminal payoff</p>
+<div id="eigendecomposition-finding-the-fixed-directions" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">A.2</span> Eigendecomposition: Finding the Fixed Directions<a href="linear-algebra.html#eigendecomposition-finding-the-fixed-directions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-central-question" class="section level3 unnumbered hasAnchor">
+<h3>The Central Question<a href="linear-algebra.html#the-central-question" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Given a transformation <span class="math inline">\(A\)</span>, are there any directions that remain unchanged—vectors that get scaled but not rotated?</p>
+<p><strong>Definition.</strong> A nonzero vector <span class="math inline">\(\mathbf{v}\)</span> is an <em>eigenvector</em> of <span class="math inline">\(A\)</span> with <em>eigenvalue</em> <span class="math inline">\(\lambda\)</span> if:</p>
+<p><span class="math display">\[A\mathbf{v} = \lambda \mathbf{v}\]</span></p>
+<p>The transformation <span class="math inline">\(A\)</span> acts on <span class="math inline">\(\mathbf{v}\)</span> by simply stretching (or compressing, or flipping) it by factor <span class="math inline">\(\lambda\)</span>.</p>
 </div>
-<div id="applications" class="section level2 hasAnchor" number="4.7">
-<h2><span class="header-section-number">4.7</span> Applications<a href="feynman-kac-and-pdes.html#applications" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="option-pricing" class="section level3 hasAnchor" number="4.7.1">
-<h3><span class="header-section-number">4.7.1</span> Option Pricing<a href="feynman-kac-and-pdes.html#option-pricing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Feynman-Kac formula underpins all of option pricing theory:
-- Price = expected discounted payoff under risk-neutral measure
-- Can solve either the PDE or simulate the SDE</p>
+<div id="eigenvectors-as-fixed-directions" class="section level3 unnumbered hasAnchor">
+<h3>Eigenvectors as Fixed Directions<a href="linear-algebra.html#eigenvectors-as-fixed-directions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is the geometric essence: <strong>eigenvectors are the directions that “survive” the transformation unchanged in orientation.</strong></p>
+<p>Consider what happens to a general vector under repeated application of <span class="math inline">\(A\)</span>:</p>
+<ul>
+<li>Directions aligned with eigenvectors corresponding to <span class="math inline">\(|\lambda| &gt; 1\)</span> get amplified</li>
+<li>Directions aligned with eigenvectors corresponding to <span class="math inline">\(|\lambda| &lt; 1\)</span> get suppressed</li>
+<li>The eigenvector with the largest <span class="math inline">\(|\lambda|\)</span> eventually dominates</li>
+</ul>
+<p>This explains why:</p>
+<ul>
+<li>Dominant eigenvectors emerge in iterative processes</li>
+<li>Principal components capture the most important directions of variation</li>
+<li>Markov chains converge to stationary distributions (the eigenvector with <span class="math inline">\(\lambda = 1\)</span>)</li>
+</ul>
 </div>
-<div id="statistical-mechanics" class="section level3 hasAnchor" number="4.7.2">
-<h3><span class="header-section-number">4.7.2</span> Statistical Mechanics<a href="feynman-kac-and-pdes.html#statistical-mechanics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In physics, the heat equation describes:
-- Temperature diffusion
-- Particle density evolution
-- Quantum mechanics (Schrödinger equation with imaginary time)</p>
-</div>
-<div id="control-theory" class="section level3 hasAnchor" number="4.7.3">
-<h3><span class="header-section-number">4.7.3</span> Control Theory<a href="feynman-kac-and-pdes.html#control-theory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Optimal control problems (Hamilton-Jacobi-Bellman equations) connect to SDEs through Feynman-Kac.</p>
-</div>
-<div id="biology" class="section level3 hasAnchor" number="4.7.4">
-<h3><span class="header-section-number">4.7.4</span> Biology<a href="feynman-kac-and-pdes.html#biology" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Population dynamics, gene frequency evolution, and neural activity models all use this connection.</p>
-</div>
-</div>
-<div id="numerical-methods" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Numerical Methods<a href="feynman-kac-and-pdes.html#numerical-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="monte-carlo-simulation" class="section level3 hasAnchor" number="4.8.1">
-<h3><span class="header-section-number">4.8.1</span> Monte Carlo Simulation<a href="feynman-kac-and-pdes.html#monte-carlo-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>To compute <span class="math inline">\(u(t,x) = E[g(X(T)) \mid X(t) = x]\)</span>:</p>
+<div id="the-eigendecomposition" class="section level3 unnumbered hasAnchor">
+<h3>The Eigendecomposition<a href="linear-algebra.html#the-eigendecomposition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For a matrix <span class="math inline">\(A\)</span> with <span class="math inline">\(n\)</span> linearly independent eigenvectors, we can write:</p>
+<p><span class="math display">\[A = V \Lambda V^{-1}\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(V\)</span> is the matrix whose columns are eigenvectors</li>
+<li><span class="math inline">\(\Lambda\)</span> is diagonal with eigenvalues on the diagonal</li>
+</ul>
+<p><strong>Geometric interpretation:</strong> To apply <span class="math inline">\(A\)</span>:</p>
 <ol style="list-style-type: decimal">
-<li>Simulate many paths of the SDE starting from <span class="math inline">\(X(t) = x\)</span></li>
-<li>Evaluate <span class="math inline">\(g(X(T))\)</span> for each path</li>
-<li>Average the results</li>
+<li>Express the input in the eigenvector basis (<span class="math inline">\(V^{-1}\)</span>)</li>
+<li>Scale each component by its eigenvalue (<span class="math inline">\(\Lambda\)</span>)</li>
+<li>Convert back to the standard basis (<span class="math inline">\(V\)</span>)</li>
 </ol>
-<p>Advantages: Easy to implement, works in high dimensions
-Disadvantages: Slow convergence (<span class="math inline">\(\mathcal{O}(1/\sqrt{N})\)</span>), difficult for early exercise</p>
 </div>
-<div id="pde-methods" class="section level3 hasAnchor" number="4.8.2">
-<h3><span class="header-section-number">4.8.2</span> PDE Methods<a href="feynman-kac-and-pdes.html#pde-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Discretize the PDE on a grid using:
-- Finite differences (explicit, implicit, Crank-Nicolson)
-- Finite elements
-- Spectral methods</p>
-<p>Advantages: Fast, handles early exercise naturally
-Disadvantages: Curse of dimensionality, boundary conditions tricky</p>
-</div>
-<div id="hybrid-methods" class="section level3 hasAnchor" number="4.8.3">
-<h3><span class="header-section-number">4.8.3</span> Hybrid Methods<a href="feynman-kac-and-pdes.html#hybrid-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Modern approaches combine both:
-- Use PDE methods when low-dimensional
-- Use Monte Carlo when high-dimensional
-- Use sparse grids, reduced basis methods, etc.</p>
+<div id="special-case-symmetric-matrices" class="section level3 unnumbered hasAnchor">
+<h3>Special Case: Symmetric Matrices<a href="linear-algebra.html#special-case-symmetric-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When <span class="math inline">\(A = A^T\)</span> (symmetric), something beautiful happens:</p>
+<ul>
+<li>All eigenvalues are real</li>
+<li>Eigenvectors corresponding to different eigenvalues are <em>orthogonal</em></li>
+<li>We can choose an orthonormal eigenvector basis</li>
+</ul>
+<p>The decomposition becomes:</p>
+<p><span class="math display">\[A = Q \Lambda Q^T\]</span></p>
+<p>where <span class="math inline">\(Q\)</span> is orthogonal (<span class="math inline">\(Q^{-1} = Q^T\)</span>). This is the <em>spectral decomposition</em>.</p>
+<p><strong>Why this matters:</strong> Covariance matrices are symmetric. Their eigenvectors define orthogonal axes of variation, and their eigenvalues measure variance along each axis.</p>
 </div>
 </div>
-<div id="summary" class="section level2 hasAnchor" number="4.9">
-<h2><span class="header-section-number">4.9</span> Summary<a href="feynman-kac-and-pdes.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Feynman-Kac connection is profound:</p>
-<pre><code>SDE: dX = μdt + σdB
-     ↓ (Itô&#39;s lemma)
-PDE: ∂u/∂t + μ∂u/∂x + ½σ²∂²u/∂x² = 0
-     ↕ (Feynman-Kac)
-Probabilistic representation: u(t,x) = E[g(X(T)) | X(t)=x]</code></pre>
-<p>This bridges:
-- Probability ↔︎ Analysis
-- Random walks ↔︎ Differential equations
-- Simulation ↔︎ Analytic solutions
-- Physics ↔︎ Finance</p>
-<p>It’s one of the most beautiful and useful results in applied mathematics.</p>
+<div id="singular-value-decomposition" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">A.3</span> Singular Value Decomposition<a href="linear-algebra.html#singular-value-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="beyond-square-matrices" class="section level3 unnumbered hasAnchor">
+<h3>Beyond Square Matrices<a href="linear-algebra.html#beyond-square-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Eigendecomposition requires square matrices. But what about rectangular matrices—say, a <span class="math inline">\(m \times n\)</span> data matrix with <span class="math inline">\(m\)</span> observations and <span class="math inline">\(n\)</span> variables?</p>
+<p>The <strong>singular value decomposition (SVD)</strong> extends the geometric insight to <em>any</em> matrix.</p>
+</div>
+<div id="the-svd-theorem" class="section level3 unnumbered hasAnchor">
+<h3>The SVD Theorem<a href="linear-algebra.html#the-svd-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Theorem.</strong> Any <span class="math inline">\(m \times n\)</span> matrix <span class="math inline">\(A\)</span> can be written as:</p>
+<p><span class="math display">\[A = U \Sigma V^T\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(U\)</span> is <span class="math inline">\(m \times m\)</span> orthogonal (columns are <em>left singular vectors</em>)</li>
+<li><span class="math inline">\(\Sigma\)</span> is <span class="math inline">\(m \times n\)</span> diagonal with non-negative <em>singular values</em> <span class="math inline">\(\sigma_1 \geq \sigma_2 \geq \cdots \geq 0\)</span></li>
+<li><span class="math inline">\(V\)</span> is <span class="math inline">\(n \times n\)</span> orthogonal (columns are <em>right singular vectors</em>)</li>
+</ul>
+</div>
+<div id="the-geometric-revelation" class="section level3 unnumbered hasAnchor">
+<h3>The Geometric Revelation<a href="linear-algebra.html#the-geometric-revelation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The SVD reveals that <strong>every linear transformation is a rotation, followed by scaling, followed by another rotation</strong>:</p>
+<p><span class="math display">\[A\mathbf{x} = U \Sigma V^T \mathbf{x}\]</span></p>
+<p>Reading right to left:</p>
+<ol style="list-style-type: decimal">
+<li><strong><span class="math inline">\(V^T\)</span>: First rotation</strong> — Rotate the input space to align with the “natural axes” of the transformation</li>
+<li><strong><span class="math inline">\(\Sigma\)</span>: Scaling</strong> — Scale along each axis by the singular values (and possibly embed into a different dimension)</li>
+<li><strong><span class="math inline">\(U\)</span>: Second rotation</strong> — Rotate the output space to the final orientation</li>
+</ol>
+<p>This is remarkable: no matter how complicated <span class="math inline">\(A\)</span> appears, its action is fundamentally three simple operations.</p>
+</div>
+<div id="connection-to-eigendecomposition" class="section level3 unnumbered hasAnchor">
+<h3>Connection to Eigendecomposition<a href="linear-algebra.html#connection-to-eigendecomposition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The SVD and eigendecomposition are intimately related:</p>
+<ul>
+<li>The columns of <span class="math inline">\(V\)</span> are eigenvectors of <span class="math inline">\(A^T A\)</span></li>
+<li>The columns of <span class="math inline">\(U\)</span> are eigenvectors of <span class="math inline">\(A A^T\)</span></li>
+<li>The singular values <span class="math inline">\(\sigma_i\)</span> are square roots of eigenvalues of <span class="math inline">\(A^T A\)</span> (or <span class="math inline">\(A A^T\)</span>)</li>
+</ul>
+<p><strong>For symmetric positive semi-definite matrices:</strong> The SVD coincides with the eigendecomposition, and singular values equal eigenvalues.</p>
+</div>
+<div id="geometric-interpretation-of-singular-values" class="section level3 unnumbered hasAnchor">
+<h3>Geometric Interpretation of Singular Values<a href="linear-algebra.html#geometric-interpretation-of-singular-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the unit sphere <span class="math inline">\(\{\mathbf{x} : \|\mathbf{x}\| = 1\}\)</span>. Under transformation <span class="math inline">\(A\)</span>:</p>
+<ul>
+<li>The sphere becomes an ellipsoid</li>
+<li>The semi-axes of the ellipsoid point in directions <span class="math inline">\(U\)</span></li>
+<li>The lengths of the semi-axes are the singular values <span class="math inline">\(\sigma_i\)</span></li>
+</ul>
+<p>The largest singular value <span class="math inline">\(\sigma_1\)</span> is the maximum “stretch factor”—the operator norm of <span class="math inline">\(A\)</span>.</p>
+</div>
+<div id="low-rank-approximation" class="section level3 unnumbered hasAnchor">
+<h3>Low-Rank Approximation<a href="linear-algebra.html#low-rank-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A key property: if we keep only the <span class="math inline">\(k\)</span> largest singular values, we get the <em>best</em> rank-<span class="math inline">\(k\)</span> approximation to <span class="math inline">\(A\)</span>:</p>
+<p><span class="math display">\[A_k = \sum_{i=1}^{k} \sigma_i \mathbf{u}_i \mathbf{v}_i^T\]</span></p>
+<p>“Best” means minimizing the Frobenius norm of the error. This is the foundation of dimensionality reduction.</p>
+</div>
+</div>
+<div id="implications-principal-component-analysis" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">A.4</span> Implications: Principal Component Analysis<a href="linear-algebra.html#implications-principal-component-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-setup" class="section level3 unnumbered hasAnchor">
+<h3>The Setup<a href="linear-algebra.html#the-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You have a data matrix <span class="math inline">\(X\)</span> with <span class="math inline">\(n\)</span> observations (rows) and <span class="math inline">\(p\)</span> variables (columns), centered so each column has mean zero. The <em>sample covariance matrix</em> is:</p>
+<p><span class="math display">\[S = \frac{1}{n-1} X^T X\]</span></p>
+<p>This symmetric matrix encodes how variables co-vary.</p>
+</div>
+<div id="the-geometric-view" class="section level3 unnumbered hasAnchor">
+<h3>The Geometric View<a href="linear-algebra.html#the-geometric-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data points form a cloud in <span class="math inline">\(p\)</span>-dimensional space. The covariance matrix <span class="math inline">\(S\)</span> describes the <em>shape</em> of this cloud:</p>
+<ul>
+<li>Eigenvectors of <span class="math inline">\(S\)</span> point along the principal axes of the ellipsoidal cloud</li>
+<li>Eigenvalues measure the variance (spread) along each axis</li>
+</ul>
+</div>
+<div id="principal-components" class="section level3 unnumbered hasAnchor">
+<h3>Principal Components<a href="linear-algebra.html#principal-components" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Definition.</strong> The <em>principal components</em> are the eigenvectors of the covariance matrix, ordered by decreasing eigenvalue.</p>
+<ul>
+<li>The first principal component (PC1) points in the direction of maximum variance</li>
+<li>PC2 is orthogonal to PC1 and captures the most remaining variance</li>
+<li>And so on…</li>
+</ul>
+</div>
+<div id="the-svd-connection" class="section level3 unnumbered hasAnchor">
+<h3>The SVD Connection<a href="linear-algebra.html#the-svd-connection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can bypass the covariance matrix entirely using the SVD of the centered data matrix:</p>
+<p><span class="math display">\[X = U \Sigma V^T\]</span></p>
+<p>Then:</p>
+<ul>
+<li>The columns of <span class="math inline">\(V\)</span> are the principal component directions</li>
+<li>The principal component scores are <span class="math inline">\(U\Sigma\)</span> (or equivalently, <span class="math inline">\(XV\)</span>)</li>
+<li>The variance explained by the <span class="math inline">\(i\)</span>-th component is <span class="math inline">\(\sigma_i^2 / (n-1)\)</span></li>
+</ul>
+</div>
+<div id="why-pca-matters-for-finance" class="section level3 unnumbered hasAnchor">
+<h3>Why PCA Matters for Finance<a href="linear-algebra.html#why-pca-matters-for-finance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>Dimensionality reduction:</strong> Hundreds of asset returns can often be summarized by a handful of factors</p></li>
+<li><p><strong>Factor discovery:</strong> The first few principal components of equity returns often correspond to interpretable factors (market, size, value…)</p></li>
+<li><p><strong>Risk decomposition:</strong> Eigenvalues of the covariance matrix reveal how risk is distributed across independent directions</p></li>
+<li><p><strong>Noise reduction:</strong> Discarding small eigenvalues (and their eigenvectors) filters out estimation noise</p></li>
+</ol>
+</div>
+<div id="a-caution" class="section level3 unnumbered hasAnchor">
+<h3>A Caution<a href="linear-algebra.html#a-caution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>PCA finds directions of maximum <em>variance</em>, not maximum <em>importance</em>. In finance:</p>
+<ul>
+<li>High variance might reflect noise, not signal</li>
+<li>The most predictive features may not be the most variable</li>
+<li>Covariance estimates are notoriously unstable</li>
+</ul>
+<p>Use PCA as a tool for exploration and compression, but interpret with care.</p>
+</div>
+</div>
+<div id="summary-3" class="section level2 unnumbered hasAnchor">
+<h2>Summary<a href="linear-algebra.html#summary-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The geometric view of linear algebra reveals:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Concept</th>
+<th align="left">Geometric Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Matrix</td>
+<td align="left">A transformation of space</td>
+</tr>
+<tr class="even">
+<td align="left">Eigenvector</td>
+<td align="left">A direction that survives unchanged</td>
+</tr>
+<tr class="odd">
+<td align="left">Eigenvalue</td>
+<td align="left">The scaling factor along that direction</td>
+</tr>
+<tr class="even">
+<td align="left">Symmetric matrix</td>
+<td align="left">Has orthogonal eigenvectors</td>
+</tr>
+<tr class="odd">
+<td align="left">SVD</td>
+<td align="left">Any transformation = rotate, scale, rotate</td>
+</tr>
+<tr class="even">
+<td align="left">Singular values</td>
+<td align="left">Semi-axes of the transformed unit sphere</td>
+</tr>
+<tr class="odd">
+<td align="left">PCA</td>
+<td align="left">Find the axes of maximum spread</td>
+</tr>
+</tbody>
+</table>
+<p>This geometric intuition makes covariance matrices, factor models, and dimensionality reduction transparent—essential tools for working with multivariate stochastic processes.</p>
 
 </div>
 </div>
@@ -580,8 +670,8 @@ Probabilistic representation: u(t,x) = E[g(X(T)) | X(t)=x]</code></pre>
           </div>
         </div>
       </div>
-<a href="stochastic-differential-equations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="risk-neutral-pricing-and-martingales.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lévy-processes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -612,7 +702,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/abhinavananddwivedi/book/edit/main/04-feynman-kac.Rmd",
+    "link": "https://github.com/abhinavananddwivedi/book/edit/main/A1-linear-algebra.Rmd",
     "text": "Edit"
   },
   "history": {
