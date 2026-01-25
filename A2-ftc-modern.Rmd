@@ -1,0 +1,654 @@
+
+
+
+
+<!-- # (APPENDIX) Appendices {-} -->
+
+
+# The Fundamental Theorem of Calculus: A Modern View
+
+## Why Another Look at the FTC?
+
+You already know the fundamental theorem of calculus from your undergraduate education:
+
+$$\int_a^b f'(x)\,dx = f(b) - f(a)$$
+
+This seems like a purely one-dimensional statement about functions on the real line. But hidden within this simple equation is a profound geometric principle that transcends dimension and applies to calculus on curves, surfaces, and manifolds of any dimension.
+
+The modern view, formulated through **differential forms**, reveals that the FTC is really about the **duality between boundaries and derivatives**. This perspective is particularly valuable for stochastic calculus because it clarifies:
+
+1. Why differential notation $df$ behaves differently from classical derivatives
+2. The geometric meaning of integration along paths (crucial for Itô integrals)
+3. Why quadratic variation has a geometric interpretation
+4. The relationship between Brownian motion's "roughness" and differential structure
+
+In this appendix, we'll rebuild the FTC from the ground up using the language of differential forms, emphasizing geometric intuition over formal machinery.
+
+## The Classical Version: What Are We Actually Integrating?
+
+Let's start with what you know. The fundamental theorem says:
+
+$$\int_a^b f'(x)\,dx = f(b) - f(a)$$
+
+### What to Look For
+
+Before accepting this as given, ask: what *kind* of object is $f'(x)\,dx$? 
+
+- $f'(x)$ is a function (assigns a number to each point)
+- $dx$ is... what exactly?
+- Their product $f'(x)\,dx$ is the thing we integrate
+
+The modern answer: **$f'(x)\,dx$ is a differential 1-form**. It's not just a function times a "infinitesimal"—it's a geometric object that knows how to eat curves and output numbers.
+
+## Forms and Chains: A Duality
+
+### The Geometric Side: Chains
+
+Think of chains as formal sums of geometric objects:
+
+- **0-chains**: formal sums of points, like $3p_1 - 2p_2 + p_3$
+- **1-chains**: formal sums of oriented curves
+- **2-chains**: formal sums of oriented surfaces
+- **k-chains**: formal sums of k-dimensional oriented objects
+
+These form vector spaces $C_0, C_1, C_2, \ldots$
+
+**Example**: The interval $[a,b]$ is a 1-chain. Its boundary is the 0-chain:
+$$\partial[a,b] = b - a$$
+where the minus sign indicates orientation (we "exit" at $b$ and "enter" at $a$).
+
+### The Algebraic Side: Forms
+
+Forms are the **dual objects** to chains. They are linear functionals that eat chains and output numbers:
+
+- **0-forms**: functions $f: M \to \mathbb{R}$
+- **1-forms**: things you integrate along curves
+- **k-forms**: things you integrate on k-dimensional objects
+
+These form vector spaces $C^0, C^1, C^2, \ldots$ (note the superscripts—these are dual spaces).
+
+### The Pairing: Integration
+
+The fundamental pairing between a k-form $\omega$ and a k-chain $c$ is:
+
+$$\langle \omega, c \rangle = \int_c \omega$$
+
+This is a bilinear map $C^k \times C_k \to \mathbb{R}$.
+
+**Forms are covectors**: they're row vectors that eat column vectors (chains) via this integration pairing.
+
+## The Fundamental Insight: Adjointness
+
+The boundary operator $\partial$ takes k-chains to (k-1)-chains:
+
+$$\partial: C_k \to C_{k-1}$$
+
+The exterior derivative $d$ takes (k-1)-forms to k-forms:
+
+$$d: C^{k-1} \to C^k$$
+
+**Stokes' theorem is the statement that $d$ and $\partial$ are adjoint operators**:
+
+$$\boxed{\int_c d\omega = \int_{\partial c} \omega}$$
+
+or in inner product notation:
+
+$$\langle d\omega, c \rangle = \langle \omega, \partial c \rangle$$
+
+This is exactly like $(A^*v, w) = (v, Aw)$ for a linear operator and its adjoint.
+
+### The FTC is a Special Case
+
+For a function $f$ (a 0-form) on $\mathbb{R}$:
+
+- $df$ is the 1-form $f'(x)\,dx$
+- The interval $[a,b]$ is a 1-chain
+- Its boundary is $\partial[a,b] = b - a$
+
+Stokes' theorem gives:
+
+$$\int_{[a,b]} df = \int_{\partial[a,b]} f = \int_{\{b\}} f - \int_{\{a\}} f = f(b) - f(a)$$
+
+The FTC is Stokes' theorem in dimension 1.
+
+## Why $d^2 = 0$ and $\partial^2 = 0$
+
+A beautiful consequence of adjointness:
+
+**Geometric fact**: The boundary of a boundary is empty: $\partial^2 = 0$
+
+An interval's boundary is two points. Points have no boundary.
+
+**By adjointness**: 
+$$\langle d^2\omega, c \rangle = \langle d\omega, \partial c \rangle = \langle \omega, \partial^2 c \rangle = \langle \omega, 0 \rangle = 0$$
+
+Therefore $d^2 = 0$ follows from the geometric fact $\partial^2 = 0$.
+
+This is why we can never write $d^2f$—the exterior derivative of a derivative is always zero.
+
+## The Geometric Picture: Vectors vs Covectors
+
+Now we get to the heart of the geometric interpretation. This is crucial for understanding what $df$ actually *is*.
+
+### Vectors Are Arrows, Covectors Are Hyperplanes
+
+At a point $p$ in a manifold $M$:
+
+- **Tangent space** $T_p M$: vectors (arrows emanating from $p$)
+- **Cotangent space** $T_p^* M$: covectors (linear functionals on vectors)
+
+A covector $\alpha \in T_p^* M$ can be visualized as a family of parallel hyperplanes. When $\alpha$ acts on a vector $v$:
+
+$$\alpha(v) = \text{"how many hyperplanes does } v \text{ cross?"}$$
+
+Let's make this concrete.
+
+### A Concrete Example in $\mathbb{R}^2$
+
+Consider the covector $\alpha = [3, 2]$ (as a row vector) at the origin. This defines the linear functional:
+
+$$\alpha(x_1, x_2) = 3x_1 + 2x_2$$
+
+The **level sets** are the hyperplanes (lines in 2D):
+$$3x_1 + 2x_2 = c \quad \text{for } c = 0, 1, 2, 3, \ldots$$
+
+These are equally-spaced parallel lines.
+
+Now take a vector $v = (1, 0)$ (column vector). What is $\alpha(v)$?
+
+$$\alpha(v) = [3, 2] \begin{bmatrix} 1 \\ 0 \end{bmatrix} = 3$$
+
+**Geometric interpretation**: Starting from the origin (on the $c=0$ line), the vector $v$ pierces through the lines $c=1, c=2, c=3$. It crosses exactly **3 hyperplanes**.
+
+```{r covector-hyperplanes, fig.cap="A covector as a family of parallel hyperplanes. The vector v crosses exactly 3 unit-spaced hyperplanes, so α(v) = 3.", fig.width=8, fig.height=6}
+library(ggplot2)
+library(gridExtra)
+
+# Covector α = [3, 2]
+# Hyperplanes: 3x₁ + 2x₂ = c
+
+# Create data for hyperplanes
+x1_range <- seq(-0.5, 2, length.out = 200)
+hyperplane_data <- data.frame()
+
+for (c_val in -1:7) {
+  # Solve 3x₁ + 2x₂ = c for x₂
+  x2_vals <- (c_val - 3 * x1_range) / 2
+  temp_df <- data.frame(
+    x1 = x1_range,
+    x2 = x2_vals,
+    c = factor(c_val),
+    is_origin = (c_val == 0)
+  )
+  hyperplane_data <- rbind(hyperplane_data, temp_df)
+}
+
+# Vector v = (1, 0)
+vector_v <- data.frame(x1 = c(0, 1), x2 = c(0, 0))
+
+# Crossing points
+crossings <- data.frame(
+  x1 = c(0, 1/3, 2/3, 1),
+  x2 = rep(0, 4),
+  crossing = 0:3
+)
+
+# Plot
+p1 <- ggplot() +
+  # Hyperplanes
+  geom_line(data = hyperplane_data, 
+            aes(x = x1, y = x2, group = c, linetype = is_origin),
+            color = "gray30", linewidth = 0.5) +
+  # Highlight special hyperplanes
+  geom_line(data = subset(hyperplane_data, c %in% c(0, 1, 2, 3)),
+            aes(x = x1, y = x2, group = c),
+            color = "gray10", linewidth = 0.8) +
+  # Vector v
+  geom_segment(aes(x = 0, y = 0, xend = 1, yend = 0),
+               arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+               color = "red", linewidth = 1.2) +
+  # Crossing points
+  geom_point(data = crossings, aes(x = x1, y = x2),
+             color = "red", size = 3) +
+  # Labels
+  annotate("text", x = 0.5, y = -0.25, label = "v = (1, 0)", 
+           color = "red", fontface = "bold", size = 4.5) +
+  annotate("text", x = 1.7, y = (0-3*1.7)/2, label = "c = 0", size = 3) +
+  annotate("text", x = 1.7, y = (1-3*1.7)/2, label = "c = 1", size = 3) +
+  annotate("text", x = 1.7, y = (2-3*1.7)/2, label = "c = 2", size = 3) +
+  annotate("text", x = 1.7, y = (3-3*1.7)/2, label = "c = 3", size = 3) +
+  coord_fixed(xlim = c(-0.3, 1.8), ylim = c(-1.2, 1.5)) +
+  labs(x = expression(x[1]), y = expression(x[2]),
+       title = "Covector α = [3, 2] as parallel hyperplanes",
+       subtitle = "v crosses 3 hyperplanes ⇒ α(v) = 3") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"))
+
+print(p1)
+```
+
+### Functions, Differentials, and Gradients
+
+Now consider a function $f: \mathbb{R}^2 \to \mathbb{R}$. For concreteness:
+
+$$f(x_1, x_2) = x_1^2 + x_2^2$$
+
+Three objects are associated with $f$:
+
+1. **The function itself** (0-form): assigns numbers to points
+2. **The differential** $df$ (1-form, covector field): at each point, a covector
+3. **The gradient** $\nabla f$ (vector field): at each point, a vector
+
+**Key distinction**: 
+- $df$ exists naturally, coordinate-free
+- $\nabla f$ requires a **metric** to define (we need to convert covectors to vectors)
+
+In $\mathbb{R}^n$ with the Euclidean metric, they look the same:
+
+$$df = \left[\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}\right] \quad \text{(covector)}$$
+
+$$\nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}\right) \quad \text{(vector)}$$
+
+But they live in **dual spaces**.
+
+### The Geometric Relationship
+
+At a point $p = (1, 0.5)$:
+
+- **Level set**: circle $x_1^2 + x_2^2 = 1.25$
+- **Tangent space**: 1-dimensional line tangent to the circle at $p$
+- **$df_p$**: covector whose hyperplanes are **parallel to the tangent space**
+- **$\nabla f_p$**: vector **perpendicular to the tangent space**
+
+The key property: **$df_p$ annihilates tangent vectors**.
+
+If $v$ is tangent to the level set at $p$, then:
+$$df_p(v) = 0$$
+
+This is because moving along the level set doesn't change $f$.
+
+```{r tangent-covector-gradient, fig.cap="The relationship between level sets, tangent spaces, df (covector), and ∇f (vector). The covector df creates hyperplanes parallel to the tangent space, while the gradient is perpendicular to both.", fig.width=12, fig.height=10}
+library(ggplot2)
+library(gridExtra)
+
+# Function: f(x₁, x₂) = x₁² + x₂²
+f <- function(x1, x2) x1^2 + x2^2
+grad_f <- function(x1, x2) c(2*x1, 2*x2)
+
+# Specific point
+p <- c(1.0, 0.5)
+f_p <- f(p[1], p[2])
+df_p <- grad_f(p[1], p[2])  # Same components as gradient
+
+# Tangent direction to circle (perpendicular to radius)
+tangent_dir <- c(-p[2], p[1])
+tangent_dir <- tangent_dir / sqrt(sum(tangent_dir^2))
+
+# Create level sets
+theta <- seq(0, 2*pi, length.out = 200)
+level_sets <- data.frame()
+for (r in sqrt(c(0.25, 0.5, 1.0, 1.25, 1.5, 2.0))) {
+  temp_df <- data.frame(
+    x1 = r * cos(theta),
+    x2 = r * sin(theta),
+    level = r^2,
+    is_p = abs(r^2 - f_p) < 0.01
+  )
+  level_sets <- rbind(level_sets, temp_df)
+}
+
+# Plot 1: Level sets and point
+p1 <- ggplot() +
+  geom_path(data = level_sets,
+            aes(x = x1, y = x2, group = level, 
+                linewidth = is_p, linetype = is_p)) +
+  scale_linewidth_manual(values = c(0.5, 1.2)) +
+  scale_linetype_manual(values = c("solid", "solid")) +
+  geom_point(data = data.frame(x1 = p[1], x2 = p[2]),
+             aes(x = x1, y = x2), color = "red", size = 4) +
+  annotate("text", x = p[1] + 0.2, y = p[2] + 0.15,
+           label = sprintf("p = (%.1f, %.1f)", p[1], p[2]),
+           fontface = "bold") +
+  coord_fixed(xlim = c(-1.8, 1.8), ylim = c(-1.8, 1.8)) +
+  labs(x = expression(x[1]), y = expression(x[2]),
+       title = "Level sets of f(x₁, x₂) = x₁² + x₂²") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Plot 2: Tangent space
+tangent_t <- seq(-1.2, 1.2, length.out = 100)
+tangent_line <- data.frame(
+  x1 = p[1] + tangent_t * tangent_dir[1],
+  x2 = p[2] + tangent_t * tangent_dir[2]
+)
+
+p2 <- ggplot() +
+  geom_path(data = subset(level_sets, is_p),
+            aes(x = x1, y = x2, group = level),
+            linewidth = 1.2) +
+  geom_line(data = tangent_line, aes(x = x1, y = x2),
+            color = "darkgreen", linetype = "dashed", linewidth = 1) +
+  geom_point(data = data.frame(x1 = p[1], x2 = p[2]),
+             aes(x = x1, y = x2), color = "red", size = 4) +
+  geom_segment(aes(x = p[1], y = p[2],
+                   xend = p[1] + 0.5*tangent_dir[1],
+                   yend = p[2] + 0.5*tangent_dir[2]),
+               arrow = arrow(length = unit(0.25, "cm"), type = "closed"),
+               color = "darkgreen", linewidth = 1.1) +
+  annotate("text", x = p[1] + 0.5*tangent_dir[1] + 0.15,
+           y = p[2] + 0.5*tangent_dir[2],
+           label = "v[tan]", parse = TRUE,
+           color = "darkgreen", fontface = "bold", size = 4) +
+  coord_fixed(xlim = c(-0.3, 1.8), ylim = c(-0.8, 1.3)) +
+  labs(x = expression(x[1]), y = expression(x[2]),
+       title = "Tangent space at p",
+       subtitle = "Vectors tangent to level set") +
+  theme_minimal()
+
+# Plot 3: df as covector (hyperplanes)
+c_p <- sum(df_p * p)  # Value of df_p · p
+x1_hyper <- seq(-0.5, 2.5, length.out = 200)
+hyperplanes <- data.frame()
+
+for (dc in seq(-1.5, 1.5, by = 0.5)) {
+  c_val <- c_p + dc
+  # Line: df_p[1]*x₁ + df_p[2]*x₂ = c_val
+  x2_vals <- (c_val - df_p[1]*x1_hyper) / df_p[2]
+  temp_df <- data.frame(
+    x1 = x1_hyper,
+    x2 = x2_vals,
+    c_offset = dc,
+    is_through_p = abs(dc) < 0.01
+  )
+  hyperplanes <- rbind(hyperplanes, temp_df)
+}
+
+p3 <- ggplot() +
+  geom_path(data = subset(level_sets, is_p),
+            aes(x = x1, y = x2, group = level),
+            color = "gray60", linewidth = 0.8) +
+  geom_line(data = hyperplanes,
+            aes(x = x1, y = x2, group = c_offset,
+                linewidth = is_through_p, color = is_through_p)) +
+  scale_linewidth_manual(values = c(0.6, 1.2)) +
+  scale_color_manual(values = c("red", "darkred")) +
+  geom_point(data = data.frame(x1 = p[1], x2 = p[2]),
+             aes(x = x1, y = x2), color = "red", size = 4) +
+  coord_fixed(xlim = c(-0.3, 2.0), ylim = c(-0.8, 1.3)) +
+  labs(x = expression(x[1]), y = expression(x[2]),
+       title = "df as covector field",
+       subtitle = "Hyperplanes parallel to tangent space") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Plot 4: Verification df(v_tan) = 0
+df_v_tan <- sum(df_p * tangent_dir)
+
+p4 <- ggplot() +
+  geom_path(data = subset(level_sets, is_p),
+            aes(x = x1, y = x2, group = level),
+            linewidth = 1) +
+  geom_point(data = data.frame(x1 = p[1], x2 = p[2]),
+             aes(x = x1, y = x2), color = "red", size = 4) +
+  geom_segment(aes(x = p[1], y = p[2],
+                   xend = p[1] + 0.5*tangent_dir[1],
+                   yend = p[2] + 0.5*tangent_dir[2]),
+               arrow = arrow(length = unit(0.25, "cm"), type = "closed"),
+               color = "darkgreen", linewidth = 1.1) +
+  annotate("text", x = 0.3, y = 1.1,
+           label = sprintf("df[p](v[tan]) == %.6f %%~~%% 0",
+                          df_v_tan),
+           parse = TRUE, size = 3.5,
+           hjust = 0) +
+  annotate("text", x = 0.3, y = 0.9,
+           label = "df annihilates tangent vectors!",
+           size = 3.5, hjust = 0, fontface = "italic") +
+  coord_fixed(xlim = c(-0.3, 1.8), ylim = c(-0.8, 1.3)) +
+  labs(x = expression(x[1]), y = expression(x[2]),
+       title = "Verification: df(v_tan) = 0") +
+  theme_minimal()
+
+# Plot 5: Gradient as vector field
+grad_normalized <- df_p / sqrt(sum(df_p^2))
+
+p5 <- ggplot() +
+  geom_path(data = subset(level_sets, is_p),
+            aes(x = x1, y = x2, group = level),
+            linewidth = 1) +
+  geom_line(data = tangent_line, aes(x = x1, y = x2),
+            color = "darkgreen", linetype = "dashed", linewidth = 0.8,
+            alpha = 0.5) +
+  geom_point(data = data.frame(x1 = p[1], x2 = p[2]),
+             aes(x = x1, y = x2), color = "red", size = 4) +
+  geom_segment(aes(x = p[1], y = p[2],
+                   xend = p[1] + 0.6*grad_normalized[1],
+                   yend = p[2] + 0.6*grad_normalized[2]),
+               arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+               color = "darkred", linewidth = 1.2) +
+  annotate("text", x = p[1] + 0.6*grad_normalized[1] + 0.1,
+           y = p[2] + 0.6*grad_normalized[2] + 0.15,
+           label = "nabla*f[p]", parse = TRUE,
+           color = "darkred", fontface = "bold", size = 4.5) +
+  annotate("text", x = 0.3, y = -0.6,
+           label = expression(nabla*f %perp% "tangent space"),
+           size = 3.5, hjust = 0) +
+  coord_fixed(xlim = c(-0.3, 1.8), ylim = c(-0.8, 1.3)) +
+  labs(x = expression(x[1]), y = expression(x[2]),
+       title = "Gradient ∇f perpendicular to level set") +
+  theme_minimal()
+
+# Plot 6: Summary diagram
+p6 <- ggplot() +
+  annotate("text", x = 0.5, y = 0.9, hjust = 0, vjust = 1,
+           label = paste(
+             "At point p = (1.0, 0.5):",
+             "",
+             "LEVEL SET:",
+             "  • Circle: x₁² + x₂² = 1.25",
+             "",
+             "TANGENT SPACE:",
+             "  • 1-dim line tangent to circle",
+             "  • Direction: v_tan ⊥ radius",
+             "",
+             "COVECTOR df_p:",
+             "  • Components: [2.0, 1.0]",
+             "  • Hyperplanes: 2x₁ + x₂ = c",
+             "  • Parallel to tangent space",
+             "  • ker(df_p) = tangent space",
+             "",
+             "GRADIENT ∇f_p:",
+             "  • Components: (2.0, 1.0)",
+             "  • Perpendicular to tangent space",
+             "  • Direction of steepest ascent",
+             "",
+             "KEY INSIGHT:",
+             "df and ∇f point 'in same direction'",
+             "but live in DUAL SPACES",
+             sep = "\n"),
+           family = "mono", size = 3.2) +
+  xlim(0, 1) + ylim(0, 1) +
+  theme_void()
+
+# Arrange plots
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol = 3)
+```
+
+### The Action of df on Vectors: Directional Derivatives
+
+When $df_p$ acts on a tangent vector $v$ at $p$, it computes the **directional derivative**:
+
+$$df_p(v) = \text{rate at which } f \text{ changes along } v$$
+
+Geometrically, this is **the rate at which $v$ crosses level sets**.
+
+- If $v$ is tangent to a level set: $df_p(v) = 0$ (no level sets crossed)
+- If $v$ points along $\nabla f$: $df_p(v)$ is maximized (crosses level sets fastest)
+- If $v$ points opposite to $\nabla f$: $df_p(v) < 0$ (crosses in reverse)
+
+```{r directional-derivative, fig.cap="The action of df on different vectors. df(v) measures how fast f changes along v, which equals how fast v crosses level sets.", fig.width=10, fig.height=7}
+# Point and level sets near p
+p <- c(1.0, 0.5)
+f_p <- f(p[1], p[2])
+df_p <- grad_f(p[1], p[2])
+
+# Create refined level sets near p
+level_data <- data.frame()
+for (delta in seq(-0.4, 0.4, by = 0.1)) {
+  level_val <- f_p + delta
+  if (level_val > 0) {
+    r <- sqrt(level_val)
+    temp_df <- data.frame(
+      x1 = r * cos(theta),
+      x2 = r * sin(theta),
+      level = level_val,
+      is_p = abs(delta) < 0.01
+    )
+    level_data <- rbind(level_data, temp_df)
+  }
+}
+
+# Test vectors
+test_vectors <- list(
+  list(v = c(0.5, 0.25), name = "v₁", color = "blue"),
+  list(v = c(0.25, 0.5), name = "v₂", color = "darkgreen"),
+  list(v = c(-0.25, 0.4), name = "v₃", color = "purple")
+)
+
+# Calculate df(v) for each
+results_df <- data.frame()
+for (i in seq_along(test_vectors)) {
+  vec <- test_vectors[[i]]
+  df_v <- sum(df_p * vec$v)
+  results_df <- rbind(results_df, data.frame(
+    name = vec$name,
+    df_v = df_v,
+    color = vec$color,
+    x_end = p[1] + vec$v[1],
+    y_end = p[2] + vec$v[2]
+  ))
+}
+
+# Gradient direction (normalized)
+grad_norm <- df_p / sqrt(sum(df_p^2))
+
+ggplot() +
+  # Level sets
+  geom_path(data = level_data,
+            aes(x = x1, y = x2, group = level,
+                linewidth = is_p, alpha = is_p)) +
+  scale_linewidth_manual(values = c(0.4, 1)) +
+  scale_alpha_manual(values = c(0.4, 1)) +
+  # Point
+  geom_point(data = data.frame(x1 = p[1], x2 = p[2]),
+             aes(x = x1, y = x2), color = "red", size = 4) +
+  # Test vectors
+  geom_segment(data = results_df,
+               aes(x = p[1], y = p[2],
+                   xend = x_end, yend = y_end,
+                   color = color),
+               arrow = arrow(length = unit(0.25, "cm"), type = "closed"),
+               linewidth = 1.1, show.legend = FALSE) +
+  scale_color_identity() +
+  geom_text(data = results_df,
+            aes(x = x_end + 0.08, y = y_end,
+                label = name, color = color),
+            fontface = "bold", size = 4, show.legend = FALSE) +
+  # Gradient direction
+  geom_segment(aes(x = p[1], y = p[2],
+                   xend = p[1] + 0.4*grad_norm[1],
+                   yend = p[2] + 0.4*grad_norm[2]),
+               arrow = arrow(length = unit(0.2, "cm"), type = "closed"),
+               color = "red", linewidth = 0.9, linetype = "dashed") +
+  annotate("text", x = p[1] + 0.4*grad_norm[1],
+           y = p[2] + 0.4*grad_norm[2] + 0.12,
+           label = "∇f direction", color = "red", size = 3.5) +
+  # Results text
+  annotate("text", x = 0.15, y = 1.15, hjust = 0,
+           label = sprintf("df(v₁) = %.2f\ndf(v₂) = %.2f\ndf(v₃) = %.2f",
+                          results_df$df_v[1],
+                          results_df$df_v[2],
+                          results_df$df_v[3]),
+           size = 3.5, family = "mono") +
+  coord_fixed(xlim = c(0.05, 1.9), ylim = c(-0.1, 1.3)) +
+  labs(x = expression(x[1]), y = expression(x[2]),
+       title = "How df measures different vectors",
+       subtitle = "df(v) = directional derivative = rate of level set crossing") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+## Connection to Stochastic Calculus
+
+This geometric perspective illuminates several mysteries in stochastic calculus:
+
+### 1. Why df Notation Matters
+
+In classical calculus, we write $\frac{df}{dx} = f'(x)$ and treat $df$ and $dx$ somewhat interchangeably.
+
+In stochastic calculus, **$df$ and $dX$ are fundamentally different objects**:
+
+- $dX_t$ is a 1-form (covector) when $X_t$ is a stochastic process
+- The integral $\int_0^t f(X_s)\,dX_s$ pairs a function with a 1-form
+- Itô's lemma expresses $df(X_t)$ in terms of 1-forms $dX_t$ and $dt$
+
+The modern view: stochastic differentials are forms, and integration is the pairing between forms and chains (paths).
+
+### 2. Quadratic Variation as Geometry
+
+The quadratic variation $[X]_t$ is related to the fact that Brownian paths are "rough"—they cross infinitely many level sets even in infinitesimal time intervals.
+
+For a smooth path, $(dx)^2 = 0$ in the limit. For Brownian motion, $(dB_t)^2 = dt \neq 0$, which means:
+
+**The hyperplane structure of $dB_t$ is fundamentally different from smooth differentials.**
+
+### 3. The Itô vs Stratonovich Distinction
+
+Different choices of evaluation points in stochastic integration (Itô vs Stratonovich) correspond to different ways of pairing the form $dX_t$ with the chain (path).
+
+- Itô: evaluate at left endpoint
+- Stratonovich: evaluate at midpoint
+
+The classical FTC doesn't distinguish these because for smooth paths, all evaluation points give the same answer. For rough paths, the choice matters.
+
+## Summary: The Big Picture
+
+### What We've Learned
+
+1. **The FTC is really Stokes' theorem**: $\int_c d\omega = \int_{\partial c} \omega$
+
+2. **Forms and chains are dual**: 
+   - Chains are geometric (points, curves, surfaces)
+   - Forms are algebraic (functionals on chains)
+   - Integration is their pairing
+
+3. **$d$ and $\partial$ are adjoint operators**: This explains why $d^2 = 0$ follows from $\partial^2 = 0$
+
+4. **Covectors are hyperplanes, vectors are arrows**:
+   - $df$ creates a family of hyperplanes (level sets of $f$)
+   - $\nabla f$ points perpendicular to these hyperplanes
+   - They live in dual spaces
+
+5. **$df$ annihilates tangent vectors**: If $v$ is tangent to a level set, $df(v) = 0$
+
+### Why This Matters for Stochastic Calculus
+
+The rough paths of Brownian motion force us to take the differential structure seriously:
+
+- We cannot treat $df$ as merely shorthand for $f'(x)\,dx$
+- The form structure explains why $(dB_t)^2 = dt$
+- Different integration schemes (Itô, Stratonovich) are different pairings of forms and chains
+- The fundamental theorem takes on new meaning when paths are nowhere differentiable
+
+This geometric perspective transforms stochastic calculus from a collection of unmotivated rules into a coherent geometric theory. The "strangeness" of stochastic integration is just the manifestation of integrating forms along rough chains—something classical calculus never had to confront.
+
+## Further Reading
+
+For readers interested in exploring this perspective further:
+
+- **Spivak, M.** (1965). *Calculus on Manifolds*. Chapters 4-5 on differential forms and Stokes' theorem
+- **Lee, J.M.** (2013). *Introduction to Smooth Manifolds*. Chapter 14 on differential forms
+- **Frankel, T.** (2011). *The Geometry of Physics*. For physical applications of forms
+- **Friz, P. & Hairer, M.** (2014). *A Course on Rough Paths*. Modern treatment connecting geometry and stochastic analysis
+
+The interplay between geometry and analysis continues to be one of the most fruitful areas in modern mathematics, with stochastic calculus sitting at a particularly interesting intersection.

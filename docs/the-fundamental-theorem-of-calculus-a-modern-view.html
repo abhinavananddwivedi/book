@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Feynman-Kac and PDEs | Stochastic Calculus: An Idiosyncratic Approach</title>
+  <title>B The Fundamental Theorem of Calculus: A Modern View | Stochastic Calculus: An Idiosyncratic Approach</title>
   <meta name="description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Feynman-Kac and PDEs | Stochastic Calculus: An Idiosyncratic Approach" />
+  <meta property="og:title" content="B The Fundamental Theorem of Calculus: A Modern View | Stochastic Calculus: An Idiosyncratic Approach" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Feynman-Kac and PDEs | Stochastic Calculus: An Idiosyncratic Approach" />
+  <meta name="twitter:title" content="B The Fundamental Theorem of Calculus: A Modern View | Stochastic Calculus: An Idiosyncratic Approach" />
   
   <meta name="twitter:description" content="An idiosyncratic approach to stochastic calculus with applications to mathematical finance." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="stochastic-differential-equations.html"/>
-<link rel="next" href="risk-neutral-pricing-and-martingales.html"/>
+<link rel="prev" href="linear-algebra.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -441,176 +441,266 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="feynman-kac-and-pdes" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Feynman-Kac and PDEs<a href="feynman-kac-and-pdes.html#feynman-kac-and-pdes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="the-bridge-between-probability-and-analysis" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> The Bridge Between Probability and Analysis<a href="feynman-kac-and-pdes.html#the-bridge-between-probability-and-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>One of the most beautiful results in mathematics connects two seemingly different worlds:</p>
-<ul>
-<li><strong>Stochastic differential equations</strong> (SDEs) - the probabilistic world</li>
-<li><strong>Partial differential equations</strong> (PDEs) - the analytical world</li>
-</ul>
-<p>This connection, known as the <strong>Feynman-Kac formula</strong>, allows us to:
-- Solve PDEs by simulating random processes (Monte Carlo)
-- Solve SDEs by solving PDEs (numerical PDE methods)
-- Gain intuition about both simultaneously</p>
-</div>
-<div id="the-backward-kolmogorov-equation" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> The Backward Kolmogorov Equation<a href="feynman-kac-and-pdes.html#the-backward-kolmogorov-equation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Consider an SDE:</p>
-<p><span class="math display">\[dX(t) = \mu(X) \, dt + \sigma(X) \, dB(t)\]</span></p>
-<p>Define the function:</p>
-<p><span class="math display">\[u(t, x) = E[g(X(T)) \mid X(t) = x]\]</span></p>
-<p>This represents the expected value of some payoff function <span class="math inline">\(g\)</span> at terminal time <span class="math inline">\(T\)</span>, given that the process is at position <span class="math inline">\(x\)</span> at time <span class="math inline">\(t\)</span>.</p>
-<p><strong>Question</strong>: What PDE does <span class="math inline">\(u(t,x)\)</span> satisfy?</p>
-<div id="heuristic-derivation" class="section level3 hasAnchor" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Heuristic Derivation<a href="feynman-kac-and-pdes.html#heuristic-derivation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Apply Itô’s lemma to <span class="math inline">\(u(t, X(t))\)</span>:</p>
-<p><span class="math display">\[du = \frac{\partial u}{\partial t}dt + \frac{\partial u}{\partial x}dX + \frac{1}{2}\frac{\partial^2 u}{\partial x^2}(dX)^2\]</span></p>
-<p>Substitute <span class="math inline">\(dX = \mu \, dt + \sigma \, dB\)</span> and <span class="math inline">\((dX)^2 = \sigma^2 \, dt\)</span>:</p>
-<p><span class="math display">\[du = \left[\frac{\partial u}{\partial t} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2}\right]dt + \sigma\frac{\partial u}{\partial x}dB\]</span></p>
-<p>Integrate from <span class="math inline">\(t\)</span> to <span class="math inline">\(T\)</span> and take expectations. The stochastic integral has zero expectation, so:</p>
-<p><span class="math display">\[E[u(T, X(T))] - u(t, x) = E\left[\int_t^T \left(\frac{\partial u}{\partial s} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2}\right)ds\right]\]</span></p>
-<p>At terminal time: <span class="math inline">\(u(T, X(T)) = g(X(T))\)</span> by definition.</p>
-<p>For this to hold for all paths, we need:</p>
-<p><span class="math display">\[\boxed{\frac{\partial u}{\partial t} + \mu(x)\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2(x)\frac{\partial^2 u}{\partial x^2} = 0}\]</span></p>
-<p>with boundary condition <span class="math inline">\(u(T, x) = g(x)\)</span>.</p>
-<p>This is the <strong>backward Kolmogorov equation</strong> (also called the <strong>Fokker-Planck backward equation</strong>).</p>
-</div>
-</div>
-<div id="example-the-heat-equation" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Example: The Heat Equation<a href="feynman-kac-and-pdes.html#example-the-heat-equation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Take the simplest SDE: <span class="math inline">\(dX = dB\)</span> (pure Brownian motion, <span class="math inline">\(\mu = 0\)</span>, <span class="math inline">\(\sigma = 1\)</span>).</p>
-<p>The backward equation becomes:</p>
-<p><span class="math display">\[\frac{\partial u}{\partial t} + \frac{1}{2}\frac{\partial^2 u}{\partial x^2} = 0\]</span></p>
-<p>Change time direction by setting <span class="math inline">\(\tau = T - t\)</span>:</p>
-<p><span class="math display">\[\boxed{\frac{\partial u}{\partial \tau} = \frac{1}{2}\frac{\partial^2 u}{\partial x^2}}\]</span></p>
-<p>This is the <strong>heat equation</strong>!</p>
-<div id="probabilistic-interpretation" class="section level3 hasAnchor" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Probabilistic Interpretation<a href="feynman-kac-and-pdes.html#probabilistic-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The solution to the heat equation with initial condition <span class="math inline">\(u(0, x) = g(x)\)</span> is:</p>
-<p><span class="math display">\[u(\tau, x) = E[g(X(\tau)) \mid X(0) = x] = \int_{-\infty}^{\infty} g(y) \frac{1}{\sqrt{2\pi\tau}} e^{-(y-x)^2/(2\tau)} dy\]</span></p>
-<p>The heat kernel <span class="math inline">\(\frac{1}{\sqrt{2\pi\tau}} e^{-(y-x)^2/(2\tau)}\)</span> is precisely the transition density of Brownian motion!</p>
-<p><strong>Deep insight</strong>: Heat diffusion is mathematically identical to Brownian motion. Temperature spreads like a random walk.</p>
-</div>
-</div>
-<div id="the-black-scholes-pde" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> The Black-Scholes PDE<a href="feynman-kac-and-pdes.html#the-black-scholes-pde" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now consider geometric Brownian motion:</p>
-<p><span class="math display">\[dS = \mu S \, dt + \sigma S \, dB\]</span></p>
-<p>For a derivative with payoff <span class="math inline">\(g(S(T))\)</span> at time <span class="math inline">\(T\)</span>, we want the price:</p>
-<p><span class="math display">\[V(t, S) = E[g(S(T)) \mid S(t) = S]\]</span></p>
-<p>But we need to account for <strong>discounting</strong> at the risk-free rate <span class="math inline">\(r\)</span>. In a risk-neutral world (more on this later), we replace <span class="math inline">\(\mu\)</span> with <span class="math inline">\(r\)</span> and define:</p>
-<p><span class="math display">\[V(t, S) = e^{-r(T-t)}E^{\mathbb{Q}}[g(S(T)) \mid S(t) = S]\]</span></p>
-<p>Let <span class="math inline">\(u(t, S) = e^{-r(T-t)}V(t, S)\)</span> to factor out the discounting. By Itô’s lemma and similar arguments:</p>
-<p><span class="math display">\[\boxed{\frac{\partial V}{\partial t} + rS\frac{\partial V}{\partial S} + \frac{1}{2}\sigma^2 S^2\frac{\partial^2 V}{\partial S^2} = rV}\]</span></p>
-<p>with terminal condition <span class="math inline">\(V(T, S) = g(S)\)</span>.</p>
-<p>This is the <strong>Black-Scholes PDE</strong>!</p>
-<div id="solving-for-a-european-call" class="section level3 hasAnchor" number="4.4.1">
-<h3><span class="header-section-number">4.4.1</span> Solving for a European Call<a href="feynman-kac-and-pdes.html#solving-for-a-european-call" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For <span class="math inline">\(g(S) = \max(S - K, 0)\)</span>, the solution is:</p>
-<p><span class="math display">\[V(t, S) = S\Phi(d_1) - Ke^{-r(T-t)}\Phi(d_2)\]</span></p>
-<p>where:
-<span class="math display">\[d_1 = \frac{\log(S/K) + (r + \sigma^2/2)(T-t)}{\sigma\sqrt{T-t}}, \quad d_2 = d_1 - \sigma\sqrt{T-t}\]</span></p>
-<p>We’ll derive this in the next chapter using risk-neutral pricing.</p>
-</div>
-</div>
-<div id="the-forward-kolmogorov-equation" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> The Forward Kolmogorov Equation<a href="feynman-kac-and-pdes.html#the-forward-kolmogorov-equation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There’s also a <strong>forward equation</strong> that describes how the <strong>probability density</strong> <span class="math inline">\(p(t, x)\)</span> of <span class="math inline">\(X(t)\)</span> evolves:</p>
-<p><span class="math display">\[\frac{\partial p}{\partial t} = -\frac{\partial}{\partial x}[\mu(x)p] + \frac{1}{2}\frac{\partial^2}{\partial x^2}[\sigma^2(x)p]\]</span></p>
-<p>This is the <strong>forward Kolmogorov equation</strong> (or <strong>Fokker-Planck forward equation</strong>).</p>
-<div id="the-duality" class="section level3 hasAnchor" number="4.5.1">
-<h3><span class="header-section-number">4.5.1</span> The Duality<a href="feynman-kac-and-pdes.html#the-duality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><strong>Backward equation</strong>: Expects values along future paths (pricing)</li>
-<li><strong>Forward equation</strong>: Probability density evolution (statistical mechanics)</li>
-</ul>
-<p>These are dual perspectives on the same stochastic process.</p>
-</div>
-</div>
-<div id="feynman-kac-formula-general-version" class="section level2 hasAnchor" number="4.6">
-<h2><span class="header-section-number">4.6</span> Feynman-Kac Formula (General Version)<a href="feynman-kac-and-pdes.html#feynman-kac-formula-general-version" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The most general form handles running costs and discounting:</p>
-<p><strong>Theorem</strong>: Consider the SDE <span class="math inline">\(dX = \mu(X) \, dt + \sigma(X) \, dB\)</span> with initial condition <span class="math inline">\(X(t) = x\)</span>.</p>
-<p>Define:</p>
-<p><span class="math display">\[u(t, x) = E\left[g(X(T))e^{-\int_t^T c(X(s))ds} + \int_t^T f(X(s))e^{-\int_t^s c(X(r))dr}ds \mid X(t) = x\right]\]</span></p>
-<p>Then <span class="math inline">\(u\)</span> satisfies:</p>
-<p><span class="math display">\[\frac{\partial u}{\partial t} + \mu\frac{\partial u}{\partial x} + \frac{1}{2}\sigma^2\frac{\partial^2 u}{\partial x^2} - c(x)u + f(x) = 0\]</span></p>
-<p>with <span class="math inline">\(u(T, x) = g(x)\)</span>.</p>
-<p>Here:
-- <span class="math inline">\(c(x)\)</span> is a discount rate (e.g., interest rate)
-- <span class="math inline">\(f(x)\)</span> is a running payoff (e.g., dividends)
-- <span class="math inline">\(g(x)\)</span> is terminal payoff</p>
-</div>
-<div id="applications" class="section level2 hasAnchor" number="4.7">
-<h2><span class="header-section-number">4.7</span> Applications<a href="feynman-kac-and-pdes.html#applications" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="option-pricing" class="section level3 hasAnchor" number="4.7.1">
-<h3><span class="header-section-number">4.7.1</span> Option Pricing<a href="feynman-kac-and-pdes.html#option-pricing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Feynman-Kac formula underpins all of option pricing theory:
-- Price = expected discounted payoff under risk-neutral measure
-- Can solve either the PDE or simulate the SDE</p>
-</div>
-<div id="statistical-mechanics" class="section level3 hasAnchor" number="4.7.2">
-<h3><span class="header-section-number">4.7.2</span> Statistical Mechanics<a href="feynman-kac-and-pdes.html#statistical-mechanics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In physics, the heat equation describes:
-- Temperature diffusion
-- Particle density evolution
-- Quantum mechanics (Schrödinger equation with imaginary time)</p>
-</div>
-<div id="control-theory" class="section level3 hasAnchor" number="4.7.3">
-<h3><span class="header-section-number">4.7.3</span> Control Theory<a href="feynman-kac-and-pdes.html#control-theory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Optimal control problems (Hamilton-Jacobi-Bellman equations) connect to SDEs through Feynman-Kac.</p>
-</div>
-<div id="biology" class="section level3 hasAnchor" number="4.7.4">
-<h3><span class="header-section-number">4.7.4</span> Biology<a href="feynman-kac-and-pdes.html#biology" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Population dynamics, gene frequency evolution, and neural activity models all use this connection.</p>
-</div>
-</div>
-<div id="numerical-methods" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Numerical Methods<a href="feynman-kac-and-pdes.html#numerical-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="monte-carlo-simulation" class="section level3 hasAnchor" number="4.8.1">
-<h3><span class="header-section-number">4.8.1</span> Monte Carlo Simulation<a href="feynman-kac-and-pdes.html#monte-carlo-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>To compute <span class="math inline">\(u(t,x) = E[g(X(T)) \mid X(t) = x]\)</span>:</p>
+<div id="the-fundamental-theorem-of-calculus-a-modern-view" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">B</span> The Fundamental Theorem of Calculus: A Modern View<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-fundamental-theorem-of-calculus-a-modern-view" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="why-another-look-at-the-ftc" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">B.1</span> Why Another Look at the FTC?<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#why-another-look-at-the-ftc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You already know the fundamental theorem of calculus from your undergraduate education:</p>
+<p><span class="math display">\[\int_a^b f&#39;(x)\,dx = f(b) - f(a)\]</span></p>
+<p>This seems like a purely one-dimensional statement about functions on the real line. But hidden within this simple equation is a profound geometric principle that transcends dimension and applies to calculus on curves, surfaces, and manifolds of any dimension.</p>
+<p>The modern view, formulated through <strong>differential forms</strong>, reveals that the FTC is really about the <strong>duality between boundaries and derivatives</strong>. This perspective is particularly valuable for stochastic calculus because it clarifies:</p>
 <ol style="list-style-type: decimal">
-<li>Simulate many paths of the SDE starting from <span class="math inline">\(X(t) = x\)</span></li>
-<li>Evaluate <span class="math inline">\(g(X(T))\)</span> for each path</li>
-<li>Average the results</li>
+<li>Why differential notation <span class="math inline">\(df\)</span> behaves differently from classical derivatives</li>
+<li>The geometric meaning of integration along paths (crucial for Itô integrals)</li>
+<li>Why quadratic variation has a geometric interpretation</li>
+<li>The relationship between Brownian motion’s “roughness” and differential structure</li>
 </ol>
-<p>Advantages: Easy to implement, works in high dimensions
-Disadvantages: Slow convergence (<span class="math inline">\(\mathcal{O}(1/\sqrt{N})\)</span>), difficult for early exercise</p>
+<p>In this appendix, we’ll rebuild the FTC from the ground up using the language of differential forms, emphasizing geometric intuition over formal machinery.</p>
 </div>
-<div id="pde-methods" class="section level3 hasAnchor" number="4.8.2">
-<h3><span class="header-section-number">4.8.2</span> PDE Methods<a href="feynman-kac-and-pdes.html#pde-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Discretize the PDE on a grid using:
-- Finite differences (explicit, implicit, Crank-Nicolson)
-- Finite elements
-- Spectral methods</p>
-<p>Advantages: Fast, handles early exercise naturally
-Disadvantages: Curse of dimensionality, boundary conditions tricky</p>
-</div>
-<div id="hybrid-methods" class="section level3 hasAnchor" number="4.8.3">
-<h3><span class="header-section-number">4.8.3</span> Hybrid Methods<a href="feynman-kac-and-pdes.html#hybrid-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Modern approaches combine both:
-- Use PDE methods when low-dimensional
-- Use Monte Carlo when high-dimensional
-- Use sparse grids, reduced basis methods, etc.</p>
+<div id="the-classical-version-what-are-we-actually-integrating" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">B.2</span> The Classical Version: What Are We Actually Integrating?<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-classical-version-what-are-we-actually-integrating" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s start with what you know. The fundamental theorem says:</p>
+<p><span class="math display">\[\int_a^b f&#39;(x)\,dx = f(b) - f(a)\]</span></p>
+<div id="what-to-look-for" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">B.2.1</span> What to Look For<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#what-to-look-for" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before accepting this as given, ask: what <em>kind</em> of object is <span class="math inline">\(f&#39;(x)\,dx\)</span>?</p>
+<ul>
+<li><span class="math inline">\(f&#39;(x)\)</span> is a function (assigns a number to each point)</li>
+<li><span class="math inline">\(dx\)</span> is… what exactly?</li>
+<li>Their product <span class="math inline">\(f&#39;(x)\,dx\)</span> is the thing we integrate</li>
+</ul>
+<p>The modern answer: <strong><span class="math inline">\(f&#39;(x)\,dx\)</span> is a differential 1-form</strong>. It’s not just a function times a “infinitesimal”—it’s a geometric object that knows how to eat curves and output numbers.</p>
 </div>
 </div>
-<div id="summary" class="section level2 hasAnchor" number="4.9">
-<h2><span class="header-section-number">4.9</span> Summary<a href="feynman-kac-and-pdes.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Feynman-Kac connection is profound:</p>
-<pre><code>SDE: dX = μdt + σdB
-     ↓ (Itô&#39;s lemma)
-PDE: ∂u/∂t + μ∂u/∂x + ½σ²∂²u/∂x² = 0
-     ↕ (Feynman-Kac)
-Probabilistic representation: u(t,x) = E[g(X(T)) | X(t)=x]</code></pre>
-<p>This bridges:
-- Probability ↔︎ Analysis
-- Random walks ↔︎ Differential equations
-- Simulation ↔︎ Analytic solutions
-- Physics ↔︎ Finance</p>
-<p>It’s one of the most beautiful and useful results in applied mathematics.</p>
+<div id="forms-and-chains-a-duality" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">B.3</span> Forms and Chains: A Duality<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#forms-and-chains-a-duality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-geometric-side-chains" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">B.3.1</span> The Geometric Side: Chains<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-geometric-side-chains" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Think of chains as formal sums of geometric objects:</p>
+<ul>
+<li><strong>0-chains</strong>: formal sums of points, like <span class="math inline">\(3p_1 - 2p_2 + p_3\)</span></li>
+<li><strong>1-chains</strong>: formal sums of oriented curves</li>
+<li><strong>2-chains</strong>: formal sums of oriented surfaces</li>
+<li><strong>k-chains</strong>: formal sums of k-dimensional oriented objects</li>
+</ul>
+<p>These form vector spaces <span class="math inline">\(C_0, C_1, C_2, \ldots\)</span></p>
+<p><strong>Example</strong>: The interval <span class="math inline">\([a,b]\)</span> is a 1-chain. Its boundary is the 0-chain:
+<span class="math display">\[\partial[a,b] = b - a\]</span>
+where the minus sign indicates orientation (we “exit” at <span class="math inline">\(b\)</span> and “enter” at <span class="math inline">\(a\)</span>).</p>
+</div>
+<div id="the-algebraic-side-forms" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">B.3.2</span> The Algebraic Side: Forms<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-algebraic-side-forms" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Forms are the <strong>dual objects</strong> to chains. They are linear functionals that eat chains and output numbers:</p>
+<ul>
+<li><strong>0-forms</strong>: functions <span class="math inline">\(f: M \to \mathbb{R}\)</span></li>
+<li><strong>1-forms</strong>: things you integrate along curves</li>
+<li><strong>k-forms</strong>: things you integrate on k-dimensional objects</li>
+</ul>
+<p>These form vector spaces <span class="math inline">\(C^0, C^1, C^2, \ldots\)</span> (note the superscripts—these are dual spaces).</p>
+</div>
+<div id="the-pairing-integration" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">B.3.3</span> The Pairing: Integration<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-pairing-integration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The fundamental pairing between a k-form <span class="math inline">\(\omega\)</span> and a k-chain <span class="math inline">\(c\)</span> is:</p>
+<p><span class="math display">\[\langle \omega, c \rangle = \int_c \omega\]</span></p>
+<p>This is a bilinear map <span class="math inline">\(C^k \times C_k \to \mathbb{R}\)</span>.</p>
+<p><strong>Forms are covectors</strong>: they’re row vectors that eat column vectors (chains) via this integration pairing.</p>
+</div>
+</div>
+<div id="the-fundamental-insight-adjointness" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">B.4</span> The Fundamental Insight: Adjointness<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-fundamental-insight-adjointness" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The boundary operator <span class="math inline">\(\partial\)</span> takes k-chains to (k-1)-chains:</p>
+<p><span class="math display">\[\partial: C_k \to C_{k-1}\]</span></p>
+<p>The exterior derivative <span class="math inline">\(d\)</span> takes (k-1)-forms to k-forms:</p>
+<p><span class="math display">\[d: C^{k-1} \to C^k\]</span></p>
+<p><strong>Stokes’ theorem is the statement that <span class="math inline">\(d\)</span> and <span class="math inline">\(\partial\)</span> are adjoint operators</strong>:</p>
+<p><span class="math display">\[\boxed{\int_c d\omega = \int_{\partial c} \omega}\]</span></p>
+<p>or in inner product notation:</p>
+<p><span class="math display">\[\langle d\omega, c \rangle = \langle \omega, \partial c \rangle\]</span></p>
+<p>This is exactly like <span class="math inline">\((A^*v, w) = (v, Aw)\)</span> for a linear operator and its adjoint.</p>
+<div id="the-ftc-is-a-special-case" class="section level3 hasAnchor" number="10.4.1">
+<h3><span class="header-section-number">B.4.1</span> The FTC is a Special Case<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-ftc-is-a-special-case" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For a function <span class="math inline">\(f\)</span> (a 0-form) on <span class="math inline">\(\mathbb{R}\)</span>:</p>
+<ul>
+<li><span class="math inline">\(df\)</span> is the 1-form <span class="math inline">\(f&#39;(x)\,dx\)</span></li>
+<li>The interval <span class="math inline">\([a,b]\)</span> is a 1-chain</li>
+<li>Its boundary is <span class="math inline">\(\partial[a,b] = b - a\)</span></li>
+</ul>
+<p>Stokes’ theorem gives:</p>
+<p><span class="math display">\[\int_{[a,b]} df = \int_{\partial[a,b]} f = \int_{\{b\}} f - \int_{\{a\}} f = f(b) - f(a)\]</span></p>
+<p>The FTC is Stokes’ theorem in dimension 1.</p>
+</div>
+</div>
+<div id="why-d2-0-and-partial2-0" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">B.5</span> Why <span class="math inline">\(d^2 = 0\)</span> and <span class="math inline">\(\partial^2 = 0\)</span><a href="the-fundamental-theorem-of-calculus-a-modern-view.html#why-d2-0-and-partial2-0" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A beautiful consequence of adjointness:</p>
+<p><strong>Geometric fact</strong>: The boundary of a boundary is empty: <span class="math inline">\(\partial^2 = 0\)</span></p>
+<p>An interval’s boundary is two points. Points have no boundary.</p>
+<p><strong>By adjointness</strong>:
+<span class="math display">\[\langle d^2\omega, c \rangle = \langle d\omega, \partial c \rangle = \langle \omega, \partial^2 c \rangle = \langle \omega, 0 \rangle = 0\]</span></p>
+<p>Therefore <span class="math inline">\(d^2 = 0\)</span> follows from the geometric fact <span class="math inline">\(\partial^2 = 0\)</span>.</p>
+<p>This is why we can never write <span class="math inline">\(d^2f\)</span>—the exterior derivative of a derivative is always zero.</p>
+</div>
+<div id="the-geometric-picture-vectors-vs-covectors" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">B.6</span> The Geometric Picture: Vectors vs Covectors<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-geometric-picture-vectors-vs-covectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now we get to the heart of the geometric interpretation. This is crucial for understanding what <span class="math inline">\(df\)</span> actually <em>is</em>.</p>
+<div id="vectors-are-arrows-covectors-are-hyperplanes" class="section level3 hasAnchor" number="10.6.1">
+<h3><span class="header-section-number">B.6.1</span> Vectors Are Arrows, Covectors Are Hyperplanes<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#vectors-are-arrows-covectors-are-hyperplanes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>At a point <span class="math inline">\(p\)</span> in a manifold <span class="math inline">\(M\)</span>:</p>
+<ul>
+<li><strong>Tangent space</strong> <span class="math inline">\(T_p M\)</span>: vectors (arrows emanating from <span class="math inline">\(p\)</span>)</li>
+<li><strong>Cotangent space</strong> <span class="math inline">\(T_p^* M\)</span>: covectors (linear functionals on vectors)</li>
+</ul>
+<p>A covector <span class="math inline">\(\alpha \in T_p^* M\)</span> can be visualized as a family of parallel hyperplanes. When <span class="math inline">\(\alpha\)</span> acts on a vector <span class="math inline">\(v\)</span>:</p>
+<p><span class="math display">\[\alpha(v) = \text{&quot;how many hyperplanes does } v \text{ cross?&quot;}\]</span></p>
+<p>Let’s make this concrete.</p>
+</div>
+<div id="a-concrete-example-in-mathbbr2" class="section level3 hasAnchor" number="10.6.2">
+<h3><span class="header-section-number">B.6.2</span> A Concrete Example in <span class="math inline">\(\mathbb{R}^2\)</span><a href="the-fundamental-theorem-of-calculus-a-modern-view.html#a-concrete-example-in-mathbbr2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the covector <span class="math inline">\(\alpha = [3, 2]\)</span> (as a row vector) at the origin. This defines the linear functional:</p>
+<p><span class="math display">\[\alpha(x_1, x_2) = 3x_1 + 2x_2\]</span></p>
+<p>The <strong>level sets</strong> are the hyperplanes (lines in 2D):
+<span class="math display">\[3x_1 + 2x_2 = c \quad \text{for } c = 0, 1, 2, 3, \ldots\]</span></p>
+<p>These are equally-spaced parallel lines.</p>
+<p>Now take a vector <span class="math inline">\(v = (1, 0)\)</span> (column vector). What is <span class="math inline">\(\alpha(v)\)</span>?</p>
+<p><span class="math display">\[\alpha(v) = [3, 2] \begin{bmatrix} 1 \\ 0 \end{bmatrix} = 3\]</span></p>
+<p><strong>Geometric interpretation</strong>: Starting from the origin (on the <span class="math inline">\(c=0\)</span> line), the vector <span class="math inline">\(v\)</span> pierces through the lines <span class="math inline">\(c=1, c=2, c=3\)</span>. It crosses exactly <strong>3 hyperplanes</strong>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:covector-hyperplanes"></span>
+<img src="stochastic-calculus_files/figure-html/covector-hyperplanes-1.png" alt="A covector as a family of parallel hyperplanes. The vector v crosses exactly 3 unit-spaced hyperplanes, so α(v) = 3." width="80%" />
+<p class="caption">
+Figure B.1: A covector as a family of parallel hyperplanes. The vector v crosses exactly 3 unit-spaced hyperplanes, so α(v) = 3.
+</p>
+</div>
+</div>
+<div id="functions-differentials-and-gradients" class="section level3 hasAnchor" number="10.6.3">
+<h3><span class="header-section-number">B.6.3</span> Functions, Differentials, and Gradients<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#functions-differentials-and-gradients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now consider a function <span class="math inline">\(f: \mathbb{R}^2 \to \mathbb{R}\)</span>. For concreteness:</p>
+<p><span class="math display">\[f(x_1, x_2) = x_1^2 + x_2^2\]</span></p>
+<p>Three objects are associated with <span class="math inline">\(f\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li><strong>The function itself</strong> (0-form): assigns numbers to points</li>
+<li><strong>The differential</strong> <span class="math inline">\(df\)</span> (1-form, covector field): at each point, a covector</li>
+<li><strong>The gradient</strong> <span class="math inline">\(\nabla f\)</span> (vector field): at each point, a vector</li>
+</ol>
+<p><strong>Key distinction</strong>:
+- <span class="math inline">\(df\)</span> exists naturally, coordinate-free
+- <span class="math inline">\(\nabla f\)</span> requires a <strong>metric</strong> to define (we need to convert covectors to vectors)</p>
+<p>In <span class="math inline">\(\mathbb{R}^n\)</span> with the Euclidean metric, they look the same:</p>
+<p><span class="math display">\[df = \left[\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}\right] \quad \text{(covector)}\]</span></p>
+<p><span class="math display">\[\nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}\right) \quad \text{(vector)}\]</span></p>
+<p>But they live in <strong>dual spaces</strong>.</p>
+</div>
+<div id="the-geometric-relationship" class="section level3 hasAnchor" number="10.6.4">
+<h3><span class="header-section-number">B.6.4</span> The Geometric Relationship<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-geometric-relationship" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>At a point <span class="math inline">\(p = (1, 0.5)\)</span>:</p>
+<ul>
+<li><strong>Level set</strong>: circle <span class="math inline">\(x_1^2 + x_2^2 = 1.25\)</span></li>
+<li><strong>Tangent space</strong>: 1-dimensional line tangent to the circle at <span class="math inline">\(p\)</span></li>
+<li><strong><span class="math inline">\(df_p\)</span></strong>: covector whose hyperplanes are <strong>parallel to the tangent space</strong></li>
+<li><strong><span class="math inline">\(\nabla f_p\)</span></strong>: vector <strong>perpendicular to the tangent space</strong></li>
+</ul>
+<p>The key property: <strong><span class="math inline">\(df_p\)</span> annihilates tangent vectors</strong>.</p>
+<p>If <span class="math inline">\(v\)</span> is tangent to the level set at <span class="math inline">\(p\)</span>, then:
+<span class="math display">\[df_p(v) = 0\]</span></p>
+<p>This is because moving along the level set doesn’t change <span class="math inline">\(f\)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tangent-covector-gradient"></span>
+<img src="stochastic-calculus_files/figure-html/tangent-covector-gradient-1.png" alt="The relationship between level sets, tangent spaces, df (covector), and ∇f (vector). The covector df creates hyperplanes parallel to the tangent space, while the gradient is perpendicular to both." width="80%" />
+<p class="caption">
+Figure B.2: The relationship between level sets, tangent spaces, df (covector), and ∇f (vector). The covector df creates hyperplanes parallel to the tangent space, while the gradient is perpendicular to both.
+</p>
+</div>
+</div>
+<div id="the-action-of-df-on-vectors-directional-derivatives" class="section level3 hasAnchor" number="10.6.5">
+<h3><span class="header-section-number">B.6.5</span> The Action of df on Vectors: Directional Derivatives<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-action-of-df-on-vectors-directional-derivatives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When <span class="math inline">\(df_p\)</span> acts on a tangent vector <span class="math inline">\(v\)</span> at <span class="math inline">\(p\)</span>, it computes the <strong>directional derivative</strong>:</p>
+<p><span class="math display">\[df_p(v) = \text{rate at which } f \text{ changes along } v\]</span></p>
+<p>Geometrically, this is <strong>the rate at which <span class="math inline">\(v\)</span> crosses level sets</strong>.</p>
+<ul>
+<li>If <span class="math inline">\(v\)</span> is tangent to a level set: <span class="math inline">\(df_p(v) = 0\)</span> (no level sets crossed)</li>
+<li>If <span class="math inline">\(v\)</span> points along <span class="math inline">\(\nabla f\)</span>: <span class="math inline">\(df_p(v)\)</span> is maximized (crosses level sets fastest)</li>
+<li>If <span class="math inline">\(v\)</span> points opposite to <span class="math inline">\(\nabla f\)</span>: <span class="math inline">\(df_p(v) &lt; 0\)</span> (crosses in reverse)</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:directional-derivative"></span>
+<img src="stochastic-calculus_files/figure-html/directional-derivative-1.png" alt="The action of df on different vectors. df(v) measures how fast f changes along v, which equals how fast v crosses level sets." width="80%" />
+<p class="caption">
+Figure B.3: The action of df on different vectors. df(v) measures how fast f changes along v, which equals how fast v crosses level sets.
+</p>
+</div>
+</div>
+</div>
+<div id="connection-to-stochastic-calculus" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">B.7</span> Connection to Stochastic Calculus<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#connection-to-stochastic-calculus" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This geometric perspective illuminates several mysteries in stochastic calculus:</p>
+<div id="why-df-notation-matters" class="section level3 hasAnchor" number="10.7.1">
+<h3><span class="header-section-number">B.7.1</span> 1. Why df Notation Matters<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#why-df-notation-matters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In classical calculus, we write <span class="math inline">\(\frac{df}{dx} = f&#39;(x)\)</span> and treat <span class="math inline">\(df\)</span> and <span class="math inline">\(dx\)</span> somewhat interchangeably.</p>
+<p>In stochastic calculus, <strong><span class="math inline">\(df\)</span> and <span class="math inline">\(dX\)</span> are fundamentally different objects</strong>:</p>
+<ul>
+<li><span class="math inline">\(dX_t\)</span> is a 1-form (covector) when <span class="math inline">\(X_t\)</span> is a stochastic process</li>
+<li>The integral <span class="math inline">\(\int_0^t f(X_s)\,dX_s\)</span> pairs a function with a 1-form</li>
+<li>Itô’s lemma expresses <span class="math inline">\(df(X_t)\)</span> in terms of 1-forms <span class="math inline">\(dX_t\)</span> and <span class="math inline">\(dt\)</span></li>
+</ul>
+<p>The modern view: stochastic differentials are forms, and integration is the pairing between forms and chains (paths).</p>
+</div>
+<div id="quadratic-variation-as-geometry" class="section level3 hasAnchor" number="10.7.2">
+<h3><span class="header-section-number">B.7.2</span> 2. Quadratic Variation as Geometry<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#quadratic-variation-as-geometry" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The quadratic variation <span class="math inline">\([X]_t\)</span> is related to the fact that Brownian paths are “rough”—they cross infinitely many level sets even in infinitesimal time intervals.</p>
+<p>For a smooth path, <span class="math inline">\((dx)^2 = 0\)</span> in the limit. For Brownian motion, <span class="math inline">\((dB_t)^2 = dt \neq 0\)</span>, which means:</p>
+<p><strong>The hyperplane structure of <span class="math inline">\(dB_t\)</span> is fundamentally different from smooth differentials.</strong></p>
+</div>
+<div id="the-itô-vs-stratonovich-distinction" class="section level3 hasAnchor" number="10.7.3">
+<h3><span class="header-section-number">B.7.3</span> 3. The Itô vs Stratonovich Distinction<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#the-it%C3%B4-vs-stratonovich-distinction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Different choices of evaluation points in stochastic integration (Itô vs Stratonovich) correspond to different ways of pairing the form <span class="math inline">\(dX_t\)</span> with the chain (path).</p>
+<ul>
+<li>Itô: evaluate at left endpoint</li>
+<li>Stratonovich: evaluate at midpoint</li>
+</ul>
+<p>The classical FTC doesn’t distinguish these because for smooth paths, all evaluation points give the same answer. For rough paths, the choice matters.</p>
+</div>
+</div>
+<div id="summary-the-big-picture" class="section level2 hasAnchor" number="10.8">
+<h2><span class="header-section-number">B.8</span> Summary: The Big Picture<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#summary-the-big-picture" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="what-weve-learned" class="section level3 hasAnchor" number="10.8.1">
+<h3><span class="header-section-number">B.8.1</span> What We’ve Learned<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#what-weve-learned" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>The FTC is really Stokes’ theorem</strong>: <span class="math inline">\(\int_c d\omega = \int_{\partial c} \omega\)</span></p></li>
+<li><p><strong>Forms and chains are dual</strong>:</p>
+<ul>
+<li>Chains are geometric (points, curves, surfaces)</li>
+<li>Forms are algebraic (functionals on chains)</li>
+<li>Integration is their pairing</li>
+</ul></li>
+<li><p><strong><span class="math inline">\(d\)</span> and <span class="math inline">\(\partial\)</span> are adjoint operators</strong>: This explains why <span class="math inline">\(d^2 = 0\)</span> follows from <span class="math inline">\(\partial^2 = 0\)</span></p></li>
+<li><p><strong>Covectors are hyperplanes, vectors are arrows</strong>:</p>
+<ul>
+<li><span class="math inline">\(df\)</span> creates a family of hyperplanes (level sets of <span class="math inline">\(f\)</span>)</li>
+<li><span class="math inline">\(\nabla f\)</span> points perpendicular to these hyperplanes</li>
+<li>They live in dual spaces</li>
+</ul></li>
+<li><p><strong><span class="math inline">\(df\)</span> annihilates tangent vectors</strong>: If <span class="math inline">\(v\)</span> is tangent to a level set, <span class="math inline">\(df(v) = 0\)</span></p></li>
+</ol>
+</div>
+<div id="why-this-matters-for-stochastic-calculus" class="section level3 hasAnchor" number="10.8.2">
+<h3><span class="header-section-number">B.8.2</span> Why This Matters for Stochastic Calculus<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#why-this-matters-for-stochastic-calculus" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The rough paths of Brownian motion force us to take the differential structure seriously:</p>
+<ul>
+<li>We cannot treat <span class="math inline">\(df\)</span> as merely shorthand for <span class="math inline">\(f&#39;(x)\,dx\)</span></li>
+<li>The form structure explains why <span class="math inline">\((dB_t)^2 = dt\)</span></li>
+<li>Different integration schemes (Itô, Stratonovich) are different pairings of forms and chains</li>
+<li>The fundamental theorem takes on new meaning when paths are nowhere differentiable</li>
+</ul>
+<p>This geometric perspective transforms stochastic calculus from a collection of unmotivated rules into a coherent geometric theory. The “strangeness” of stochastic integration is just the manifestation of integrating forms along rough chains—something classical calculus never had to confront.</p>
+</div>
+</div>
+<div id="further-reading" class="section level2 hasAnchor" number="10.9">
+<h2><span class="header-section-number">B.9</span> Further Reading<a href="the-fundamental-theorem-of-calculus-a-modern-view.html#further-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For readers interested in exploring this perspective further:</p>
+<ul>
+<li><strong>Spivak, M.</strong> (1965). <em>Calculus on Manifolds</em>. Chapters 4-5 on differential forms and Stokes’ theorem</li>
+<li><strong>Lee, J.M.</strong> (2013). <em>Introduction to Smooth Manifolds</em>. Chapter 14 on differential forms</li>
+<li><strong>Frankel, T.</strong> (2011). <em>The Geometry of Physics</em>. For physical applications of forms</li>
+<li><strong>Friz, P. &amp; Hairer, M.</strong> (2014). <em>A Course on Rough Paths</em>. Modern treatment connecting geometry and stochastic analysis</li>
+</ul>
+<p>The interplay between geometry and analysis continues to be one of the most fruitful areas in modern mathematics, with stochastic calculus sitting at a particularly interesting intersection.</p>
 
 </div>
 </div>
@@ -619,8 +709,8 @@ Probabilistic representation: u(t,x) = E[g(X(T)) | X(t)=x]</code></pre>
           </div>
         </div>
       </div>
-<a href="stochastic-differential-equations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="risk-neutral-pricing-and-martingales.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-algebra.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -651,7 +741,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/abhinavananddwivedi/book/edit/main/04-feynman-kac.Rmd",
+    "link": "https://github.com/abhinavananddwivedi/book/edit/main/A2-ftc-modern.Rmd",
     "text": "Edit"
   },
   "history": {
